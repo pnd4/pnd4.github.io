@@ -9,8 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Use iptables to secure netlink infrastructure. Where the rules files go In Arch, the usual /etc/iptables/iptables.rules
-In Gentoo, the rules are &hellip;">
+  <meta name="description" content="Advanced standalone pentesting tool for wireless networks. Specs AR9331 and RTL8187
+16mb ROM / 64mb DDR2 RAM Software &ldquo;Available Pentest &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@ In Gentoo, the rules are &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/10/16/firewall/">Firewall</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/10/16/pinapple-v/">Wifi Pinapple Mark 5</a></h1>
     
     
       <p class="meta">
@@ -97,7 +97,58 @@ In Gentoo, the rules are &hellip;">
   </header>
 
 
-  <div class="entry-content"><p>Use iptables to secure netlink infrastructure.</p>
+  <div class="entry-content"><p>Advanced standalone pentesting tool for wireless networks.</p>
+
+<h3>Specs</h3>
+
+<blockquote><p>AR9331 and RTL8187
+16mb ROM / 64mb DDR2 RAM</p></blockquote>
+
+<h3>Software</h3>
+
+<p>&ldquo;Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver.&rdquo; &mdash;HakShop</p>
+
+<h3>Useful Links and References</h3>
+
+<p><a href="http://hakshop.myshopify.com/collections/wifi-pineapple/products/wifi-pineapple" title="Wifi Pinapple Mark 5">HakShop: Wifi Pinapple Mark 5</a></p>
+
+<p><a href="https://wifipineapple.com/index.php">wifipinapple.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/16/firewall/">Firewalls</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
 
 <h3>Where the rules files go</h3>
 
@@ -159,10 +210,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <span class='line-number'>48</span>
 <span class='line-number'>49</span>
 <span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>*filter
 </span><span class='line'>:INPUT DROP [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
@@ -180,7 +227,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
 </span><span class='line'>## === END: Ping limiting =====================================
 </span><span class='line'>## === BEGIN: General Rules ===================================
-</span><span class='line'># Extra protection against spoofing attacks
+</span><span class='line'># Extra protection against spoofing attacks (see: sysctl regarding rp_filter)
 </span><span class='line'>-I INPUT ! -i lo -s 127.0.0.0/8 -j DROP
 </span><span class='line'># Accept all traffic coming from localhost
 </span><span class='line'>-A INPUT -i lo -j ACCEPT
@@ -193,18 +240,14 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>## NTP
 </span><span class='line'>#-A UDP -p tcp -i eth0 -s 192.168.12.0/24 --dport 123 -j ACCEPT
 </span><span class='line'>## SSH
-</span><span class='line'>-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 2151 -j ACCEPT
+</span><span class='line'>#-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 22 -j ACCEPT
 </span><span class='line'>## TRANSMISSION
-</span><span class='line'>#-A TCP -p tcp -i tun+ --dport 50460 -j ACCEPT
-</span><span class='line'>#-A UDP -p udp -i tun+ --dport 50460 -j ACCEPT
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.12 -j ACCEPT
+</span><span class='line'>#Allow transmission to talk to users
 </span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.18 -j ACCEPT
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.113 -j ACCEPT
+</span><span class='line'>#Restrict transmission from using other ports.
 </span><span class='line'>-A OUTPUT -m owner --uid-owner transmission ! -o tun+ -j REJECT
-</span><span class='line'>## TRANSMISSION-REMOTE-CLI
-</span><span class='line'>-A TCP -p tcp -s 192.168.12.12 --dport 9091 -j ACCEPT
+</span><span class='line'>#Allow users to talk to transmission
 </span><span class='line'>-A TCP -p tcp -s 192.168.12.18 --dport 9091 -j ACCEPT
-</span><span class='line'>-A TCP -p tcp -s 192.168.12.113 --dport 9091 -j ACCEPT
 </span><span class='line'>## === END: Services ==========================================
 </span><span class='line'>## === BEGIN: Trick Port Scanning =============================
 </span><span class='line'>-I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
@@ -222,6 +265,16 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <h3>Internet Connection Sharing</h3>
 
 <p>Involves adding additional rules</p>
+
+<p><em>For the template below:</em></p>
+
+<pre><code>|          |              wan |             lan  |  
+|---------:|-----------------:|-----------------:|  
+|  iface   |             wan0 |            lan0  |  
+|  subnet  |     192.168.12.0 |    172.168.42.0  |  
+</code></pre>
+
+<p><em>Example Template</em></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -243,29 +296,29 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>*nat
-</span><span class='line'>:PREROUTING ACCEPT [48:4139]
-</span><span class='line'>:INPUT ACCEPT [20:1898]
-</span><span class='line'>:OUTPUT ACCEPT [2314:104209]
-</span><span class='line'>:POSTROUTING ACCEPT [2314:104209]
-</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o br0 -j MASQUERADE
+</span><span class='line'>:PREROUTING ACCEPT [0:0]
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:POSTROUTING ACCEPT [0:0]
+</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
 </span><span class='line'>COMMIT
 </span><span class='line'>*filter
-</span><span class='line'>:INPUT ACCEPT [2306:105504]
+</span><span class='line'>:INPUT ACCEPT [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [2549:124453]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
 </span><span class='line'>:fw-interfaces - [0:0]
 </span><span class='line'>:fw-open - [0:0]
 </span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 </span><span class='line'>-A FORWARD -j fw-interfaces
 </span><span class='line'>-A FORWARD -j fw-open
 </span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
-</span><span class='line'>-A fw-interfaces -i tpl0 -j ACCEPT
+</span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
 </span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>References</h2>
+<h4>References</h4>
 
-<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a>
+<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
 <a href="https://wiki.debian.org/iptables">Debwiki</a></p>
 </div>
   
@@ -428,15 +481,15 @@ Ideas
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/18/hostapd/">Hostapd</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/17/octopress/">Octopress</a>
       </li>
     
       <li class="post">
         <a href="/blog/2013/10/17/git/">GIT Version Control System</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/16/template/">Template</a>
       </li>
     
   </ul>

@@ -1,0 +1,142 @@
+---
+layout: post
+title: Hostapd
+---
+Wireless access point daemon
+
+**Karma** a version of hostapd for creating *rogue* access points.
+
+### NAT or Bridge
+IP's must be handed out to the connecting clients so one or the other must be configured
+
+* NAT - creates a new subnet ".. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted -- similar to a normal WiFi router that's connected to your DSL or cable modem)" -- Archwiki
+> see the [Firewalls]({{base_url}}/blog/2013/10/16/firewall) article
+* Bridge - ".. Simple, but it requires that any service that's needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you're using a cable modem that will supply exactly one IP address to you via DHCP." --ArchWiki
+> You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.
+>
+>If you use netctl, see Bridge with netctl for details (just do not add tap0 used in that example). 
+
+### Configuration
+System configuration is stored in /etc/hostapd/hostapd.conf.
+
+To override at runtime:
+    sudo hostapd /path/to/hostapd.conf
+
+General use, non-Karma, WPA/WPA2 config  
+From [nims.wordpress.com](https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/)
+```
+#sets the wifi interface to use, is wlan0 in most cases
+interface=wlan0
+#driver to use, nl80211 works in most cases
+driver=nl80211
+#sets the ssid of the virtual wifi access point
+ssid=dontMessWithVincentValentine
+#sets the mode of wifi, depends upon the devices you will be using. It can be a,b,g,n. Setting to g ensures backward compatiblity.
+hw_mode=g
+#sets the channel for your wifi
+channel=6
+#macaddr_acl sets options for mac address filtering. 0 means "accept unless in deny list"
+macaddr_acl=0
+#setting ignore_broadcast_ssid to 1 will disable the broadcasting of ssid
+ignore_broadcast_ssid=0
+#Sets authentication algorithm
+#1 - only open system authentication
+#2 - both open system authentication and shared key authentication
+auth_algs=1
+ 
+#####Sets WPA and WPA2 authentication#####
+#wpa option sets which wpa implementation to use
+#1 - wpa only
+#2 - wpa2 only
+#3 - both
+ wpa=3
+#sets wpa passphrase required by the clients to authenticate themselves on the network
+ wpa_passphrase=KeePGuessinG
+#sets wpa key management
+ wpa_key_mgmt=WPA-PSK
+#sets encryption used by WPA
+ wpa_pairwise=TKIP
+#sets encryption used by WPA2
+ rsn_pairwise=CCMP
+  
+#################################
+   
+#####Sets WEP authentication#####
+#WEP is not recommended as it can be easily broken into
+   wep_default_key=0
+   wep_key0=qwert    #5,13, or 16 characters
+#optionally you may also define wep_key2, wep_key3, and wep_key4
+    
+#################################
+#For No encryption, you don't need to set any options
+```
+
+non-Karma w/ WPA2
+```
+interface=tpl0
+driver=nl80211
+ssid=2WIRE022
+hw_mode=g
+channel=10
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=SecretPassword1234
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP
+```
+
+Karma w/ WEP
+```
+# config file to use with the Karma'd version of hostapd
+# created by Robin Wood - robin@digininja.org - www.digininja.org
+
+interface=tpl0
+driver=nl80211
+country_code=US
+
+ssid=AndroidAP
+channel=3
+
+wep_default_key=0
+wep_key0=SecretPassword1234
+
+# Both open and shared auth
+auth_algs=3
+
+# no SSID cloaking
+ignore_broadcast_ssid=0
+
+# -1 = log all messages
+logger_syslog=-1
+logger_stdout=-1
+
+# 2 = informational messages
+logger_syslog_level=2
+logger_stdout_level=2
+
+# Dump file for state information (on SIGUSR1)
+# example: kill -USR1 <pid>
+dump_file=/tmp/hostapd.dump
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=adm
+
+# 0 = accept unless in deny list
+macaddr_acl=0
+
+# only used if you want to do filter by MAC address
+accept_mac_file=/etc/hostapd/hostapd.accept
+deny_mac_file=/etc/hostapd/hostapd.deny
+
+# Finally, enable Karma
+enable_karma=0
+
+# Black and white listing
+# 0 = white
+# 1 = black
+karma_black_white=1
+```
+
+##### Useful links and references
+[ArchWiki: Software Access Point](https://wiki.archlinux.org/index.php/Software_Access_Point)
