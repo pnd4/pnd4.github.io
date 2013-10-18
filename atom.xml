@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-10-18T07:31:46-07:00</updated>
+  <updated>2013-10-18T07:34:02-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -439,10 +439,11 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <p>Involves adding additional rules</p>
 
-<p>wan iface wan0
-wan subnet 192.168.12.0/24
-lan subnet lan0
-lan subnet 172.16.42.0/24</p>
+<p>For the template below:
+* wan iface wan0
+* wan subnet 192.168.12.0/24
+* lan subnet lan0
+* lan subnet 172.16.42.0/24</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
