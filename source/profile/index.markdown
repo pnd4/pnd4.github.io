@@ -1,34 +1,8 @@
 ---
 layout: page
-title: "Profile"
-date: 2013-10-17 08:30
-comments: true
-sharing: true
-footer: true
+title: Profile
 ---
+{% img left https://pnd4.net/wp-content/uploads/2012/08/287_540274403664_5512_n.jpg 217 290 %} My name is Kevin. I’m a computer engineering student at Cal State San Bernardino. I previously attended the University of California: Riverside and also received an Associate of Science degree in computer programming from Riverside Community College. Some languages I am proficient in include: Microsoft ASM(32), Bash, C, C++, CSS, HTML, Javascript, Ruby, PHP. Hardware wise, I enjoy soldering projects, in particular building and repair of hifi-amplifiers. I have a fond interest in networking in’s and out’s, both ethernet and 802.11 fronts, as well as information security and forensics.
 
-<div class="blog-index">
-  {% assign index = true %}
-  {% for post in paginator.posts %}
-  {% assign content = post.content %}
-    <article>
-      {% include article.html %}
-    </article>
-  {% endfor %}
-  <div class="pagination">
-    {% if paginator.next_page %}
-      <a class="prev" href="{{paginator.next_page}}">&larr; Older</a>
-    {% endif %}
-    <a href="/blog/archives">Blog Archives</a>
-    {% if paginator.previous_page %}
-    <a class="next" href="{{paginator.previous_page}}">Newer &rarr;</a>
-    {% endif %}
-  </div>
-</div>
-<aside class="sidebar">
-  {% if site.blog_index_asides.size %}
-    {% include_array blog_index_asides %}
-  {% else %}
-    {% include_array default_asides %}
-  {% endif %}
-</aside>#
+kevin@pnd4.net  
+pnd4 @ irc.freenode.net
