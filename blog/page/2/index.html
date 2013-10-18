@@ -215,11 +215,15 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <p>Involves adding additional rules</p>
 
-<p>For the template below:
-* wan iface wan0
-* wan subnet 192.168.12.0/24
-* lan subnet lan0
-* lan subnet 172.16.42.0/24</p>
+<p><em>For the template below:</em></p>
+
+<pre><code>|          |              wan |             lan  |  
+|---------:|-----------------:|-----------------:|  
+|  iface   |             wan0 |            lan0  |  
+|  subnet  |     192.168.12.0 |    172.168.42.0  |  
+</code></pre>
+
+<p><em>Example Template</em></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -241,16 +245,16 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>*nat
-</span><span class='line'>:PREROUTING ACCEPT [48:4139]
-</span><span class='line'>:INPUT ACCEPT [20:1898]
-</span><span class='line'>:OUTPUT ACCEPT [2314:104209]
-</span><span class='line'>:POSTROUTING ACCEPT [2314:104209]
+</span><span class='line'>:PREROUTING ACCEPT [0:0]
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:POSTROUTING ACCEPT [0:0]
 </span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
 </span><span class='line'>COMMIT
 </span><span class='line'>*filter
-</span><span class='line'>:INPUT ACCEPT [2306:105504]
+</span><span class='line'>:INPUT ACCEPT [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [2549:124453]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
 </span><span class='line'>:fw-interfaces - [0:0]
 </span><span class='line'>:fw-open - [0:0]
 </span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
@@ -261,9 +265,9 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>References</h2>
+<h4>References</h4>
 
-<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a>
+<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
 <a href="https://wiki.debian.org/iptables">Debwiki</a></p>
 </div>
   

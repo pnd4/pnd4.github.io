@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-10-18T07:34:02-07:00</updated>
+  <updated>2013-10-18T08:19:22-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -188,15 +188,14 @@ git commit -m "&lt;message&gt;"
     <id>http://pnd4.github.io/blog/2013/10/16/template</id>
     <content type="html"><![CDATA[<p>A template for markdown posts. Covers some frequently used syntax.</p>
 
-<h3>Header</h3>
+<h3>Quote</h3>
 
-<blockquote><p>Notes.<br/>
-More.</p></blockquote>
+<blockquote><p>More.<br/>
+Notes.</p></blockquote>
 
 <h3>Code</h3>
 
-<pre><code>example.sh
-</code></pre>
+<p>example.sh</p>
 
 <div>
   <pre><code class='bash'>#!/bin/bash
@@ -204,32 +203,7 @@ More.</p></blockquote>
 </div>
 
 
-<h3>Table</h3>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th> First Header  </th>
-<th> Second Header </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td> Row1 Cell1    </td>
-<td> Row1 Cell2    |</td>
-</tr>
-<tr>
-<td></td>
-<td> Row2 Cell1    </td>
-<td> Row2 Cell2    |</td>
-</tr>
-</tbody>
-</table>
-
-
-<h4>List</h4>
+<h3>List</h3>
 
 <ul>
 <li>item 1</li>
@@ -238,11 +212,13 @@ More.</p></blockquote>
 </ul>
 
 
-<h3>Useful Links and References</h3>
+<h4>Useful Links and References</h4>
 
-<p><a href="http://wiki.archlinux.org" title="Alt Title">ArchWiki</a></p>
+<ol>
+<li><a href="http://wiki.archlinux.org" title="Alt Title">ArchWiki</a></li>
+<li><a href="http://wiki.archlinux.org">DebianWiki</a></li>
+</ol>
 
-<p><a href="http://wiki.archlinux.org">DebianWiki</a></p>
 ]]></content>
   </entry>
   
@@ -439,11 +415,15 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <p>Involves adding additional rules</p>
 
-<p>For the template below:
-* wan iface wan0
-* wan subnet 192.168.12.0/24
-* lan subnet lan0
-* lan subnet 172.16.42.0/24</p>
+<p><em>For the template below:</em></p>
+
+<pre><code>|          |              wan |             lan  |  
+|---------:|-----------------:|-----------------:|  
+|  iface   |             wan0 |            lan0  |  
+|  subnet  |     192.168.12.0 |    172.168.42.0  |  
+</code></pre>
+
+<p><em>Example Template</em></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -465,16 +445,16 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>*nat
-</span><span class='line'>:PREROUTING ACCEPT [48:4139]
-</span><span class='line'>:INPUT ACCEPT [20:1898]
-</span><span class='line'>:OUTPUT ACCEPT [2314:104209]
-</span><span class='line'>:POSTROUTING ACCEPT [2314:104209]
+</span><span class='line'>:PREROUTING ACCEPT [0:0]
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:POSTROUTING ACCEPT [0:0]
 </span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
 </span><span class='line'>COMMIT
 </span><span class='line'>*filter
-</span><span class='line'>:INPUT ACCEPT [2306:105504]
+</span><span class='line'>:INPUT ACCEPT [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [2549:124453]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
 </span><span class='line'>:fw-interfaces - [0:0]
 </span><span class='line'>:fw-open - [0:0]
 </span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
@@ -485,9 +465,9 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>References</h2>
+<h4>References</h4>
 
-<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a>
+<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
 <a href="https://wiki.debian.org/iptables">Debwiki</a></p>
 ]]></content>
   </entry>
