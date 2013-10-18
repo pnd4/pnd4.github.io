@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-10-18T08:59:55-07:00</updated>
+  <updated>2013-10-18T16:01:47-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,265 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hostapd]]></title>
+    <link href="http://pnd4.github.io/blog/2013/10/18/hostapd/"/>
+    <updated>2013-10-18T00:00:00-07:00</updated>
+    <id>http://pnd4.github.io/blog/2013/10/18/hostapd</id>
+    <content type="html"><![CDATA[<p>Wireless access point daemon</p>
+
+<p><strong>Karma</strong> a version of hostapd for creating <em>rogue</em> access points.</p>
+
+<h3>NAT or Bridge</h3>
+
+<p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
+
+<ul>
+<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
+
+<blockquote><p>see the <a href="http://pnd4.github.io/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
+<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
+
+<blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
+
+<p>If you use netctl, see Bridge with netctl for details (just do not add tap0 used in that example).</p></blockquote></li>
+</ul>
+
+
+<h3>Configuration</h3>
+
+<p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
+
+<p>To override at runtime:</p>
+
+<pre><code>sudo hostapd /path/to/hostapd.conf
+</code></pre>
+
+<p>General use, non-Karma, WPA/WPA2 config<br/>
+From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#sets the wifi interface to use, is wlan0 in most cases
+</span><span class='line'>interface=wlan0
+</span><span class='line'>#driver to use, nl80211 works in most cases
+</span><span class='line'>driver=nl80211
+</span><span class='line'>#sets the ssid of the virtual wifi access point
+</span><span class='line'>ssid=dontMessWithVincentValentine
+</span><span class='line'>#sets the mode of wifi, depends upon the devices you will be using. It can be a,b,g,n. Setting to g ensures backward compatiblity.
+</span><span class='line'>hw_mode=g
+</span><span class='line'>#sets the channel for your wifi
+</span><span class='line'>channel=6
+</span><span class='line'>#macaddr_acl sets options for mac address filtering. 0 means "accept unless in deny list"
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>#setting ignore_broadcast_ssid to 1 will disable the broadcasting of ssid
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>#Sets authentication algorithm
+</span><span class='line'>#1 - only open system authentication
+</span><span class='line'>#2 - both open system authentication and shared key authentication
+</span><span class='line'>auth_algs=1
+</span><span class='line'> 
+</span><span class='line'>#####Sets WPA and WPA2 authentication#####
+</span><span class='line'>#wpa option sets which wpa implementation to use
+</span><span class='line'>#1 - wpa only
+</span><span class='line'>#2 - wpa2 only
+</span><span class='line'>#3 - both
+</span><span class='line'> wpa=3
+</span><span class='line'>#sets wpa passphrase required by the clients to authenticate themselves on the network
+</span><span class='line'> wpa_passphrase=KeePGuessinG
+</span><span class='line'>#sets wpa key management
+</span><span class='line'> wpa_key_mgmt=WPA-PSK
+</span><span class='line'>#sets encryption used by WPA
+</span><span class='line'> wpa_pairwise=TKIP
+</span><span class='line'>#sets encryption used by WPA2
+</span><span class='line'> rsn_pairwise=CCMP
+</span><span class='line'>  
+</span><span class='line'>#################################
+</span><span class='line'>   
+</span><span class='line'>#####Sets WEP authentication#####
+</span><span class='line'>#WEP is not recommended as it can be easily broken into
+</span><span class='line'>   wep_default_key=0
+</span><span class='line'>   wep_key0=qwert    #5,13, or 16 characters
+</span><span class='line'>#optionally you may also define wep_key2, wep_key3, and wep_key4
+</span><span class='line'>    
+</span><span class='line'>#################################
+</span><span class='line'>#For No encryption, you don't need to set any options</span></code></pre></td></tr></table></div></figure>
+
+
+<p>non-Karma w/ WPA2</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>interface=tpl0
+</span><span class='line'>driver=nl80211
+</span><span class='line'>ssid=2WIRE022
+</span><span class='line'>hw_mode=g
+</span><span class='line'>channel=10
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>auth_algs=1
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>wpa=2
+</span><span class='line'>wpa_passphrase=SecretPassword1234
+</span><span class='line'>wpa_key_mgmt=WPA-PSK
+</span><span class='line'>rsn_pairwise=CCMP</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Karma w/ WEP</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># config file to use with the Karma'd version of hostapd
+</span><span class='line'># created by Robin Wood - robin@digininja.org - www.digininja.org
+</span><span class='line'>
+</span><span class='line'>interface=tpl0
+</span><span class='line'>driver=nl80211
+</span><span class='line'>country_code=US
+</span><span class='line'>
+</span><span class='line'>ssid=AndroidAP
+</span><span class='line'>channel=3
+</span><span class='line'>
+</span><span class='line'>wep_default_key=0
+</span><span class='line'>wep_key0=SecretPassword1234
+</span><span class='line'>
+</span><span class='line'># Both open and shared auth
+</span><span class='line'>auth_algs=3
+</span><span class='line'>
+</span><span class='line'># no SSID cloaking
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>
+</span><span class='line'># -1 = log all messages
+</span><span class='line'>logger_syslog=-1
+</span><span class='line'>logger_stdout=-1
+</span><span class='line'>
+</span><span class='line'># 2 = informational messages
+</span><span class='line'>logger_syslog_level=2
+</span><span class='line'>logger_stdout_level=2
+</span><span class='line'>
+</span><span class='line'># Dump file for state information (on SIGUSR1)
+</span><span class='line'># example: kill -USR1 &lt;pid&gt;
+</span><span class='line'>dump_file=/tmp/hostapd.dump
+</span><span class='line'>ctrl_interface=/var/run/hostapd
+</span><span class='line'>ctrl_interface_group=adm
+</span><span class='line'>
+</span><span class='line'># 0 = accept unless in deny list
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>
+</span><span class='line'># only used if you want to do filter by MAC address
+</span><span class='line'>accept_mac_file=/etc/hostapd/hostapd.accept
+</span><span class='line'>deny_mac_file=/etc/hostapd/hostapd.deny
+</span><span class='line'>
+</span><span class='line'># Finally, enable Karma
+</span><span class='line'>enable_karma=0
+</span><span class='line'>
+</span><span class='line'># Black and white listing
+</span><span class='line'># 0 = white
+</span><span class='line'># 1 = black
+</span><span class='line'>karma_black_white=1</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Useful links and references</h5>
+
+<p><a href="https://wiki.archlinux.org/index.php/Software_Access_Point">ArchWiki: Software Access Point</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress]]></title>
