@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://localhost:4000
+url: http://pnd4.github.io
 title: PND4
 subtitle: "/dev/notes"
 author:

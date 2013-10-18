@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[PND4]]></title>
-  <link href="http://localhost:4000/atom.xml" rel="self"/>
-  <link href="http://localhost:4000/"/>
-  <updated>2013-10-18T03:28:01-07:00</updated>
-  <id>http://localhost:4000/</id>
+  <link href="http://pnd4.github.io/atom.xml" rel="self"/>
+  <link href="http://pnd4.github.io/"/>
+  <updated>2013-10-18T04:08:31-07:00</updated>
+  <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
     <email><![CDATA[kevin@pnd4.net]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Octopress]]></title>
-    <link href="http://localhost:4000/blog/2013/10/17/octopress/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/17/octopress/"/>
     <updated>2013-10-17T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/17/octopress</id>
+    <id>http://pnd4.github.io/blog/2013/10/17/octopress</id>
     <content type="html"><![CDATA[<p>Markdown blogging platform built on Ruby.</p>
 
 <h3>Installation</h3>
@@ -52,9 +52,9 @@ bundle install # make sure to run this one in the 'octopress' directory
   
   <entry>
     <title type="html"><![CDATA[GIT Version Control System]]></title>
-    <link href="http://localhost:4000/blog/2013/10/17/git/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/17/git/"/>
     <updated>2013-10-17T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/17/git</id>
+    <id>http://pnd4.github.io/blog/2013/10/17/git</id>
     <content type="html"><![CDATA[<h2>Basics</h2>
 
 <h3>Starting a new repo</h3>
@@ -185,9 +185,9 @@ git commit -m "&lt;message&gt;"
   
   <entry>
     <title type="html"><![CDATA[template]]></title>
-    <link href="http://localhost:4000/blog/2013/10/16/template/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/16/template/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/16/template</id>
+    <id>http://pnd4.github.io/blog/2013/10/16/template</id>
     <content type="html"><![CDATA[<p>A template for markdown posts. Covers some frequently used syntax.</p>
 
 <h3>Header</h3>
@@ -250,9 +250,9 @@ More.</p></blockquote>
   
   <entry>
     <title type="html"><![CDATA[Ruby Installation]]></title>
-    <link href="http://localhost:4000/blog/2013/10/16/ruby-install/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/16/ruby-install/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/16/ruby-install</id>
+    <id>http://pnd4.github.io/blog/2013/10/16/ruby-install</id>
     <content type="html"><![CDATA[<p>Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by root).</p>
 
 <h2>Installing</h2>
@@ -296,9 +296,9 @@ Update user:  gem update</p>
   
   <entry>
     <title type="html"><![CDATA[Wifi Pinapple Mark 5]]></title>
-    <link href="http://localhost:4000/blog/2013/10/16/pinapple-v/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/16/pinapple-v/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/16/pinapple-v</id>
+    <id>http://pnd4.github.io/blog/2013/10/16/pinapple-v</id>
     <content type="html"><![CDATA[<p>Advanced standalone pentesting tool for wireless networks.</p>
 
 <h3>Specs</h3>
@@ -320,9 +320,9 @@ Update user:  gem update</p>
   
   <entry>
     <title type="html"><![CDATA[firewall]]></title>
-    <link href="http://localhost:4000/blog/2013/10/16/firewall/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/16/firewall/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/16/firewall</id>
+    <id>http://pnd4.github.io/blog/2013/10/16/firewall</id>
     <content type="html"><![CDATA[<p>Use iptables to secure netlink infrastructure.</p>
 
 <h3>Where the rules files go</h3>
@@ -498,9 +498,9 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   
   <entry>
     <title type="html"><![CDATA[Backing up Configuration]]></title>
-    <link href="http://localhost:4000/blog/2013/10/16/backup-configs/"/>
+    <link href="http://pnd4.github.io/blog/2013/10/16/backup-configs/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/2013/10/16/backup-configs</id>
+    <id>http://pnd4.github.io/blog/2013/10/16/backup-configs</id>
     <content type="html"><![CDATA[<h2>To-do</h2>
 
 <p>Pseudocode/Outline
@@ -574,9 +574,9 @@ Ideas
   
   <entry>
     <title type="html"><![CDATA[Test Post]]></title>
-    <link href="http://localhost:4000/blog/1985/10/26/test-post/"/>
+    <link href="http://pnd4.github.io/blog/1985/10/26/test-post/"/>
     <updated>1985-10-26T00:00:00-07:00</updated>
-    <id>http://localhost:4000/blog/1985/10/26/test-post</id>
+    <id>http://pnd4.github.io/blog/1985/10/26/test-post</id>
     <content type="html"><![CDATA[<p>This is a test post writen in markdown. To learn more about markdown check out the <a href="http://daringfireball.net/projects/markdown/">documentation</a> on <a href="http://daringfireball.net/">Daring Fireball</a>.</p>
 ]]></content>
   </entry>
