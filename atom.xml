@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-10-18T08:19:22-07:00</updated>
+  <updated>2013-10-18T08:47:41-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -182,7 +182,7 @@ git commit -m "&lt;message&gt;"
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[template]]></title>
+    <title type="html"><![CDATA[Markdown Template]]></title>
     <link href="http://pnd4.github.io/blog/2013/10/16/template/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
     <id>http://pnd4.github.io/blog/2013/10/16/template</id>
@@ -293,11 +293,11 @@ Update user:  gem update</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[firewall]]></title>
+    <title type="html"><![CDATA[Firewalls]]></title>
     <link href="http://pnd4.github.io/blog/2013/10/16/firewall/"/>
     <updated>2013-10-16T00:00:00-07:00</updated>
     <id>http://pnd4.github.io/blog/2013/10/16/firewall</id>
-    <content type="html"><![CDATA[<p>Use iptables to secure netlink infrastructure.</p>
+    <content type="html"><![CDATA[<p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
 
 <h3>Where the rules files go</h3>
 
