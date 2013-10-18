@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-10-18T06:49:46-07:00</updated>
+  <updated>2013-10-18T06:52:30-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -55,9 +55,7 @@ bundle install # make sure to run this one in the 'octopress' directory
     <link href="http://pnd4.github.io/blog/2013/10/17/git/"/>
     <updated>2013-10-17T00:00:00-07:00</updated>
     <id>http://pnd4.github.io/blog/2013/10/17/git</id>
-    <content type="html"><![CDATA[<h2>Basics</h2>
-
-<h4>Starting a new repo</h4>
+    <content type="html"><![CDATA[<h2>Starting a new repo</h2>
 
 <p>create project directory</p>
 
@@ -91,7 +89,7 @@ git commit -m "&lt;message&gt;"
 <pre><code>git push -u origin master
 </code></pre>
 
-<h3>IRC Tips</h3>
+<h2>IRC Tips</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
