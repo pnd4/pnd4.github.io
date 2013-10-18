@@ -1,7 +1,11 @@
-github.com/pnd4/octopress
+github.com/pnd4/pnd4.github.io (branch: source)
 =========
 
-pnd4's personal git project
+pnd4's personal Octopress project.
+
+##### Branches
+* Master - the site's files that github.io actually publishes at [pnd4.github.io](http://pnd4.github.io)
+* Source - Octopress's source files used to generate master.
 
 ## What is Octopress?
 
