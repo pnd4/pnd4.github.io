@@ -159,10 +159,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <span class='line-number'>48</span>
 <span class='line-number'>49</span>
 <span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>*filter
 </span><span class='line'>:INPUT DROP [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
@@ -180,7 +176,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
 </span><span class='line'>## === END: Ping limiting =====================================
 </span><span class='line'>## === BEGIN: General Rules ===================================
-</span><span class='line'># Extra protection against spoofing attacks
+</span><span class='line'># Extra protection against spoofing attacks (see: sysctl regarding rp_filter)
 </span><span class='line'>-I INPUT ! -i lo -s 127.0.0.0/8 -j DROP
 </span><span class='line'># Accept all traffic coming from localhost
 </span><span class='line'>-A INPUT -i lo -j ACCEPT
@@ -193,18 +189,14 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>## NTP
 </span><span class='line'>#-A UDP -p tcp -i eth0 -s 192.168.12.0/24 --dport 123 -j ACCEPT
 </span><span class='line'>## SSH
-</span><span class='line'>-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 2151 -j ACCEPT
+</span><span class='line'>#-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 22 -j ACCEPT
 </span><span class='line'>## TRANSMISSION
-</span><span class='line'>#-A TCP -p tcp -i tun+ --dport 50460 -j ACCEPT
-</span><span class='line'>#-A UDP -p udp -i tun+ --dport 50460 -j ACCEPT
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.12 -j ACCEPT
+</span><span class='line'>#Allow transmission to talk to users
 </span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.18 -j ACCEPT
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.113 -j ACCEPT
+</span><span class='line'>#Restrict transmission from using other ports.
 </span><span class='line'>-A OUTPUT -m owner --uid-owner transmission ! -o tun+ -j REJECT
-</span><span class='line'>## TRANSMISSION-REMOTE-CLI
-</span><span class='line'>-A TCP -p tcp -s 192.168.12.12 --dport 9091 -j ACCEPT
+</span><span class='line'>#Allow users to talk to transmission
 </span><span class='line'>-A TCP -p tcp -s 192.168.12.18 --dport 9091 -j ACCEPT
-</span><span class='line'>-A TCP -p tcp -s 192.168.12.113 --dport 9091 -j ACCEPT
 </span><span class='line'>## === END: Services ==========================================
 </span><span class='line'>## === BEGIN: Trick Port Scanning =============================
 </span><span class='line'>-I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
@@ -222,6 +214,11 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <h3>Internet Connection Sharing</h3>
 
 <p>Involves adding additional rules</p>
+
+<p>wan iface wan0
+wan subnet 192.168.12.0/24
+lan subnet lan0
+lan subnet 172.16.42.0/24</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -247,7 +244,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>:INPUT ACCEPT [20:1898]
 </span><span class='line'>:OUTPUT ACCEPT [2314:104209]
 </span><span class='line'>:POSTROUTING ACCEPT [2314:104209]
-</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o br0 -j MASQUERADE
+</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
 </span><span class='line'>COMMIT
 </span><span class='line'>*filter
 </span><span class='line'>:INPUT ACCEPT [2306:105504]
@@ -259,7 +256,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>-A FORWARD -j fw-interfaces
 </span><span class='line'>-A FORWARD -j fw-open
 </span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
-</span><span class='line'>-A fw-interfaces -i tpl0 -j ACCEPT
+</span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
 </span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
 
 
