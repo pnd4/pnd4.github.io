@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-10-18T16:25:21-07:00</updated>
+  <updated>2013-10-21T11:12:12-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Solidworks Rig]]></title>
+    <link href="http://pnd4.github.io/blog/2013/10/21/solidworks-build/"/>
+    <updated>2013-10-21T00:00:00-07:00</updated>
+    <id>http://pnd4.github.io/blog/2013/10/21/solidworks-build</id>
+    <content type="html"><![CDATA[<h4>Min Reqs (Win7x64)</h4>
+
+<pre><code>CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
+RAM     2GB+
+HDD     5GB+
+Video   Quadro/QuadroFX/FireGL/FirePro
+</code></pre>
+
+<h2>Notes from research so far</h2>
+
+<ul>
+<li>FirePro v3900 was best bang for buck.</li>
+<li>4GB of RAM is a good start.</li>
+<li>3.5Ghz Dual core + Hyper-Threading (i3-3220/3240) should be plenty</li>
+</ul>
+
+
+<h2>Newegg specials for Oct.</h2>
+
+<p>25$ discount expires 10/22/13 at midnight.</p>
+
+<p><strong>ShellShocker Combo 10/21/13 @ 6pm</strong></p>
+
+<ul>
+<li>Only need to decide on the Mobo + CPU + Video card immediately.</li>
+<li>No USB 3.0.. is it important?</li>
+<li>SSD makes computer so much faster.</li>
+<li>Price is a very rough estimate</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CPU     Intel i3-3240 (Ivy) 3.4Ghz 2-Core 3MB-L2        
+</span><span class='line'>
+</span><span class='line'>Mobo    GIGABYTE GA-H61M-USB3H LGA 1155 Intel H61 mATX  
+</span><span class='line'>                                                        
+</span><span class='line'>                                       10/21 only!!    154.98
+</span><span class='line'>   
+</span><span class='line'>                              10/21-10/22 discount    -(25.00)
+</span><span class='line'>
+</span><span class='line'>Video   ATI FirePro V3900 128-bit 1GB PCIe 2.1          109.99
+</span><span class='line'>
+</span><span class='line'>[APPROX SPEND TODAY]                                  $ 240.00
+</span><span class='line'>
+</span><span class='line'>PSU     ~? 60
+</span><span class='line'>
+</span><span class='line'>RAM     ~? 80
+</span><span class='line'>
+</span><span class='line'>SSD     ~? 60
+</span><span class='line'>
+</span><span class='line'>Case    ~? ?
+</span><span class='line'>
+</span><span class='line'>[APPROX FINAL TOTAL]                                   $ 435</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>&ldquo;i5&rdquo; Combo + FirePro V3900 [ ~$630 ] (until 10/25)</strong></p>
+
+<ul>
+<li>Trustworthy PSU</li>
+<li>Quad Core</li>
+<li>8GB RAM</li>
+<li>1TB HDD, SSD would&rsquo;ve been nicer.</li>
+<li><p>USB 3.0</p>
+
+<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151">http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151</a></p></li>
+</ul>
+
+
+<p><strong>&ldquo;i3&rdquo; Combo + FirePro V3900 [ ~$ 420 ] (until 10/31)</strong></p>
+
+<ul>
+<li>Decent PSU. But low wattage.</li>
+<li>500GB HDD</li>
+<li><p>USB 3.0</p>
+
+<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103">http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103</a></p></li>
+</ul>
+
+
+<p><strong>&ldquo;Budget Gaming&rdquo; Combo [ $ 370 ] (until 10/31)</strong></p>
+
+<ul>
+<li>nVidia GT 640 2GB, instead of FirePro ?<br/>
+  .. donno if that&rsquo;s such a good idea.</li>
+<li>Good PSU</li>
+<li>500GB HDD</li>
+<li><p>USB 3.0</p>
+
+<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943">http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943</a></p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hostapd]]></title>
