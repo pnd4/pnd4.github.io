@@ -106,7 +106,9 @@ The script should basically:</p>
 </ul>
 
 
-<h3>Quote</h3>
+<h3>Firewall Safeguards</h3>
+
+<p>To be on the safe-side of dodging the copyright-infringement-notices, you may want to use your firewall to drop traffic you know is no bueno. For instance, traffic belonging to the bittorrent-client that is &lsquo;outbound&rsquo; on anything but the intended interface.</p>
 
 <blockquote><p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
 Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&rsquo;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p></blockquote>
