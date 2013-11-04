@@ -9,10 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Min Reqs (Win7x64) CPU Intel or AMD with SSE2 support. 64-bit OS recommended.
-RAM 2GB+
-HDD 5GB+
-Video Quadro/QuadroFX/FireGL/FirePro Notes regarding &hellip;">
+  <meta name="description" content="Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like & &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +67,119 @@ Video Quadro/QuadroFX/FireGL/FirePro Notes regarding &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/04/iptables-transmission-vpn/">IPTables + Transmission + VPN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T00:00:00-08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &lsquo;pacman&rsquo; vs patching &lsquo;BindInterface&rsquo; into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically.
+The script should basically:</p>
+
+<ul>
+<li>first make sure the VPN is up and operational</li>
+<li>correct transmission&rsquo;s config if the address isn&rsquo;t current.. [stop, edit, start]</li>
+<li>definitely end with transmission running</li>
+</ul>
+
+
+<h3>Quote</h3>
+
+<blockquote><p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
+Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&rsquo;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p></blockquote>
+
+<pre><code>iptables -A OUTPUT -m owner --uid-owner debian-transmission -d 192.168.0.100 -j ACCEPT
+iptables -A OUTPUT -m owner --uid-owner debian-transmission \! -o tun0 -j REJECT
+</code></pre>
+
+<blockquote><p>The first line ensures that, my Mac-mini having IP address 192.168.0.100 on the lan, can always access the web interface of transmission. The second line makes sure, no outgoing traffic can leave via anything other that tun0.
+Peace of mind restored, thanks to iptables.</p></blockquote>
+
+<h3>Code</h3>
+
+<p>transmission-vpn-only.sh</p>
+
+<p><em>Ver. ArchLinuxARM-110413</em></p>
+
+<div>
+  <pre><code class='bash'>#!/bin/sh
+
+iface=&quot;tun0&quot;
+service=&quot;transmission.service&quot;
+config=&quot;/var/lib/transmission/.config/transmission-daemon/settings.json&quot;
+
+# test if service is currently running
+systemctl --quiet is-active $service
+if [ $? -eq 0 ]; then
+    # get the ip from the current config
+    savedIP=$(cat $config | egrep -o &#39;\&quot;bind-address-ipv4\&quot;: \&quot;[^ ]*&#39; | cut -d&#39;&quot;&#39; -f4)
+    # test if ip has changed and is no longer available
+    ping -i1 -w2 -c1 $savedIP &gt;/dev/null
+    if [[ $? -ne 0 || &quot;x$savedIP&quot; == &quot;x0.0.0.0&quot; ]]; then
+        echo IP unavailable, stop and reconfigure transmission..
+        systemctl stop $service
+        # test if VPN went down completely
+        ifconfig $iface &gt;/dev/null
+        if [ $? -ne 0 ]; then
+            echo Oops.. $iface not available, exiting without restarting transmission..
+            exit 1
+        fi
+        # reconfigure transmission with new ip address
+        sed -i &quot;s/\&quot;bind-address-ipv4\&quot;:.*\$/\&quot;bind-address-ipv4\&quot;: \&quot;$(ip a show dev $iface | egrep -o &#39;inet [^ ]* &#39; | cut -d&#39; &#39; -f2 | sed &#39;s/ //&#39;)\&quot;,/&quot; $config
+        systemctl start $service
+        echo Transmission started.
+    fi
+else
+    echo &quot;Transmission isn&#39;t running..&quot;
+    exit 1
+fi</code></pre>
+</div>
+
+
+<h3>To-Do</h3>
+
+<ul>
+<li>Figure out how to &lsquo;BindInterface&rsquo;, if possible.</li>
+<li>Revise transmission-vpn-only script.</li>
+<li>Figure out why openvpn config leaves routes behind.</li>
+</ul>
+
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://www.botcyb.org/2012/11/force-application-to-use-vpn-using.html" title="BotCyborg">BotCyborg</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -689,74 +799,6 @@ git commit -m "&lt;message&gt;"
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/template/">Markdown Template</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A template for markdown posts. Covers some frequently used syntax.</p>
-
-<h3>Quote</h3>
-
-<blockquote><p>More.<br/>
-Notes.</p></blockquote>
-
-<h3>Code</h3>
-
-<p>example.sh</p>
-
-<div>
-  <pre><code class='bash'>#!/bin/bash
-    test 1 -eq 1 &amp;&amp; echo true || echo false</code></pre>
-</div>
-
-
-<h3>List</h3>
-
-<ul>
-<li>item 1</li>
-<li>item 2</li>
-<li>item 3</li>
-</ul>
-
-
-<h4>Useful Links and References</h4>
-
-<ol>
-<li><a href="http://wiki.archlinux.org" title="Alt Title">ArchWiki</a></li>
-<li><a href="http://wiki.archlinux.org">DebianWiki</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -772,15 +814,15 @@ Notes.</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/04/iptables-transmission-vpn/">IPTables + Transmission + VPN</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/21/solidworks-build/">Solidworks Rig</a>
       </li>
     
       <li class="post">
         <a href="/blog/2013/10/18/hostapd/">Hostapd</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/17/octopress/">Octopress</a>
       </li>
     
   </ul>

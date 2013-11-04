@@ -4,6 +4,7 @@ title: IPTables + Transmission + VPN
 ---
 Transmission doesn't have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like 'pacman' vs patching 'BindInterface' into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically. 
 The script should basically:
+
 - first make sure the VPN is up and operational
 - correct transmission's config if the address isn't current.. [stop, edit, start]
 - definitely end with transmission running
@@ -20,7 +21,8 @@ The script should basically:
 
 ### Code
 transmission-vpn-only.sh
-*Ver. Pogo-110413*
+
+*Ver. ArchLinuxARM-110413*
 
 {% highlight bash %}
 #!/bin/sh
