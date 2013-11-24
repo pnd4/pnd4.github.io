@@ -9,8 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="A template for markdown posts. Covers some frequently used syntax. Quote More.
-Notes. Code example.sh #!/bin/bash test 1 -eq 1 &amp;&amp; echo true &hellip;">
+  <meta name="description" content="Wireless access point daemon Karma a version of hostapd for creating rogue access points. NAT or Bridge IP&rsquo;s must be handed out to the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +67,524 @@ Notes. Code example.sh #!/bin/bash test 1 -eq 1 &amp;&amp; echo true &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/18/hostapd/">Hostapd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true">Oct 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Wireless access point daemon</p>
+
+<p><strong>Karma</strong> a version of hostapd for creating <em>rogue</em> access points.</p>
+
+<h3>NAT or Bridge</h3>
+
+<p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
+
+<ul>
+<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
+
+<blockquote><p>see the <a href="/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
+<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
+
+<blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
+
+<p>If you use netctl, see Bridge with netctl for details (just do not add tap0 used in that example).</p></blockquote></li>
+</ul>
+
+
+<h3>Configuration</h3>
+
+<p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
+
+<p>To override at runtime:</p>
+
+<pre><code>sudo hostapd /path/to/hostapd.conf
+</code></pre>
+
+<p>General use, non-Karma, WPA/WPA2 config<br/>
+From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#sets the wifi interface to use, is wlan0 in most cases
+</span><span class='line'>interface=wlan0
+</span><span class='line'>#driver to use, nl80211 works in most cases
+</span><span class='line'>driver=nl80211
+</span><span class='line'>#sets the ssid of the virtual wifi access point
+</span><span class='line'>ssid=dontMessWithVincentValentine
+</span><span class='line'>#sets the mode of wifi, depends upon the devices you will be using. It can be a,b,g,n. Setting to g ensures backward compatiblity.
+</span><span class='line'>hw_mode=g
+</span><span class='line'>#sets the channel for your wifi
+</span><span class='line'>channel=6
+</span><span class='line'>#macaddr_acl sets options for mac address filtering. 0 means "accept unless in deny list"
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>#setting ignore_broadcast_ssid to 1 will disable the broadcasting of ssid
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>#Sets authentication algorithm
+</span><span class='line'>#1 - only open system authentication
+</span><span class='line'>#2 - both open system authentication and shared key authentication
+</span><span class='line'>auth_algs=1
+</span><span class='line'> 
+</span><span class='line'>#####Sets WPA and WPA2 authentication#####
+</span><span class='line'>#wpa option sets which wpa implementation to use
+</span><span class='line'>#1 - wpa only
+</span><span class='line'>#2 - wpa2 only
+</span><span class='line'>#3 - both
+</span><span class='line'> wpa=3
+</span><span class='line'>#sets wpa passphrase required by the clients to authenticate themselves on the network
+</span><span class='line'> wpa_passphrase=KeePGuessinG
+</span><span class='line'>#sets wpa key management
+</span><span class='line'> wpa_key_mgmt=WPA-PSK
+</span><span class='line'>#sets encryption used by WPA
+</span><span class='line'> wpa_pairwise=TKIP
+</span><span class='line'>#sets encryption used by WPA2
+</span><span class='line'> rsn_pairwise=CCMP
+</span><span class='line'>  
+</span><span class='line'>#################################
+</span><span class='line'>   
+</span><span class='line'>#####Sets WEP authentication#####
+</span><span class='line'>#WEP is not recommended as it can be easily broken into
+</span><span class='line'>   wep_default_key=0
+</span><span class='line'>   wep_key0=qwert    #5,13, or 16 characters
+</span><span class='line'>#optionally you may also define wep_key2, wep_key3, and wep_key4
+</span><span class='line'>    
+</span><span class='line'>#################################
+</span><span class='line'>#For No encryption, you don't need to set any options</span></code></pre></td></tr></table></div></figure>
+
+
+<p>non-Karma w/ WPA2</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>interface=tpl0
+</span><span class='line'>driver=nl80211
+</span><span class='line'>ssid=2WIRE022
+</span><span class='line'>hw_mode=g
+</span><span class='line'>channel=10
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>auth_algs=1
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>wpa=2
+</span><span class='line'>wpa_passphrase=SecretPassword1234
+</span><span class='line'>wpa_key_mgmt=WPA-PSK
+</span><span class='line'>rsn_pairwise=CCMP</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Karma w/ WEP</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># config file to use with the Karma'd version of hostapd
+</span><span class='line'># created by Robin Wood - robin@digininja.org - www.digininja.org
+</span><span class='line'>
+</span><span class='line'>interface=tpl0
+</span><span class='line'>driver=nl80211
+</span><span class='line'>country_code=US
+</span><span class='line'>
+</span><span class='line'>ssid=AndroidAP
+</span><span class='line'>channel=3
+</span><span class='line'>
+</span><span class='line'>wep_default_key=0
+</span><span class='line'>wep_key0=SecretPassword1234
+</span><span class='line'>
+</span><span class='line'># Both open and shared auth
+</span><span class='line'>auth_algs=3
+</span><span class='line'>
+</span><span class='line'># no SSID cloaking
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>
+</span><span class='line'># -1 = log all messages
+</span><span class='line'>logger_syslog=-1
+</span><span class='line'>logger_stdout=-1
+</span><span class='line'>
+</span><span class='line'># 2 = informational messages
+</span><span class='line'>logger_syslog_level=2
+</span><span class='line'>logger_stdout_level=2
+</span><span class='line'>
+</span><span class='line'># Dump file for state information (on SIGUSR1)
+</span><span class='line'># example: kill -USR1 &lt;pid&gt;
+</span><span class='line'>dump_file=/tmp/hostapd.dump
+</span><span class='line'>ctrl_interface=/var/run/hostapd
+</span><span class='line'>ctrl_interface_group=adm
+</span><span class='line'>
+</span><span class='line'># 0 = accept unless in deny list
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>
+</span><span class='line'># only used if you want to do filter by MAC address
+</span><span class='line'>accept_mac_file=/etc/hostapd/hostapd.accept
+</span><span class='line'>deny_mac_file=/etc/hostapd/hostapd.deny
+</span><span class='line'>
+</span><span class='line'># Finally, enable Karma
+</span><span class='line'>enable_karma=0
+</span><span class='line'>
+</span><span class='line'># Black and white listing
+</span><span class='line'># 0 = white
+</span><span class='line'># 1 = black
+</span><span class='line'>karma_black_white=1</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Useful links and references</h5>
+
+<p><a href="https://wiki.archlinux.org/index.php/Software_Access_Point">ArchWiki: Software Access Point</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/17/octopress/">Octopress</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Markdown blogging platform built on Ruby.</p>
+
+<h3>Installation</h3>
+
+<p>First install ruby.
+Then clone repo</p>
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress
+</code></pre>
+
+<p>Install dependencies</p>
+
+<pre><code>sudo gem install bundler
+bundle install # make sure to run this one in the 'octopress' directory
+</code></pre>
+
+<p>Install default theme</p>
+
+<pre><code>rake install
+</code></pre>
+
+<h3>Useful Links and References</h3>
+
+<p><a href="http://octopress.org" title="Octopress Official Site">Octopress.org</a></p>
+
+<p><a href="http://jekyllrb.com/docs" title="Jekyll's Documentation">Jekyll Docs</a></p>
+
+<p><a href="http://blog.bigdinosaur.org/changing-octopresss-header/" title="Calling all noobs">BigdinosaurBlog: Changing Octopress&#8217; Header</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/17/git/">GIT Version Control System</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Starting a new repo</h2>
+
+<p>create project directory</p>
+
+<pre><code>mkdir -p &lt;folder&gt;
+cd &lt;folder&gt;
+</code></pre>
+
+<p>create files or copy them from existing project.</p>
+
+<pre><code>touch README.md
+</code></pre>
+
+<p>initialize barebone git files</p>
+
+<pre><code>git init
+</code></pre>
+
+<p>prepare commit with annotations and files</p>
+
+<pre><code>git add README.md
+git commit -m "&lt;message&gt;"
+</code></pre>
+
+<p>new project, so create remote origin, and master branch</p>
+
+<pre><code>git remote add origin &lt;url | git@github.com:pnd4/&lt;project&gt;.git"
+</code></pre>
+
+<p>publish files to the new git-repository</p>
+
+<pre><code>git push -u origin master
+</code></pre>
+
+<h4>Tips from the IRC guys</h4>
+
+<p><em>Excerpt from: freenode_#crunchbang-offtopic_20130929.log</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[00:04:25] &lt;Ferus&gt; also thats why you git pull
+</span><span class='line'>[00:04:28] &lt;Ferus&gt; all the time
+</span><span class='line'>[00:04:29] &lt;Ferus&gt; lel
+</span><span class='line'>[00:04:33] &lt;orik&gt; xD
+</span><span class='line'>[00:04:57] * Ferus passes pnd4 an american spirit black
+</span><span class='line'>[00:04:59] &lt;pnd4&gt; hmm whats the diff between git pull and clone?
+</span><span class='line'>[00:05:00] &lt;orik&gt; well phoronix even has good things to say about mpv
+</span><span class='line'>[00:05:10] &lt;orik&gt; a pull just checks for changes and
+</span><span class='line'>[00:05:19] &lt;Ferus&gt; clone clones a new repo, pull pulls the new changes from master
+</span><span class='line'>[00:05:26] &lt;orik&gt; ^^
+</span><span class='line'>[00:05:27] &lt;pnd4&gt; oh ok.. thanks
+</span><span class='line'>[00:05:50] &lt;orik&gt; man I've been using git at work for the past three months and I swear I still don't fully understand it
+</span><span class='line'>[00:05:56] &lt;Ferus&gt; tl;dr if the repo doesnt exist locally, you clone from master, if it does exist locally, you pull from master
+</span><span class='line'>[00:06:19] &lt;Ferus&gt; orik: i've been using git for two years, i broke my repo 5 months ago and havent fixed it
+</span><span class='line'>[00:06:34] &lt;Ferus&gt; (i dont know how ;_;)
+</span><span class='line'>[00:07:41] &lt;pnd4&gt; ok so Ive cloned dwmstatus earlier, made changes. if I do a pull, does it undo my changes to match the current master?
+</span><span class='line'>[00:07:52] *** Joins: salam4ik (~salam4ik@89.106.233.158)
+</span><span class='line'>[00:08:10] * pnd4 copies directory and just tries it.. 'banzai!'
+</span><span class='line'>[00:08:21] &lt;Ferus&gt; no, it'll complain that you have un-stashed changed
+</span><span class='line'>[00:08:23] &lt;Ferus&gt; changes*
+</span><span class='line'>[00:08:39] &lt;Ferus&gt; so you want to do `git stash; git pull; git stash pop`
+</span><span class='line'>[00:09:05] &lt;pnd4&gt; stash, thats a new one too.. did I mention I'm quite new to git ? haha.
+</span><span class='line'>[00:09:17] &lt;Ferus&gt; (this is all i know how to do)
+</span><span class='line'>[00:09:27] &lt;Ferus&gt; besides add and rm, but thats kinda obvious
+</span><span class='line'>[00:09:44] &lt;pnd4&gt; thanks. I'll try and remember that if/when suckless puts out a new version
+</span><span class='line'>[00:10:49] &lt;pnd4&gt; I think having familiarity with git should help in the job search.. I mean, who wouldn't want a guy that's familiar with widely used version control systems?
+</span><span class='line'>[00:10:49] &lt;Ferus&gt; you can always google it
+</span><span class='line'>[00:11:46] &lt;pnd4&gt; that is true, but the tl;dr versions are always nice
+</span><span class='line'>[00:12:52] &lt;pnd4&gt; Halts: ebay has the hat I want for 25 (down from 35$) .. they're out of my size.. I share your pain.
+</span><span class='line'>[00:14:05] &lt;pnd4&gt; its like that scene in 'The Last Samurai' where they cut his hair
+</span><span class='line'>[00:15:40] &lt;Halts&gt; at least you can buy your hat.
+</span><span class='line'>[00:16:01] &lt;pnd4&gt; would you buy your jersey still if it was 120 ?
+</span><span class='line'>[00:16:59] &lt;Ferus&gt; &gt; IP Location: Kingston / New York / United States
+</span><span class='line'>[00:17:08] &lt;Ferus&gt; bahaha this site is horrible, cant even geolocate
+</span><span class='line'>[00:18:22] &lt;Halts&gt; haha, not right now.
+</span><span class='line'>[00:18:28] &lt;Halts&gt; but I eventually would, yes.
+</span><span class='line'>[00:18:40] &lt;Halts&gt; I'd like to get it for
+</span><span class='line'>[00:18:50] &lt;Halts&gt; but, a bunch of cunts ruined that
+</span><span class='line'>[00:19:57] *** Quits: orik (~orik@50-46-134-47.evrt.wa.frontiernet.net) (Remote host closed the connection)
+</span><span class='line'>[00:20:51] &lt;n2o4&gt; pnd4: Just checkout your features into it's own branch, for example git clone foobar, git checkout -b my-super-branch, make edits and commit, issue git checkout master to check into the master branch again.</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Protips from GitHub</h4>
+
+<ol>
+<li>Use git add &mdash;interactive to stage part of your working copy for commit.</li>
+</ol>
+
+
+<h2>Useful Links and References</h2>
+
+<ol>
+<li><a href="https://github.com">GitHub</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -210,367 +727,6 @@ Update user:  gem update</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/pinapple-v/">Wifi Pinapple Mark 5</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Advanced standalone pentesting tool for wireless networks.</p>
-
-<h3>Specs</h3>
-
-<blockquote><p>AR9331 and RTL8187
-16mb ROM / 64mb DDR2 RAM</p></blockquote>
-
-<h3>Software</h3>
-
-<p>&ldquo;Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver.&rdquo; &mdash;HakShop</p>
-
-<h3>Useful Links and References</h3>
-
-<p><a href="http://hakshop.myshopify.com/collections/wifi-pineapple/products/wifi-pineapple" title="Wifi Pinapple Mark 5">HakShop: Wifi Pinapple Mark 5</a></p>
-
-<p><a href="https://wifipineapple.com/index.php">wifipinapple.com</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/firewall/">Firewalls</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
-
-<h3>Where the rules files go</h3>
-
-<p>In Arch, the usual /etc/iptables/iptables.rules
-In Gentoo, the rules are restored from /var/lib/iptables/rules-save
-In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
-
-<h3>Rules Basic Template</h3>
-
-<p>Based on: <a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall</a></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>*filter
-</span><span class='line'>:INPUT DROP [0:0]
-</span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [0:0]
-</span><span class='line'>:TCP - [0:0]
-</span><span class='line'>:UDP - [0:0]
-</span><span class='line'>## === BEGIN: First Rule ======================================
-</span><span class='line'># Keep before ping limiting rules to limit pings per connection
-</span><span class='line'>-I INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-</span><span class='line'>## === END: First Rule ========================================
-</span><span class='line'>## === BEGIN: Ping limiting ===================================
-</span><span class='line'># Keep after 'RELATED, ESTABLISHED' to limit pings per connection
-</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --set
-</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --update --hitcount 6 --seconds 10 -j DROP
-</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-</span><span class='line'>## === END: Ping limiting =====================================
-</span><span class='line'>## === BEGIN: General Rules ===================================
-</span><span class='line'># Extra protection against spoofing attacks (see: sysctl regarding rp_filter)
-</span><span class='line'>-I INPUT ! -i lo -s 127.0.0.0/8 -j DROP
-</span><span class='line'># Accept all traffic coming from localhost
-</span><span class='line'>-A INPUT -i lo -j ACCEPT
-</span><span class='line'>-A INPUT -d 127.0.0.0/8 -j REJECT
-</span><span class='line'>-A INPUT -m conntrack --ctstate INVALID -j DROP
-</span><span class='line'>-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP
-</span><span class='line'>-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
-</span><span class='line'>## === END: General Rules =====================================
-</span><span class='line'>## === BEGIN: Services ========================================
-</span><span class='line'>## NTP
-</span><span class='line'>#-A UDP -p tcp -i eth0 -s 192.168.12.0/24 --dport 123 -j ACCEPT
-</span><span class='line'>## SSH
-</span><span class='line'>#-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 22 -j ACCEPT
-</span><span class='line'>## TRANSMISSION
-</span><span class='line'>#Allow transmission to talk to users
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.18 -j ACCEPT
-</span><span class='line'>#Restrict transmission from using other ports.
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission ! -o tun+ -j REJECT
-</span><span class='line'>#Allow users to talk to transmission
-</span><span class='line'>-A TCP -p tcp -s 192.168.12.18 --dport 9091 -j ACCEPT
-</span><span class='line'>## === END: Services ==========================================
-</span><span class='line'>## === BEGIN: Trick Port Scanning =============================
-</span><span class='line'>-I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
-</span><span class='line'>-I UDP -p udp -m recent --update --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with port-unreach
-</span><span class='line'>-A INPUT -p tcp -m recent --set --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
-</span><span class='line'>-A INPUT -p udp -m recent --set --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreach
-</span><span class='line'>## === END: Trick Port Scanning ===============================
-</span><span class='line'>## === BEGIN: Last Rule =======================================
-</span><span class='line'># This rule must be kept at the end, regardless if port-scan or ping limit is used.
-</span><span class='line'>-A INPUT -j REJECT --reject-with icmp-proto-unreachable
-</span><span class='line'>## === END: Last Rule =========================================
-</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Internet Connection Sharing</h3>
-
-<p>Involves adding additional rules</p>
-
-<p><em>For the template below:</em></p>
-
-<pre><code>|          |              wan |             lan  |  
-|---------:|-----------------:|-----------------:|  
-|  iface   |             wan0 |            lan0  |  
-|  subnet  |     192.168.12.0 |    172.168.42.0  |  
-</code></pre>
-
-<p><em>Example Template</em></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>*nat
-</span><span class='line'>:PREROUTING ACCEPT [0:0]
-</span><span class='line'>:INPUT ACCEPT [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [0:0]
-</span><span class='line'>:POSTROUTING ACCEPT [0:0]
-</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
-</span><span class='line'>COMMIT
-</span><span class='line'>*filter
-</span><span class='line'>:INPUT ACCEPT [0:0]
-</span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [0:0]
-</span><span class='line'>:fw-interfaces - [0:0]
-</span><span class='line'>:fw-open - [0:0]
-</span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-</span><span class='line'>-A FORWARD -j fw-interfaces
-</span><span class='line'>-A FORWARD -j fw-open
-</span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
-</span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
-</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>References</h4>
-
-<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
-<a href="https://wiki.debian.org/iptables">Debwiki</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/backup-configs/">Backing Up Configuration</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>To-do</h2>
-
-<p>Pseudocode/Outline
-Write Code
-Keep adding to list of files.</p>
-
-<h2>Brainstorm / Plans</h2>
-
-<p>Purpose: Simplify backing up configs.
-Ideas
-&ndash; Parse a list of files (backup_files.lst?)
-&ndash; Copy files to a directory (~/backup_<date> ?)
-&ndash; Archive the files?
-&ndash; Encrypt?</p>
-
-<h2>Files to backup</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>~/.zshrc
-</span><span class='line'>~/.zsh/
-</span><span class='line'>~/.Xresources
-</span><span class='line'>~/.xinitrc
-</span><span class='line'>~/.vimrc
-</span><span class='line'>~/.vim_runtime
-</span><span class='line'>~/.tmux.conf
-</span><span class='line'>~/.ssh/
-</span><span class='line'>~/.gnupg
-</span><span class='line'>~/.conkyrc
-</span><span class='line'>~/.config
-</span><span class='line'>~/.dzen
-</span><span class='line'>~/.bashrc</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Script code</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
-</span><span class='line'>echo "Backing up config.."
-</span><span class='line'>echo "Processing $currentFile"
-</span><span class='line'>if [$? -eq 1]; then
-</span><span class='line'>    # move to next file
-</span><span class='line'>else
-</span><span class='line'>    # prompt user to continue
-</span><span class='line'>fi
-</span><span class='line'>echo "Done"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>[^1] Reference one. <a href="http://wiki.archlinux.org">http://wiki.archlinux.org</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -588,20 +744,20 @@ Ideas
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/11/04/iptables-transmission-vpn/">IPTables + Transmission + VPN</a>
+        <a href="/blog/2013/11/23/rtmpdump/">CLI RTMP Streaming</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/10/21/solidworks-build/">Solidworks Rig</a>
+        <a href="/blog/2013/11/11/motion-webcam/">Motion Webcam</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/10/18/hostapd/">Hostapd</a>
+        <a href="/blog/2013/11/09/gentoo-genkernel-upgrade/">Gentoo - Genkernel Upgrade Steps</a>
       </li>
     
   </ul>
 </section>
-
+Included file &#8216;asides/twitter.html&#8217; not found in _includes directory
 <section>
   <h1>Git</h1>
   <ul id="gh_repos">
@@ -630,9 +786,6 @@ Ideas
   </script>
   <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
-
-
-
 
 
   
