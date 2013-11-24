@@ -22,11 +22,11 @@
     </url>
     <url>
         <loc>http://pnd4.github.io/blog/2013/10/16/template/</loc>
-        <lastmod>2013-10-18T08:30:51-07:00</lastmod>
+        <lastmod>2013-11-23T23:11:44-08:00</lastmod>
     </url>
     <url>
         <loc>http://pnd4.github.io/blog/2013/10/17/git/</loc>
-        <lastmod>2013-10-18T16:25:02-07:00</lastmod>
+        <lastmod>2013-11-23T21:31:41-08:00</lastmod>
     </url>
     <url>
         <loc>http://pnd4.github.io/blog/2013/10/17/octopress/</loc>
@@ -45,12 +45,24 @@
         <lastmod>2013-11-04T02:38:23-08:00</lastmod>
     </url>
     <url>
+        <loc>http://pnd4.github.io/blog/2013/11/09/gentoo-genkernel-upgrade/</loc>
+        <lastmod>2013-11-11T21:00:15-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://pnd4.github.io/blog/2013/11/11/motion-webcam/</loc>
+        <lastmod>2013-11-11T21:14:50-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://pnd4.github.io/blog/2013/11/23/rtmpdump/</loc>
+        <lastmod>2013-11-23T23:12:19-08:00</lastmod>
+    </url>
+    <url>
         <loc>http://pnd4.github.io/profile/</loc>
         <lastmod>2013-10-18T05:46:42-07:00</lastmod>
     </url>
     <url>
         <loc>http://pnd4.github.io/blog/archives/</loc>
-        <lastmod>2013-11-04T02:38:23-08:00</lastmod>
+        <lastmod>2013-11-23T23:12:19-08:00</lastmod>
     </url>
     <url>
         <loc>http://pnd4.github.io/robots.txt</loc>
@@ -58,6 +70,6 @@
     </url>
     <url>
         <loc>http://pnd4.github.io/</loc>
-        <lastmod>2013-11-04T02:38:23-08:00</lastmod>
+        <lastmod>2013-11-23T23:12:19-08:00</lastmod>
     </url>
 </urlset>
