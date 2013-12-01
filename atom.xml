@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2013-12-01T14:48:15-08:00</updated>
+  <updated>2013-12-01T15:51:23-08:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -246,9 +246,7 @@ The script should basically:</p>
 </ul>
 
 
-<h3>Firewall Safeguards</h3>
-
-<p>To be on the safe-side of dodging the copyright-infringement-notices, you may want to use your firewall to drop traffic you know is no bueno. For instance, traffic belonging to the bittorrent-client that is &lsquo;outbound&rsquo; on anything but the intended interface.</p>
+<h3>Quote</h3>
 
 <blockquote><p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
 Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&rsquo;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p></blockquote>
@@ -734,7 +732,7 @@ git commit -m "&lt;message&gt;"
 <pre><code>git push -u origin master
 </code></pre>
 
-<h4>Tips from the IRC guys</h4>
+<h2>Tips from the IRC guys</h2>
 
 <p><em>Excerpt from: freenode_#crunchbang-offtopic_20130929.log</em></p>
 
@@ -818,13 +816,6 @@ git commit -m "&lt;message&gt;"
 </span><span class='line'>[00:18:50] &lt;Halts&gt; but, a bunch of cunts ruined that
 </span><span class='line'>[00:19:57] *** Quits: orik (~orik@50-46-134-47.evrt.wa.frontiernet.net) (Remote host closed the connection)
 </span><span class='line'>[00:20:51] &lt;n2o4&gt; pnd4: Just checkout your features into it's own branch, for example git clone foobar, git checkout -b my-super-branch, make edits and commit, issue git checkout master to check into the master branch again.</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Protips from GitHub</h4>
-
-<ol>
-<li>Use git add &mdash;interactive to stage part of your working copy for commit.</li>
-</ol>
 
 
 <h2>Useful Links and References</h2>
