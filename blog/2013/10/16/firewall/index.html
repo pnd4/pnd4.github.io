@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Firewalls - PND4</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="Use iptables to secure netlink infrastructure. Where the rules files go In Arch, the usual /etc/iptables/iptables.rules
+In Gentoo, the rules are &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://pnd4.github.io/blog/2013/10/16/firewall">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">PND4</a></h1>
+  
+    <h2>/dev/notes</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:pnd4.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/profile/">Profile</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Firewalls</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
+
+<h3>Where the rules files go</h3>
+
+<p>In Arch, the usual /etc/iptables/iptables.rules
+In Gentoo, the rules are restored from /var/lib/iptables/rules-save
+In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
+
+<h3>Rules Basic Template</h3>
+
+<p>Based on: <a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*filter
+</span><span class='line'>:INPUT DROP [0:0]
+</span><span class='line'>:FORWARD DROP [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:TCP - [0:0]
+</span><span class='line'>:UDP - [0:0]
+</span><span class='line'>## === BEGIN: First Rule ======================================
+</span><span class='line'># Keep before ping limiting rules to limit pings per connection
+</span><span class='line'>-I INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</span><span class='line'>## === END: First Rule ========================================
+</span><span class='line'>## === BEGIN: Ping limiting ===================================
+</span><span class='line'># Keep after 'RELATED, ESTABLISHED' to limit pings per connection
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --set
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --update --hitcount 6 --seconds 10 -j DROP
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+</span><span class='line'>## === END: Ping limiting =====================================
+</span><span class='line'>## === BEGIN: General Rules ===================================
+</span><span class='line'># Extra protection against spoofing attacks (see: sysctl regarding rp_filter)
+</span><span class='line'>-I INPUT ! -i lo -s 127.0.0.0/8 -j DROP
+</span><span class='line'># Accept all traffic coming from localhost
+</span><span class='line'>-A INPUT -i lo -j ACCEPT
+</span><span class='line'>-A INPUT -d 127.0.0.0/8 -j REJECT
+</span><span class='line'>-A INPUT -m conntrack --ctstate INVALID -j DROP
+</span><span class='line'>-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP
+</span><span class='line'>-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+</span><span class='line'>## === END: General Rules =====================================
+</span><span class='line'>## === BEGIN: Services ========================================
+</span><span class='line'>## NTP
+</span><span class='line'>#-A UDP -p tcp -i eth0 -s 192.168.12.0/24 --dport 123 -j ACCEPT
+</span><span class='line'>## SSH
+</span><span class='line'>#-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 22 -j ACCEPT
+</span><span class='line'>## TRANSMISSION
+</span><span class='line'>#Allow transmission to talk to users
+</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.18 -j ACCEPT
+</span><span class='line'>#Restrict transmission from using other ports.
+</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission ! -o tun+ -j REJECT
+</span><span class='line'>#Allow users to talk to transmission
+</span><span class='line'>-A TCP -p tcp -s 192.168.12.18 --dport 9091 -j ACCEPT
+</span><span class='line'>## === END: Services ==========================================
+</span><span class='line'>## === BEGIN: Trick Port Scanning =============================
+</span><span class='line'>-I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+</span><span class='line'>-I UDP -p udp -m recent --update --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with port-unreach
+</span><span class='line'>-A INPUT -p tcp -m recent --set --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+</span><span class='line'>-A INPUT -p udp -m recent --set --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreach
+</span><span class='line'>## === END: Trick Port Scanning ===============================
+</span><span class='line'>## === BEGIN: Last Rule =======================================
+</span><span class='line'># This rule must be kept at the end, regardless if port-scan or ping limit is used.
+</span><span class='line'>-A INPUT -j REJECT --reject-with icmp-proto-unreachable
+</span><span class='line'>## === END: Last Rule =========================================
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Internet Connection Sharing</h3>
+
+<p>Involves adding additional rules</p>
+
+<p><em>For the template below:</em></p>
+
+<pre><code>|          |              wan |             lan  |  
+|---------:|-----------------:|-----------------:|  
+|  iface   |             wan0 |            lan0  |  
+|  subnet  |     192.168.12.0 |    172.168.42.0  |  
+</code></pre>
+
+<p><em>Example Template</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*nat
+</span><span class='line'>:PREROUTING ACCEPT [0:0]
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:POSTROUTING ACCEPT [0:0]
+</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
+</span><span class='line'>COMMIT
+</span><span class='line'>*filter
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:FORWARD DROP [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:fw-interfaces - [0:0]
+</span><span class='line'>:fw-open - [0:0]
+</span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</span><span class='line'>-A FORWARD -j fw-interfaces
+</span><span class='line'>-A FORWARD -j fw-open
+</span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
+</span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>References</h4>
+
+<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
+<a href="https://wiki.debian.org/iptables">Debwiki</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/16/backup-configs/" title="Previous Post: Backing up Configuration">&laquo; Backing up Configuration</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/10/16/pinapple-v/" title="Next Post: Wifi Pinapple Mark 5">Wifi Pinapple Mark 5 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Latest Topics</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/23/rtmpdump/">CLI RTMP Streaming</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/11/motion-webcam/">Motion Webcam</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/09/gentoo-genkernel-upgrade/">Gentoo - Genkernel Upgrade Steps</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Git</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/pnd4">@pnd4</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'pnd4',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
