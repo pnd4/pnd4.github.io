@@ -9,8 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Advanced standalone pentesting tool for wireless networks. Specs AR9331 and RTL8187
-16mb ROM / 64mb DDR2 RAM Software &ldquo;Available Pentest &hellip;">
+  <meta name="description" content="Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +67,79 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/16/ruby-install/">Ruby Installation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by root).</p>
+
+<h2>Installing</h2>
+
+<p>Instead of using rvm or rbenv, stick to installing Ruby system-wide with pacman.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pacman -S ruby</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Paths</h2>
+
+<p>Caution editing your .bashrc or .zshrc.. root does not need to have a GEM_HOME or ~/.gem/ruby/2.0.0 added to its PATH</p>
+
+<h3>~/.gemrc</h3>
+
+<p>For root, create .gemrc so that when gems are installed as root, it uses the system-wide directory.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem: --no-user-install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Optionally, create user&rsquo;s .gemrc as well, although it&rsquo;d be the same as in /etc/gemrc, which is automatically made by the ArchPkg</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem: --user-install</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Updating Gems</h2>
+
+<p>Update system:  sudo gem update &mdash;system
+Update user:  gem update</p>
+
+<h2>Useful Links and References</h2>
+
+<p><a href="https://wiki.archlinux.org/index.php/Ruby">Archwiki: Ruby</a></p>
+
+<p><a href="https://projects.archlinux.org/svntogit/packages.git/tree/trunk/ruby.install?h=packages/ruby">Note from ArchDev about .gemrc</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -481,15 +553,15 @@ Ideas
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/11/23/rtmpdump/">CLI RTMP Streaming</a>
       </li>
     
       <li class="post">
         <a href="/blog/2013/11/11/motion-webcam/">Motion Webcam</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/09/gentoo-genkernel-upgrade/">Gentoo - Genkernel Upgrade Steps</a>
       </li>
     
   </ul>

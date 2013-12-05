@@ -5,14 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Solidworks Rig - PND4</title>
+  <title>OpenVPN Hang Issue - PND4</title>
   <meta name="author" content="">
 
   
-  <meta name="description" content="Min Reqs (Win7x64) CPU Intel or AMD with SSE2 support. 64-bit OS recommended.
-RAM 2GB+
-HDD 5GB+
-Video Quadro/QuadroFX/FireGL/FirePro Notes regarding &hellip;">
+  <meta name="description" content="Problem CyberGhostVPN connection hangs on service start-up
+Doesnt Investigation DNS Dec 05 2013 &ndash; 04:38 Seems CyberGhost uses a constantly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +19,7 @@ Video Quadro/QuadroFX/FireGL/FirePro Notes regarding &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pnd4.github.io/blog/2013/10/21/solidworks-build">
+  <link rel="canonical" href="http://pnd4.github.io/blog/2013/12/05/ovpn-hang">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
@@ -73,7 +71,7 @@ Video Quadro/QuadroFX/FireGL/FirePro Notes regarding &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Solidworks Rig</h1>
+      <h1 class="entry-title">OpenVPN Hang Issue</h1>
     
     
       <p class="meta">
@@ -89,85 +87,40 @@ Video Quadro/QuadroFX/FireGL/FirePro Notes regarding &hellip;">
   
 
 
-<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true">Oct 21<span>st</span>, 2013</time>
+<time datetime="2013-12-05T00:00:00-08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h4>Min Reqs (Win7x64)</h4>
+<div class="entry-content"><h1>Problem</h1>
 
-<pre><code>CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
-RAM     2GB+
-HDD     5GB+
-Video   Quadro/QuadroFX/FireGL/FirePro
-</code></pre>
+<p>CyberGhostVPN connection hangs on service start-up
+Doesnt</p>
 
-<h2>Notes regarding HW selection</h2>
+<h1>Investigation</h1>
 
-<ul>
-<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814195112">FirePro v3900</a> was best bang for buck. Good Solidworks reviews.</li>
-<li>4GB of RAM will work, can always upgrade.</li>
-<li>3.5Ghz Dual core + Hyper-Threading (<a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16819116775">i3-3220</a>/3240) should be plenty.</li>
-</ul>
+<h4>DNS</h4>
 
+<p><strong>Dec 05 2013 &ndash; 04:38</strong></p>
 
-<p><a href="http://www.capinc.com/support/tips/solidworks-tech-tips-hardware">Capinc Solidworks HW Tips</a></p>
+<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
 
-<ul>
-<li>Video Card: VERY important</li>
-<li>Proc: Solidworks is optimized for multiple cores</li>
-<li>RAM:
-Solidworks grabs 340mb on launch.
-4gb+ is only necessary for very large assemblies (over 10,000 parts)</li>
-<li>HD: Generally, does not affect Solidworks performance</li>
-</ul>
+<p>The thread below talks about tuning openvpn to fix this.</p>
 
+<blockquote><p>By default, on initial startup and restart, the &mdash;remote name is resolved
+once. If the DNS resolve fails, OpenVPN will abort.</p>
 
-<h2>Newegg specials for Oct.</h2>
+<p>If &mdash;resolve-retry is specified, the DNS resolve will be retried for n
+seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
+will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
 
-<p><strong>&ldquo;i5&rdquo; Combo + FirePro V3900 [ ~$630 ] (until 10/25)</strong></p>
+<p>If you want to disable the DNS re-resolve on restart, you can use
+&mdash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &mdash;remote IP
+address without doing a new DNS lookup.</p></blockquote>
 
-<p>Someone mentioned i5 &amp; i7&rsquo;s have decent enough graphics to run Solidworks.. maybe just get FirePro later, if needed?</p>
-
-<ul>
-<li>Trustworthy PSU</li>
-<li>i5 is Quad Core, 8MB-L2, HD4000 &lsquo;integrated&rsquo; gfx</li>
-<li>8GB RAM</li>
-<li>1TB HDD, SSD would&rsquo;ve been nicer.</li>
-<li>USB 3.0</li>
-<li><p>No case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151">Combo: 1291151</a></p></li>
-</ul>
-
-
-<p><strong>&ldquo;i3&rdquo; Combo + FirePro V3900 [ ~$ 430 ] (until 10/31)</strong></p>
-
-<ul>
-<li>Decent PSU. But low wattage.</li>
-<li>500GB HDD</li>
-<li>USB 3.0</li>
-<li><p>Plain Case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103">Combo: 1271103</a></p></li>
-</ul>
-
-
-<p><strong>&ldquo;Budget Gaming&rdquo; Combo [ $ 370 ] (until 10/31)</strong></p>
-
-<ul>
-<li>nVidia GT 640 2GB, instead of FirePro ?<br/>
-  .. donno if that&rsquo;s such a good idea.</li>
-<li>Good PSU</li>
-<li>500GB HDD</li>
-<li>USB 3.0</li>
-<li><p>Decent looking case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943">Combo: 1461943</a></p></li>
-</ul>
-
+<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
 </div>
 
 
@@ -190,7 +143,7 @@ Solidworks grabs 340mb on launch.
   
 
 
-<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true">Oct 21<span>st</span>, 2013</time>
+<time datetime="2013-12-05T00:00:00-08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
       
 
 
@@ -207,10 +160,8 @@ Solidworks grabs 340mb on launch.
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/10/18/hostapd/" title="Previous Post: Hostapd">&laquo; Hostapd</a>
+        <a class="basic-alignment left" href="/blog/2013/11/23/rtmpdump/" title="Previous Post: CLI RTMP Streaming">&laquo; CLI RTMP Streaming</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/11/04/iptables-transmission-vpn/" title="Next Post: IPTables + Transmission + VPN">IPTables + Transmission + VPN &raquo;</a>
       
     </p>
   </footer>
