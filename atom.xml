@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2014-04-02T21:49:51-07:00</updated>
+  <updated>2014-04-03T08:21:54-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dual-Monitor Toggle]]></title>
+    <link href="http://pnd4.github.io/blog/2014/04/03/dual-monitor-toggle/"/>
+    <updated>2014-04-03T02:07:00-07:00</updated>
+    <id>http://pnd4.github.io/blog/2014/04/03/dual-monitor-toggle</id>
+    <content type="html"><![CDATA[<p>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</p>
+
+<h2>xrandr</h2>
+
+<p>Using <code>xrandr</code> we are able to dynamically modify our desktop&rsquo;s properties.</p>
+
+<p><strong>OFF</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>ON</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Useful Links and References</h2>
+
+<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[OpenVPN Hang Issue]]></title>

@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OpenVPN Hang Issue - PND4</title>
+  <title>Dual-Monitor Toggle - PND4</title>
   <meta name="author" content="">
 
   
-  <meta name="description" content="Problem CyberGhostVPN connection hangs on service start-up
-Doesnt Investigation DNS Dec 05 2013 &ndash; 04:38 Seems CyberGhost uses a constantly &hellip;">
+  <meta name="description" content="Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ Doesnt Investigation DNS Dec 05 2013 &ndash; 04:38 Seems CyberGhost uses a const
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pnd4.github.io/blog/2013/12/05/ovpn-hang">
+  <link rel="canonical" href="http://pnd4.github.io/blog/2014/04/03/dual-monitor-toggle">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
@@ -71,7 +70,7 @@ Doesnt Investigation DNS Dec 05 2013 &ndash; 04:38 Seems CyberGhost uses a const
   
   <header>
     
-      <h1 class="entry-title">OpenVPN Hang Issue</h1>
+      <h1 class="entry-title">Dual-Monitor Toggle</h1>
     
     
       <p class="meta">
@@ -87,40 +86,34 @@ Doesnt Investigation DNS Dec 05 2013 &ndash; 04:38 Seems CyberGhost uses a const
   
 
 
-<time datetime="2013-12-05T00:00:00-08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
+<time datetime="2014-04-03T02:07:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h1>Problem</h1>
+<div class="entry-content"><p>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</p>
 
-<p>CyberGhostVPN connection hangs on service start-up
-Doesnt</p>
+<h2>xrandr</h2>
 
-<h1>Investigation</h1>
+<p>Using <code>xrandr</code> we are able to dynamically modify our desktop&rsquo;s properties.</p>
 
-<h4>DNS</h4>
+<p><strong>OFF</strong></p>
 
-<p><strong>Dec 05 2013 &ndash; 04:38</strong></p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
 
-<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
 
-<p>The thread below talks about tuning openvpn to fix this.</p>
+<p><strong>ON</strong></p>
 
-<blockquote><p>By default, on initial startup and restart, the &mdash;remote name is resolved
-once. If the DNS resolve fails, OpenVPN will abort.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
 
-<p>If &mdash;resolve-retry is specified, the DNS resolve will be retried for n
-seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
-will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
 
-<p>If you want to disable the DNS re-resolve on restart, you can use
-&mdash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &mdash;remote IP
-address without doing a new DNS lookup.</p></blockquote>
+<h2>Useful Links and References</h2>
 
-<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
+<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a></p>
 </div>
 
 
@@ -143,7 +136,7 @@ address without doing a new DNS lookup.</p></blockquote>
   
 
 
-<time datetime="2013-12-05T00:00:00-08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
+<time datetime="2014-04-03T02:07:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2014</time>
       
 
 
@@ -160,10 +153,8 @@ address without doing a new DNS lookup.</p></blockquote>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/11/23/rtmpdump/" title="Previous Post: CLI RTMP Streaming">&laquo; CLI RTMP Streaming</a>
+        <a class="basic-alignment left" href="/blog/2013/12/05/ovpn-hang/" title="Previous Post: OpenVPN Hang Issue">&laquo; OpenVPN Hang Issue</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/04/03/dual-monitor-toggle/" title="Next Post: Dual-Monitor Toggle">Dual-Monitor Toggle &raquo;</a>
       
     </p>
   </footer>
