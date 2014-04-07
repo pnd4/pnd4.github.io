@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Profile - PND4</title>
+  <title>herp derp.. 3 std's and a null - PND4</title>
   <meta name="author" content="">
 
   
-  <meta name="description" content="Profile My name is Kevin. I’m a computer engineering student at Cal State San Bernardino. I previously attended the University of California: &hellip;">
+  <meta name="description" content="Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pnd4.github.io/profile">
+  <link rel="canonical" href="http://pnd4.github.io/blog/2012/08/10/64">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
@@ -66,27 +66,91 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Profile</h1>
+    
+      <h1 class="entry-title">Herp Derp.. 3 Std's and a Null</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-10T10:03:29-07:00" pubdate data-updated="true">Aug 10<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <p><img class="left" src="/images/profile.jpg" width="217" height="290"> My name is Kevin. I’m a computer engineering student at Cal State San Bernardino. I previously attended the University of California: Riverside and also received an Associate of Science degree in computer programming from Riverside Community College. Some languages I am proficient in include: Microsoft ASM(32), Bash, C, C++, CSS, HTML, Javascript, Ruby, PHP. Hardware wise, I enjoy soldering projects, in particular building and repair of hifi-amplifiers. I have a fond interest in networking in’s and out’s, both ethernet and 802.11 fronts, as well as information security and forensics.</p>
 
-<p><strong>eMail</strong><br/>
-<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x6b;&#x65;&#x76;&#x69;&#x6e;&#64;&#112;&#110;&#100;&#x34;&#x2e;&#x6e;&#x65;&#x74;">&#x6b;&#x65;&#x76;&#x69;&#x6e;&#x40;&#112;&#x6e;&#100;&#x34;&#x2e;&#x6e;&#101;&#x74;</a></p>
 
-<p><strong>IRC</strong><br/>
-<code>pnd4</code> @freenode.net<br/>
-<code>pnd4</code> @oftc.net</p>
+<div class="entry-content"><p><img class="center" src="/images/2012-08-10-64/screenshot-08102012-050248-pm2.png"></p>
 
-  
-    <footer>
+<p>Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you&rsquo;ll see a lot in command-line scripting languages such as bash or Python.</p>
+
+<p>A good way to check which &lsquo;devices&rsquo; correspond with which number is by running this command.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l /dev/null /dev/std*</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the &lsquo;bit-bucket&rsquo; and certainly is a doorway to hell in which any data becomes a doomed soul.</p>
+
+<p>Now, you&rsquo;re gonna want to know how to use these devices in a command line. Look no further:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l / 2>/dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This command will list your root partition with &ldquo;long lists&rdquo; and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.</p>
+
+<p>A couple more resources:
+<a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “> /dev/null 2>&amp;1″ mean?</a>
+<a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&rsquo;s Blog: /dev/null</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
+  
+
+<span class="byline author vcard">Posted by <span class="fn">pnd4</span></span>
+
       
-        <div class="sharing">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-10T10:03:29-07:00" pubdate data-updated="true">Aug 10<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/computing/'>Computing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
   
   
   
@@ -94,9 +158,16 @@
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2012/08/09/installing-bt5-chroot-on-the-sprint-htc-evo-4g-non-lte/" title="Previous Post: Installing BT5 (chroot) on the Sprint HTC Evo 4G (non LTE)">&laquo; Installing BT5 (chroot) on the Sprint HTC Evo 4G (non LTE)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/12/intel-graphics-and-early-kms/" title="Next Post: Intel graphics and early-KMS">Intel graphics and early-KMS &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>

@@ -1,0 +1,81 @@
+---
+author: pnd4
+comments: true
+date: 2012-08-21 17:37:26
+layout: post
+slug: systemd
+title: Migrating to Systemd
+wordpress_id: 102
+categories:
+- Computing
+---
+
+{% img center /images/2012-08-21-systemd/08202012-105537pm.png %}
+
+_Last night I stumbled upon systemd, freedesktop.org's set of services and scripts for the Linux System Base (LSB) to bring it up to userspace. Making good use of parallelization to beat its predecessor, sysvinit, it boots my laptop up in less than 10 seconds from grub to login-prompt and Im not even using a Solid State Drive (SSD).. Needless to say, I've been happy with its performance but Ive only been running it on my system for less than 24-hrs and there's still some tweaks need to be made to make a clean and full transition. I really hope more distro's make the migration natively, and it seems that my sentiments are shared in the community._
+
+_Without further ado, here are my notes:_
+
+Lets begin by installing the **systemd** package
+
+Manually add **init=/bin/systemd **to your grub config.
+
+Setup native systemd configuration files
+
+
+{% codeblock %}
+# echo "your-hostname" > **/etc/hostname**
+{% endcodeblock %}
+
+{% codeblock %}
+**/etc/vconsole.conf**
+KEYMAP=us
+FONT=lat9w-16
+FONT_MAP=8859-1_to_uni
+{% endcodeblock %}
+
+{% codeblock %}
+**/etc/locale.conf**
+LANG=en_US.UTF-8
+LC_COLLATE=C
+{% endcodeblock %}
+
+{% codeblock %}
+# echo "America/Los_Angeles" > **/etc/timezone**
+{% endcodeblock %}
+
+Once the previous steps are complete, you're all clear to reboot. Hopefully all went well and you'll be able to see some drastic speed improvements over sysV. Now all thats left is some optional steps to stay in good, proper form and possibly tweaking of services like syslog-ng which has been deprecated in favor of journalctl (which ships with systemd).
+
+[Optional] By default, running a syslog daemon is no longer required. To read the log, use:
+
+{% codeblock %}
+# journalctl
+{% endcodeblock %}
+
+The journal writes to `/run/systemd/journal`, meaning logs will be lost on reboot. For non-volatile logs, create `/var/log/journal/`:
+
+{% codeblock %}
+# mkdir /var/log/journal/
+{% endcodeblock %}
+
+[Optional] Replace acpid with systemd mechanisms by uncommenting these from /etc/systemd/logind.conf``
+
+	
+  * **`HandlePowerKey`** : Power off the system when the power button is pressed
+
+	
+  * **`HandleSleepKey`** : Suspend the system when the sleep key is pressed
+
+	
+  * **`HandleLidSwitch`** : Suspend the system when the laptop lid is closed
+
+
+[Optional] After a successful reboot, you can clean up by
+
+	
+  * removing packages pertaining to sysV (i.e.** sysvinit**,** initscripts**)
+
+	
+  * remove the **init=/bin/systemd **from your grub.cfg if you used the **systemd-sysvcompat** transitional package.
+
+

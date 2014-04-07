@@ -1,0 +1,37 @@
+---
+author: pnd4
+comments: true
+date: 2012-08-10 17:03:29
+layout: post
+slug: '64'
+title: herp derp.. 3 std's and a null
+wordpress_id: 64
+categories:
+- Computing
+---
+
+{% img center /images/2012-08-10-64/screenshot-08102012-050248-pm2.png %}
+
+Today 'patient' and I learned with some help from 'dizzie' about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you'll see a lot in command-line scripting languages such as bash or Python.
+
+
+A good way to check which 'devices' correspond with which number is by running this command.
+
+{% codeblock %}
+ls -l /dev/null /dev/std*
+{% endcodeblock %}
+
+In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the 'bit-bucket' and certainly is a doorway to hell in which any data becomes a doomed soul.
+
+Now, you're gonna want to know how to use these devices in a command line. Look no further:
+
+{% codeblock %}
+ls -l / 2>/dev/null
+{% endcodeblock %}
+
+
+This command will list your root partition with "long lists" and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.
+
+A couple more resources:
+[Novell: Cool Solutions: What does “> /dev/null 2>&1″ mean?](http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/)
+[Xaprb's Blog: /dev/null](http://www.novell.com/coolsolutions/feature/19859.html)

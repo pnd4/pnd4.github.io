@@ -7,7 +7,7 @@ require "stringex"
 ssh_user       = "pnd4@pnd4.net"
 ssh_port       = "2151"
 document_root  = "/var/www"
-rsync_delete   = false
+rsync_delete   = true
 rsync_args     = "--no-super"  # Any extra arguments to pass to rsync
 deploy_default = "push"
 

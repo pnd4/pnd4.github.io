@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Migrating to Systemd - PND4</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="Last night I stumbled upon systemd, freedesktop.org&rsquo;s set of services and scripts for the Linux System Base (LSB) to bring it up to userspace &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://pnd4.github.io/blog/2012/08/21/systemd">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">PND4</a></h1>
+  
+    <h2>/dev/notes</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:pnd4.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/profile/">Profile</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Migrating to Systemd</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-21T10:37:26-07:00" pubdate data-updated="true">Aug 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="center" src="/images/2012-08-21-systemd/08202012-105537pm.png"></p>
+
+<p><em>Last night I stumbled upon systemd, freedesktop.org&rsquo;s set of services and scripts for the Linux System Base (LSB) to bring it up to userspace. Making good use of parallelization to beat its predecessor, sysvinit, it boots my laptop up in less than 10 seconds from grub to login-prompt and Im not even using a Solid State Drive (SSD).. Needless to say, I&rsquo;ve been happy with its performance but Ive only been running it on my system for less than 24-hrs and there&rsquo;s still some tweaks need to be made to make a clean and full transition. I really hope more distro&rsquo;s make the migration natively, and it seems that my sentiments are shared in the community.</em></p>
+
+<p><em>Without further ado, here are my notes:</em></p>
+
+<p>Lets begin by installing the <strong>systemd</strong> package</p>
+
+<p>Manually add <strong>init=/bin/systemd </strong>to your grub config.</p>
+
+<p>Setup native systemd configuration files</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># echo "your-hostname" > **/etc/hostname**</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>**/etc/vconsole.conf**
+</span><span class='line'>KEYMAP=us
+</span><span class='line'>FONT=lat9w-16
+</span><span class='line'>FONT_MAP=8859-1_to_uni</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>**/etc/locale.conf**
+</span><span class='line'>LANG=en_US.UTF-8
+</span><span class='line'>LC_COLLATE=C</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># echo "America/Los_Angeles" > **/etc/timezone**</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once the previous steps are complete, you&rsquo;re all clear to reboot. Hopefully all went well and you&rsquo;ll be able to see some drastic speed improvements over sysV. Now all thats left is some optional steps to stay in good, proper form and possibly tweaking of services like syslog-ng which has been deprecated in favor of journalctl (which ships with systemd).</p>
+
+<p>[Optional] By default, running a syslog daemon is no longer required. To read the log, use:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># journalctl</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The journal writes to <code>/run/systemd/journal</code>, meaning logs will be lost on reboot. For non-volatile logs, create <code>/var/log/journal/</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># mkdir /var/log/journal/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>[Optional] Replace acpid with systemd mechanisms by uncommenting these from /etc/systemd/logind.conf&#8220;</p>
+
+<ul>
+<li><p><strong><code>HandlePowerKey</code></strong> : Power off the system when the power button is pressed</p></li>
+<li><p><strong><code>HandleSleepKey</code></strong> : Suspend the system when the sleep key is pressed</p></li>
+<li><p><strong><code>HandleLidSwitch</code></strong> : Suspend the system when the laptop lid is closed</p></li>
+</ul>
+
+
+<p>[Optional] After a successful reboot, you can clean up by</p>
+
+<ul>
+<li><p>removing packages pertaining to sysV (i.e.<strong> sysvinit</strong>,<strong> initscripts</strong>)</p></li>
+<li><p>remove the <strong>init=/bin/systemd </strong>from your grub.cfg if you used the <strong>systemd-sysvcompat</strong> transitional package.</p></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">pnd4</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-21T10:37:26-07:00" pubdate data-updated="true">Aug 21<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/computing/'>Computing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/13/x11-over-ssh-tunnel/" title="Previous Post: X11 over SSH tunnel">&laquo; X11 over SSH tunnel</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/26/fresh-easys-beer-selection/" title="Next Post: Fresh & Easy's Beer Selection">Fresh & Easy's Beer Selection &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Latest Topics</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/23/rtmpdump/">CLI RTMP Streaming</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Git</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/pnd4">@pnd4</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'pnd4',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
