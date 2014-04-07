@@ -9,8 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="This is a test post writen in markdown. To learn more about markdown check out the documentation on Daring Fireball.
-">
+  <meta name="description" content="So after having my 32 GB PNY Attache flash drive fail every time I tried to write to sync, it finally let me after using 1
+badblocks -vw /dev/sdx But &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/1985/10/26/test-post/">Test Post</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/03/24/improve-flash-drive-performance/">Improve Flash Drive Performance</a></h1>
     
     
       <p class="meta">
@@ -90,14 +90,277 @@
   
 
 
-<time datetime="1985-10-26T00:00:00-07:00" pubdate data-updated="true">Oct 26<span>th</span>, 1985</time>
+<time datetime="2013-03-24T12:56:36-07:00" pubdate data-updated="true">Mar 24<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>This is a test post writen in markdown. To learn more about markdown check out the <a href="http://daringfireball.net/projects/markdown/">documentation</a> on <a href="http://daringfireball.net/">Daring Fireball</a>.</p>
+  <div class="entry-content"><p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But discovering that command wasn&rsquo;t the end, I had to deal with it&rsquo;s almost impossible write-speed, this information helped:</p>
+
+<p>Append to /etc/rc.local</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
+</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
+</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Append to /etc/sysctl.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
+</span><span class='line'>vm.dirty_background_bytes = 4194304
+</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/10/encoding-mp3s-is-lame/">Encoding MP3&#8217;s Is LAME</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-10T15:19:22-08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2013-02-10-encoding-mp3s-is-lame/Screenshot-02102013-030954-PM-1024x592.png"></p>
+
+<p>Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what-not, but I&rsquo;d rather turn a 70MB into 9MB for the sake of space. Here&rsquo;s a quick one-liner as an example</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lame original-file.wav -h -V0 --vbr-new</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This results in original-file.mp3 , a high-quality 320 kbps VBR MP3.</p>
+
+<p>Wasn&rsquo;t that much easier than opening some GUI-intensive bloatware in Windows?.. Just one of the many reasons why *Nix is awesome.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/27/bitbucket-cherrytree-and-tweetdeck/">Bitbucket, CherryTree, and Tweetdeck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-27T22:01:32-08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Keeping this one short because I&rsquo;m feeling kinda lazy.</p>
+
+<p>Just pushed a few things to BitBucket.org so far. Still not used to using Git but its coming in handy and keeping things organized so hopefully my brain catches on.
+<a href="https://bitbucket.org/pnd4">https://bitbucket.org/pnd4</a></p>
+
+<p>Trying out CherryTree too. I usually only post things I feel havent been covered too much so this thing doesn&rsquo;t become too convoluted. All my little snippets and comments to myself I keep in a digital notebook at Evernote. But I wanted a way to back it up and one with syntax-highlighting or if not, at least support for preformatted text. So far its pretty nice and if you&rsquo;re interested in the idea you might wanna check it out for yourself.</p>
+
+<p>Also been loving the TweetDeck Chrome-app for managing my Twitter/FB. Seems like Facebook doesnt support reading the main news feed as RSS though (although it once did ::sadface::). Tweetdeck is the next best thing. But Im going to eventually try using fbcmd to do something similar since the amount of advertising on Facebook is getting outta hand.</p>
+
+<p>ttfn</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/11/twenty-thirteen/">Twenty-Thirteen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-11T15:44:15-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013" /></a>
+Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by ChicagoVPS.net. So much thanks goes out to my Tita Fe, Tito Ram, Mom and Dad for funding this. Its been 2-weeks and already the experience has taught me so much more than simulating it on my local network.</p>
+
+<p>As usual, I&rsquo;ve been busy.. powering through the new year&rsquo;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&rsquo;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
+
+<p>Happy New Years &lsquo;errbody !</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/14/ssh-pubkeyauth/">OpenSSH: Public Key Auth</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-14T17:33:07-08:00" pubdate data-updated="true">Dec 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-12-15-ssh-pubkeyauth/screenshot-12152012-011033-am.png"></p>
+
+<p><em>I finally set up OpenSSH&rsquo;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I had to reference a few to get this working. Its kind of confusing figuring out where the public and private keys go in most guides. They don&rsquo;t really say what keys need to be on what box and what doesn&rsquo;t. A lot are pretty confusing about their naming conventions for remote/local and server/client. Also most completely leave out the user&rsquo;s .ssh/config in which you can specify the identity file to try in SSH. Naturally, I compiled a few snippets from the ssh manual page, and an example I cooked up from tonight&rsquo;s mucking around.. enjoi.</em></p>
+
+<p><strong>Public-Key Authentication</strong>:</p>
+
+<ul>
+<li><p>The server knows the public key, and only the user knows the private key.</p></li>
+<li><p>The file ~/.ssh/authorized_keys lists the public keys that are permitted for logging in.</p></li>
+<li><p>When the user logs in, the ssh program tells the server which key pair it would like to use for authentication.</p></li>
+<li><p>The client proves that it has access to the private key and the server checks that the corresponding public key is authorized to accept the account.</p></li>
+</ul>
+
+
+<p>Example:
+This will set up ssh without password connecting as foo@desktop (their account on their machine at home) to root@server (root account on machine at work)</p>
+
+<p>On the desktop: Generate a key-pair</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ ssh-keygen -t rsa -f 'foo'
+</span><span class='line'>foo@desktop: ~/.ssh$ mkdir ~/.ssh/private-keys
+</span><span class='line'>foo@desktop: ~/.ssh$ mv ~/.ssh/foo ~/.ssh/private-keys
+</span><span class='line'>foo@desktop: ~/.ssh$ chmod -R go-rw ~/.ssh/private-keys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Create or modify the user&rsquo;s .ssh/config file to use the new private key</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ vi config</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
+</span><span class='line'>IdentityFile ~/.ssh/foo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Copy the public key to server&rsquo;s authorized_keys file.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ cat ~/.ssh/foo.pub | ssh root@server 'umask 077; cat >>~/.ssh/authorized_keys'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the server: Modify the sshd_config file to allow for Public-Key Authentication</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~/etc/ssh/# mv sshd_config sshd_config.orig ; sed &lt; sshd_config.orig 's/^#Pubkey/Pubkey/' > sshd_config</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the server: Restart the ssh-daemon on the server</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~# systemctl restart sshd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Test it out.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~$ ssh root@server</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
   
   
@@ -106,6 +369,8 @@
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     

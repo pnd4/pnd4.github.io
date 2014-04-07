@@ -5,15 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Backing up Configuration - PND4</title>
+  <title>Intel graphics and early-KMS - PND4</title>
   <meta name="author" content="">
 
   
-  <meta name="description" content="To-do Pseudocode/Outline
-Write Code
-Keep adding to list of files. Brainstorm / Plans Purpose: Simplify backing up configs.
-Ideas
-&ndash; Parse a list &hellip;">
+  <meta name="description" content="Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +18,7 @@ Ideas
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pnd4.github.io/blog/2013/10/16/backup-configs">
+  <link rel="canonical" href="http://pnd4.github.io/blog/2012/08/12/intel-graphics-and-early-kms">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
@@ -74,7 +70,7 @@ Ideas
   
   <header>
     
-      <h1 class="entry-title">Backing Up Configuration</h1>
+      <h1 class="entry-title">Intel Graphics and early-KMS</h1>
     
     
       <p class="meta">
@@ -90,29 +86,22 @@ Ideas
   
 
 
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+<time datetime="2012-08-12T10:28:59-07:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>To-do</h2>
+<div class="entry-content"><p><img class="center" src="/images/2012-08-12-intel-graphics-and-early-kms/intel-logo.jpg"></p>
 
-<p>Pseudocode/Outline
-Write Code
-Keep adding to list of files.</p>
+<p><em>Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
 
-<h2>Brainstorm / Plans</h2>
+<p><em>You want to enable KMS because it allows the kernel to set the native resolution on the frame-buffer. The effects of this are fast TTY-switching, enhanced 3D performance, and in some cases power-saving features.</em></p>
 
-<p>Purpose: Simplify backing up configs.
-Ideas
-&ndash; Parse a list of files (backup_files.lst?)
-&ndash; Copy files to a directory (~/backup_<date> ?)
-&ndash; Archive the files?
-&ndash; Encrypt?</p>
+<p>In order to enable KMS on the Intel mobile platform some changes possibly have to be made to your Kernel, X installation, bootloader, and startup configuration.</p>
 
-<h2>Files to backup</h2>
+<p><strong>Kernel </strong>changes may only be necessary if you compiled your own (aka gentoo). In which case, simply enable the frame-buffer options:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -127,44 +116,48 @@ Ideas
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>~/.zshrc
-</span><span class='line'>~/.zsh/
-</span><span class='line'>~/.Xresources
-</span><span class='line'>~/.xinitrc
-</span><span class='line'>~/.vimrc
-</span><span class='line'>~/.vim_runtime
-</span><span class='line'>~/.tmux.conf
-</span><span class='line'>~/.ssh/
-</span><span class='line'>~/.gnupg
-</span><span class='line'>~/.conkyrc
-</span><span class='line'>~/.config
-</span><span class='line'>~/.dzen
-</span><span class='line'>~/.bashrc</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Device Drivers --->
+</span><span class='line'>  Graphics support --->
+</span><span class='line'>    Support for frame buffer devices --->
+</span><span class='line'>    (Disable all drivers, including VGA, Intel, nVidia, and ATI)
+</span><span class='line'>
+</span><span class='line'>    (Further down, enable basic console support. KMS uses this.)
+</span><span class='line'>    Console display driver support --->
+</span><span class='line'>      &lt;*>  Framebuffer Console Support
+</span><span class='line'>
+</span><span class='line'>    /dev/agpgart (AGP Support) --->
+</span><span class='line'>      &lt;*>  Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+</span><span class='line'>      Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+</span><span class='line'>      &lt;*>  Intel 8xx/9xx/G3x/G4x/HD Graphics
+</span><span class='line'>      [*]    Enable modesetting on intel by default</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>Script code</h2>
+<p><strong>Xorg </strong>&rsquo;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
+
+<p><strong>Bootloader</strong> changes are done so that our grub does not disable, use another driver, or try to set the resolution itself. Remember, we are letting the Kernel do this for us. so edit your /etc/default/grub and remove any of the following:</p>
+
+<ul>
+<li><p>Any &ldquo;nomodeset&rdquo;, &ldquo;i915.modeset=0&rdquo;, &ldquo;vga=&rdquo; or &#8221;video=&ldquo; at all present.</p></li>
+<li><p>Anything that would enable another frame-buffer driver such as uvesafb.</p></li>
+</ul>
+
+
+<p><strong>Start-up configuration</strong> must reflect our efforts so that KMS is started early on in the process as possible to get the best effect. changes should be made to /etc/mkinitcpio.conf in Arch, or /etc/conf.d/modules in Gentoo to include the i915 module.</p>
+
+<p>Finally regen your initial-ramdisk if you used one and your boot partition&rsquo;s GRUB config.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
-</span><span class='line'>echo "Backing up config.."
-</span><span class='line'>echo "Processing $currentFile"
-</span><span class='line'>if [$? -eq 1]; then
-</span><span class='line'>    # move to next file
-</span><span class='line'>else
-</span><span class='line'>    # prompt user to continue
-</span><span class='line'>fi
-</span><span class='line'>echo "Done"</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>## make initrd
+</span><span class='line'># mkinitcpio -p linux
+</span><span class='line'>## generate a GRUB config
+</span><span class='line'># grub-mkconfig -o /boot/grub/grub.cfg</span></code></pre></td></tr></table></div></figure>
 
 
-<p>[^1] Reference one. <a href="http://wiki.archlinux.org">http://wiki.archlinux.org</a></p>
+<p>Reboot and [hopefully] reap the fruits of all your hard work.</p>
 </div>
 
 
@@ -173,7 +166,7 @@ Ideas
       
   
 
-
+<span class="byline author vcard">Posted by <span class="fn">pnd4</span></span>
 
       
 
@@ -187,8 +180,14 @@ Ideas
   
 
 
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+<time datetime="2012-08-12T10:28:59-07:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/computing/'>Computing</a>
+  
+</span>
 
 
     </p>
@@ -204,10 +203,10 @@ Ideas
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/1985/10/26/test-post/" title="Previous Post: Test Post">&laquo; Test Post</a>
+        <a class="basic-alignment left" href="/blog/2012/08/10/64/" title="Previous Post: herp derp.. 3 std's and a null">&laquo; herp derp.. 3 std's and a null</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/10/16/firewall/" title="Next Post: Firewalls">Firewalls &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2012/08/13/x11-over-ssh-tunnel/" title="Next Post: X11 over SSH tunnel">X11 over SSH tunnel &raquo;</a>
       
     </p>
   </footer>

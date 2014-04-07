@@ -9,8 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="A template for markdown posts. Covers some frequently used syntax. Quote More.
-Notes. Code example.sh #!/bin/bash test 1 -eq 1 &amp;&amp; echo true &hellip;">
+  <meta name="description" content="A template for markdown posts. Covers some frequently used syntax. Images Markdown 1
+&lt;img class="center" src="/images/that-image.jpg"> Quote More &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,12 +99,19 @@ Notes. Code example.sh #!/bin/bash test 1 -eq 1 &amp;&amp; echo true &hellip;">
 
   <div class="entry-content"><p>A template for markdown posts. Covers some frequently used syntax.</p>
 
-<h3>Quote</h3>
+<h2>Images</h2>
+
+<figure class='code'><figcaption><span>Markdown </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;img class="center" src="/images/that-image.jpg"></span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Quote</h2>
 
 <blockquote><p>More.<br/>
 Notes.</p></blockquote>
 
-<h3>Code</h3>
+<h2>Code</h2>
 
 <p>example.sh</p>
 
@@ -114,7 +121,11 @@ Notes.</p></blockquote>
 </div>
 
 
-<h3>List</h3>
+<p>You can also insert <code>preformatted text</code> using backtick&rsquo;s.</p>
+
+<p>Also see Octopress&rsquo;s Documentation<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+
+<h2>List</h2>
 
 <ul>
 <li>item 1</li>
@@ -123,12 +134,22 @@ Notes.</p></blockquote>
 </ul>
 
 
-<h4>Useful Links and References</h4>
+<h2>References</h2>
 
+<p>See Wordpress&rsquo;s Cheatsheet<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> for more examples of Markdown.</p>
+
+<h2>Useful Links</h2>
+
+<p><a href="http://octopress.org">Octopress.Org</a></p>
+<div class="footnotes">
+<hr/>
 <ol>
-<li><a href="http://wiki.archlinux.org" title="Alt Title">ArchWiki</a></li>
-<li><a href="http://wiki.archlinux.org">DebianWiki</a></li>
+<li id="fn:1">
+<p><a href="http://octopress.org/docs/blogging/plugins/">Octopress Documentation</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p><a href="http://en.support.wordpress.com/markdown-quick-reference/">Wordpress Markdown Reference</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
 </ol>
+</div>
 
 </div>
   
@@ -179,7 +200,7 @@ Notes.</p></blockquote>
 
 <p>Caution editing your .bashrc or .zshrc.. root does not need to have a GEM_HOME or ~/.gem/ruby/2.0.0 added to its PATH</p>
 
-<h3>~/.gemrc</h3>
+<h4>~/.gemrc</h4>
 
 <p>For root, create .gemrc so that when gems are installed as root, it uses the system-wide directory.</p>
 
@@ -242,12 +263,17 @@ Update user:  gem update</p>
 
 <h3>Specs</h3>
 
-<blockquote><p>AR9331 and RTL8187
-16mb ROM / 64mb DDR2 RAM</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>AR9331 and RTL8187
+</span><span class='line'>16mb ROM / 64mb DDR2 RAM</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>Software</h3>
 
-<p>&ldquo;Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver.&rdquo; &mdash;HakShop</p>
+<blockquote><p>Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver</p></blockquote>
+
+<p>&mdash;HakShop</p>
 
 <h3>Useful Links and References</h3>
 
@@ -473,7 +499,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/10/16/backup-configs/">Backing Up Configuration</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/03/25/dd-wrt-firewall-fine-tuning/">DD-WRT Firewall Fine Tuning</a></h1>
     
     
       <p class="meta">
@@ -489,81 +515,24 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   
 
 
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
+<time datetime="2013-03-25T01:14:11-07:00" pubdate data-updated="true">Mar 25<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>To-do</h2>
+  <div class="entry-content"><p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] &ndash;> [Commands]</p>
 
-<p>Pseudocode/Outline
-Write Code
-Keep adding to list of files.</p>
+<p>You should see a text box, there you can add individual iptables rules as if you were using the command line. Just save the command with the appropriate button labeled [Save Firewall]</p>
 
-<h2>Brainstorm / Plans</h2>
-
-<p>Purpose: Simplify backing up configs.
-Ideas
-&ndash; Parse a list of files (backup_files.lst?)
-&ndash; Copy files to a directory (~/backup_<date> ?)
-&ndash; Archive the files?
-&ndash; Encrypt?</p>
-
-<h2>Files to backup</h2>
+<p>I found this particularly useful for allowing a machine with a static IP ping a machine that drops ping requests. Here is the rule I added as an example</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>~/.zshrc
-</span><span class='line'>~/.zsh/
-</span><span class='line'>~/.Xresources
-</span><span class='line'>~/.xinitrc
-</span><span class='line'>~/.vimrc
-</span><span class='line'>~/.vim_runtime
-</span><span class='line'>~/.tmux.conf
-</span><span class='line'>~/.ssh/
-</span><span class='line'>~/.gnupg
-</span><span class='line'>~/.conkyrc
-</span><span class='line'>~/.config
-</span><span class='line'>~/.dzen
-</span><span class='line'>~/.bashrc</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A INPUT -s &lt;ip.allowed.pings> -p icmp -j ACCEPT</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>Script code</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
-</span><span class='line'>echo "Backing up config.."
-</span><span class='line'>echo "Processing $currentFile"
-</span><span class='line'>if [$? -eq 1]; then
-</span><span class='line'>    # move to next file
-</span><span class='line'>else
-</span><span class='line'>    # prompt user to continue
-</span><span class='line'>fi
-</span><span class='line'>echo "Done"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>[^1] Reference one. <a href="http://wiki.archlinux.org">http://wiki.archlinux.org</a></p>
 </div>
   
   
