@@ -6,12 +6,12 @@ comments: true
 categories: 
 ---
 
-Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don't have any unsaved work, since it crashes all programs running within X as well.
+_Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don't have any unsaved work, since it crashes all programs running within X as well._
 
 
 ## xrandr
 
-Using `xrandr` we are able to dynamically modify our desktop's properties.
+Using `xrandr`[^1] we are able to dynamically modify our desktop's properties.
 
 **OFF**
 
@@ -25,6 +25,4 @@ xrandr --output DVI-0 --off
 xrandr --output DVI-0 --left-of VGA-0 --auto
 ```
 
-## Useful Links and References
-
-[Xrandr's Man Page](http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html)
+[^1]: [Xrandr's Man Page](http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html)

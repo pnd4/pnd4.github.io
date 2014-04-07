@@ -14,7 +14,7 @@ pacman -S ruby
 ## Paths
 Caution editing your .bashrc or .zshrc.. root does not need to have a GEM_HOME or ~/.gem/ruby/2.0.0 added to its PATH
 
-### ~/.gemrc
+#### ~/.gemrc
 For root, create .gemrc so that when gems are installed as root, it uses the system-wide directory.
 
 ```

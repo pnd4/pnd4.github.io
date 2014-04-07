@@ -5,11 +5,17 @@ title: Wifi Pinapple Mark 5
 Advanced standalone pentesting tool for wireless networks.
 
 ### Specs
-> AR9331 and RTL8187 
-> 16mb ROM / 64mb DDR2 RAM
+
+```
+AR9331 and RTL8187
+16mb ROM / 64mb DDR2 RAM
+```
 
 ### Software
-"Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver." --HakShop
+
+> Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver
+
+--HakShop
 
 ### Useful Links and References
 

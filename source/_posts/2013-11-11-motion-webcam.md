@@ -4,18 +4,15 @@ title: Motion Webcam
 ---
 
 ###Webcam Prices
-11.11.2013
-- 20-23 HD-3000 
+[as of 11.11.2013]
+
+- 20-23 HD-3000
 - 15-20 Rocketfish 720p RF-HDWEB
 - 17 M$ HD-2300
 
 ###[RasPi Notes](http://forum.micasaverde.com/index.php?topic=9104.15)
 RasPi community has good info on the subject. Should be valid for Pogoplugs too.
 
-> My Raspberry Pi was ordered just over a month ago and supposedly I'll have it in another two months. A friend of mine ordered one two weeks ago and he already has his.  ???
->
->In the interim I wanted to chip in with some experiences I have using USB webcams with Vera. I attached mine to Pogoplugs running Archlinux ARM. That distro is available for the Raspberry Pi and I've been very happy with it on my Pogoplugs. You should be able to support streaming quite a few webcams on your Raspberry Pi, I have as many as four hanging off my Pogoplugs.
->
 >A few recommendations I have for streaming USB webcams with linux:
 >
 >1. Unless you need the capabilities of motion (that is, you are using the motion detection built in to motion) use mjpg_streamer instead of motion. Motion processes each image to see if pixels have changed, and by default runs a lot of binary morphology on the images (erode, dilate, etc), where mjpg_streamer just streams. On my Pogoplus with four cameras this means the difference between 60%+ cpu utilization versus single digits (and to get down to 60% I had to drop the framerate to 2Hz and go through a bunch of options to turn off as much processing as possible). I have another machine running zoneminder which processes my streams which is why I don't mind forgoing motion detection.
