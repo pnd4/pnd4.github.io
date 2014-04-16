@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Last night I stumbled upon systemd, freedesktop.org&rsquo;s set of services and scripts for the Linux System Base (LSB) to bring it up to userspace &hellip;">
+  <meta name="description" content="If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/26/fresh-easys-beer-selection/">Fresh & Easy&#8217;s Beer Selection</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-26T13:34:08-07:00" pubdate data-updated="true">Aug 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg"></p>
+
+<p>If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
+
+<p>9 / 10 &ndash; Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
+
+<p>9 / 10 &ndash; Leffe: &lsquo;Leffe Blonde&rsquo;</p>
+
+<p>3 / 10 &ndash; Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
+
+<p>7 / 10 &ndash; Racer5</p>
+
+<p>Hopefully this helps someone pacing up and down the cooler isle trying to make their selection, so they can get to where they need to be and back to loving life.</p>
+
+<p>Thanks goes out to Adriel, John, and Fresh &amp; Easy for making this post possible.. <em>hiccup</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -243,7 +293,7 @@
 
 <h2>Testing</h2>
 
-<p>SSH into the server with &ldquo;ssh -X <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x75;&#115;&#x65;&#x72;&#x40;&#x31;&#x30;&#x2e;&#x30;&#x2e;&#48;&#x2e;&#49;">&#x75;&#115;&#101;&#x72;&#x40;&#49;&#48;&#46;&#48;&#x2e;&#48;&#x2e;&#49;</a>&rdquo; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
+<p>SSH into the server with &ldquo;ssh -X <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x75;&#115;&#x65;&#x72;&#64;&#49;&#48;&#x2e;&#x30;&#x2e;&#48;&#46;&#49;">&#117;&#x73;&#x65;&#x72;&#x40;&#x31;&#x30;&#x2e;&#48;&#46;&#x30;&#46;&#49;</a>&rdquo; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
 </div>
   
   
@@ -402,78 +452,6 @@
 <p>A couple more resources:
 <a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “> /dev/null 2>&amp;1″ mean?</a>
 <a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&rsquo;s Blog: /dev/null</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/09/installing-bt5-chroot-on-the-sprint-htc-evo-4g-non-lte/">Installing BT5 (Chroot) on the Sprint HTC Evo 4G (Non LTE)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-09T18:42:08-07:00" pubdate data-updated="true">Aug 9<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-08-10-installing-bt5-chroot-on-the-sprint-htc-evo-4g-non-lte/backtrack-logo1.jpg"></p>
-
-<p>Tonight ParkerR and I decided to get some pentesting tools into our devices. He has a Nexus 7 and I.. well I have my phone. Anyway, after a frustrating time working with p7zip which was used in the particular mirror we chose, we finally got it extracted. So grab your files <a href="http://forum.xda-developers.com/showthread.php?t=1079898">HERE</a> and follow along,</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ 7z e downloaded-file.7z.001</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Next we had to copy over the files to the SD-card as per the instructions. Since my uSD (MicroSD) port on my phone is uber-janky I just turned off my phone and pulled out the uSD card instead of using ADB and opt&rsquo;d for the slot in my trusty laptop. I was then able to mount the removable storage and [ever so slowly and unreliably] copy over the extracted contents into the SD&rsquo;s bt5 folder like so:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mount -t vfat /dev/mmcblk0p1 /mnt/sdcard -o rw
-</span><span class='line'>mkdir /mnt/sdcard/bt5
-</span><span class='line'># because copy was not working too well for me.. we dd.
-</span><span class='line'>dd if=/home/user/bt5/bt5.img of=/mnt/sdcard/bt5/bt5.img
-</span><span class='line'># answer no to the clobber
-</span><span class='line'>cp -i /home/user/bt5/* /mnt/sdcard/bt5/ 
-</span><span class='line'># cd && umount /mnt/sdcard</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Having unmounted the sdcard in this last line, we can now remove the card and toss that back into our phone and boot up our Android phone as usual.</p>
-
-<p>Fire up the Terminal emulator and run the &lsquo;bt&rsquo; script included as a super-user.. or if you have SSHDroid installed, we can SSH into our phone as root and run the script to start up the chroot&rsquo;d environment.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh 192.168.1.&lt;android> -l root
-</span><span class='line'>(android)# sh /sdcard/bt5/bt</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Hopefully that starts up your Backtrack 5 chrooted environment. If you used Terminal Emulator you&rsquo;re good to walk down the street and still use the command line to your heart&rsquo;s desire. Unfortunately for SSH, soon as you lose your LAN connection, the session will drop out. So be sure to consider that before embarking out on your mission.</p>
 </div>
   
   

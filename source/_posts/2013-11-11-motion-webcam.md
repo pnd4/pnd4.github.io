@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Motion Webcam
+categories:
+- Computing
 ---
 
 ###Webcam Prices

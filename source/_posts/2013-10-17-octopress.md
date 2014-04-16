@@ -1,7 +1,10 @@
 ---
 layout: post
 title: Octopress
+categories: 
+- Computing
 ---
+
 Markdown blogging platform built on Ruby.
 
 ### Installation

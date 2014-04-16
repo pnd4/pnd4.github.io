@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Hostapd
+categories: 
+- Computing
 ---
 Wireless access point daemon
 

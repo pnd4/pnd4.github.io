@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Solidworks Rig
+categories: 
+- Computing
 ---
 ####Min Reqs (Win7x64)
     

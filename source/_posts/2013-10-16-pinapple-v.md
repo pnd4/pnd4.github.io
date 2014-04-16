@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Wifi Pinapple Mark 5
+categories:  
+- Computing
 ---
 Advanced standalone pentesting tool for wireless networks.
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Computing | PND4]]></title>
   <link href="http://pnd4.github.io/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2014-04-07T08:16:02-07:00</updated>
+  <updated>2014-04-15T23:20:00-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -14,64 +14,32 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Markdown Template]]></title>
-    <link href="http://pnd4.github.io/blog/2013/10/16/template/"/>
-    <updated>2013-10-16T00:00:00-07:00</updated>
-    <id>http://pnd4.github.io/blog/2013/10/16/template</id>
-    <content type="html"><![CDATA[<p>A template for markdown posts. Covers some frequently used syntax.</p>
+    <title type="html"><![CDATA[Dual-Monitor Toggle]]></title>
+    <link href="http://pnd4.github.io/blog/2014/04/03/dual-monitor-toggle/"/>
+    <updated>2014-04-03T02:07:00-07:00</updated>
+    <id>http://pnd4.github.io/blog/2014/04/03/dual-monitor-toggle</id>
+    <content type="html"><![CDATA[<p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
 
-<h2>Images</h2>
+<h2>xrandr</h2>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Markdown </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;img class="center" src="/images/that-image.jpg"></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
 
-<h2>Quote</h2>
+<p><strong>OFF</strong></p>
 
-<blockquote><p>More.<br/>
-Notes.</p></blockquote>
+<p><code>
+xrandr --output DVI-0 --off
+</code></p>
 
-<h2>Code</h2>
+<p><strong>ON</strong></p>
 
-<p>example.sh
-<div>
-  <pre><code class='bash'>&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/bin/bash
-test 1 -eq 1 &amp;amp;&amp;amp; echo true || echo false
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;</code></pre>
-</div>
-</p>
-
-<p>You can also insert <code>preformatted text</code> using backtick&rsquo;s.</p>
-
-<p>Also see Octopress&rsquo;s Documentation<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
-
-<h2>List</h2>
-
-<ul>
-<li>item 1</li>
-<li>item 2</li>
-<li>item 3</li>
-</ul>
-
-
-<h2>References</h2>
-
-<p>See Wordpress&rsquo;s Cheatsheet<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> for more examples of Markdown.</p>
-
-<h2>Useful Links</h2>
-
-<p><a href="http://octopress.org">Octopress.Org</a></p>
+<p><code>
+xrandr --output DVI-0 --left-of VGA-0 --auto
+</code></p>
 <div class="footnotes">
 <hr/>
 <ol>
 <li id="fn:1">
-<p><a href="http://octopress.org/docs/blogging/plugins/">Octopress Documentation</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-<li id="fn:2">
-<p><a href="http://en.support.wordpress.com/markdown-quick-reference/">Wordpress Markdown Reference</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
 </ol>
 </div>
 
@@ -79,88 +47,280 @@ test 1 -eq 1 &amp;amp;&amp;amp; echo true || echo false
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[DD-WRT Firewall Fine Tuning]]></title>
-    <link href="http://pnd4.github.io/blog/2013/03/25/dd-wrt-firewall-fine-tuning/"/>
-    <updated>2013-03-25T01:14:11-07:00</updated>
-    <id>http://pnd4.github.io/blog/2013/03/25/dd-wrt-firewall-fine-tuning</id>
-    <content type="html"><![CDATA[<p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] &ndash;> [Commands]</p>
+    <title type="html"><![CDATA[OpenVPN Hang Issue]]></title>
+    <link href="http://pnd4.github.io/blog/2013/12/05/ovpn-hang/"/>
+    <updated>2013-12-05T00:00:00-08:00</updated>
+    <id>http://pnd4.github.io/blog/2013/12/05/ovpn-hang</id>
+    <content type="html"><![CDATA[<h1>Problem</h1>
 
-<p>You should see a text box, there you can add individual iptables rules as if you were using the command line. Just save the command with the appropriate button labeled [Save Firewall]</p>
+<p>CyberGhostVPN connection hangs on service start-up
+Doesnt</p>
 
-<p>I found this particularly useful for allowing a machine with a static IP ping a machine that drops ping requests. Here is the rule I added as an example</p>
+<h1>Investigation</h1>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A INPUT -s &lt;ip.allowed.pings> -p icmp -j ACCEPT</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<h4>DNS</h4>
+
+<p><strong>Dec 05 2013 &ndash; 04:38</strong></p>
+
+<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
+
+<p>The thread below talks about tuning openvpn to fix this.</p>
+
+<blockquote><p>By default, on initial startup and restart, the &mdash;remote name is resolved
+once. If the DNS resolve fails, OpenVPN will abort.</p>
+
+<p>If &mdash;resolve-retry is specified, the DNS resolve will be retried for n
+seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
+will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
+
+<p>If you want to disable the DNS re-resolve on restart, you can use
+&mdash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &mdash;remote IP
+address without doing a new DNS lookup.</p></blockquote>
+
+<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Improve Flash Drive Performance]]></title>
-    <link href="http://pnd4.github.io/blog/2013/03/24/improve-flash-drive-performance/"/>
-    <updated>2013-03-24T12:56:36-07:00</updated>
-    <id>http://pnd4.github.io/blog/2013/03/24/improve-flash-drive-performance</id>
-    <content type="html"><![CDATA[<p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
+    <title type="html"><![CDATA[CLI RTMP Streaming]]></title>
+    <link href="http://pnd4.github.io/blog/2013/11/23/rtmpdump/"/>
+    <updated>2013-11-23T00:00:00-08:00</updated>
+    <id>http://pnd4.github.io/blog/2013/11/23/rtmpdump</id>
+    <content type="html"><![CDATA[<p>As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<h3>Commands</h3>
 
-<p>But discovering that command wasn&rsquo;t the end, I had to deal with it&rsquo;s almost impossible write-speed, this information helped:</p>
+<p>Redirect rtmp port using iptables.</p>
 
-<p>Append to /etc/rc.local</p>
+<pre><code>sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
-</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
-</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>Sniffing for stream parameters.</p>
 
-<p>Append to /etc/sysctl.conf</p>
+<pre><code>rtmpsrv
+</code></pre>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
-</span><span class='line'>vm.dirty_background_bytes = 4194304
-</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>Once you&rsquo;ve captured a stream, you can undo the redirection.</p>
 
-<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
+<pre><code>sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre>
+
+<p>Use rtmpdump like so, piping the output to mplayer/vlc</p>
+
+<pre><code>rtmpdump -q -r "rtmpe://origin.hdcast.org:1935/redirect/" -a "redirect/" -f "LNX 11,9,900,152" -W "http://www.udemy.com/static/flash/player5.9.swf" -p "http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com" -y "ban5" -b "10000" -v | mplayer -really-quiet -framedrop -
+</code></pre>
+
+<h4>Important options</h4>
+
+<p>rtmpdump</p>
+
+<ul>
+<li>-r [tcURL ex. &ldquo;rtmp://stream.url/&rdquo;]</li>
+<li>-a [app ex. &ldquo;redirect/&rdquo;</li>
+<li>-y [playpath ex. &ldquo;freetv4&rdquo;]</li>
+<li>-v [live]</li>
+<li>-b [buffersize ex. &ldquo;10000&rdquo;]</li>
+<li>-W [swfURL ex. &ldquo;<a href="http://stream.url/flash/player5.9.swf">http://stream.url/flash/player5.9.swf</a>&rdquo;]</li>
+</ul>
+
+
+<p>mplayer</p>
+
+<ul>
+<li>-really-quiet [Suppresses output.]</li>
+<li>-framedrop [Helps with streams.]</li>
+<li><ul>
+<li>[Plays from stdout.]</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Port redirect helper script</h4>
+
+<p>I wrote a bash script that takes the hard part, remembering, out of the <strong>iptables</strong> step.</p>
+
+<p><div>
+  <pre><code class='bash'>&lt;/p&gt;
+
+&lt;h1&gt;!/bin/bash&lt;/h1&gt;
+
+&lt;h2&gt;PND4&lt;/h2&gt;
+
+&lt;h2&gt;o1.27.13&lt;/h2&gt;
+
+&lt;p&gt;success() {
+  echo &amp;ldquo;.. success :)&amp;rdquo;
+}&lt;/p&gt;
+
+&lt;p&gt;failure() {
+  echo &amp;ldquo;&amp;mdash; FAILURE :(&amp;rdquo;
+}&lt;/p&gt;
+
+&lt;p&gt;add-rule() {
+  sudo iptables -t nat -A OUTPUT -p tcp &amp;mdash;dport 1935 -j REDIRECT
+}&lt;/p&gt;
+
+&lt;p&gt;del-rule() {
+  sudo iptables -t nat -D OUTPUT -p tcp &amp;mdash;dport 1935 -j REDIRECT
+}&lt;/p&gt;
+
+&lt;p&gt;case &amp;ldquo;$1&amp;rdquo; in
+  start)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;Starting..&quot;
+# also delete rule if it exists for some reason to avoid dupes.
+# always errors out so we ignore it
+del-rule 2&amp;gt;/dev/null
+add-rule
+[ $? -eq 0 ] &amp;amp;&amp;amp; success || failure
+;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  stop)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;Stopping..&quot;
+del-rule
+[ $? -eq 0 ] &amp;amp;&amp;amp; success || failure
+;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  *)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;Usage: $0 &amp;lt;start|stop&amp;gt;&quot;
+;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;esac</code></pre>
+</div>
+</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://stream-recorder.com/forum/tutorial-simply-use-rtmpsrv-and-example-t6325.html?p=18142">rtmpsrv tutorial</a></li>
+<li><a href="http://trac.xbmc.org/ticket/14089">XBMC: hint on buffer option</a></li>
+</ol>
+
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Encoding MP3's is LAME]]></title>
-    <link href="http://pnd4.github.io/blog/2013/02/10/encoding-mp3s-is-lame/"/>
-    <updated>2013-02-10T15:19:22-08:00</updated>
-    <id>http://pnd4.github.io/blog/2013/02/10/encoding-mp3s-is-lame</id>
-    <content type="html"><![CDATA[<p><img class="center" src="/images/2013-02-10-encoding-mp3s-is-lame/Screenshot-02102013-030954-PM-1024x592.png"></p>
+    <title type="html"><![CDATA[Motion Webcam]]></title>
+    <link href="http://pnd4.github.io/blog/2013/11/11/motion-webcam/"/>
+    <updated>2013-11-11T00:00:00-08:00</updated>
+    <id>http://pnd4.github.io/blog/2013/11/11/motion-webcam</id>
+    <content type="html"><![CDATA[<h3>Webcam Prices</h3>
 
-<p>Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what-not, but I&rsquo;d rather turn a 70MB into 9MB for the sake of space. Here&rsquo;s a quick one-liner as an example</p>
+<p>[as of 11.11.2013]</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>lame original-file.wav -h -V0 &mdash;vbr-new</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<ul>
+<li>20-23 HD-3000</li>
+<li>15-20 Rocketfish 720p RF-HDWEB</li>
+<li>17 M$ HD-2300</li>
+</ul>
 
-<p>This results in original-file.mp3 , a high-quality 320 kbps VBR MP3.</p>
 
-<p>Wasn&rsquo;t that much easier than opening some GUI-intensive bloatware in Windows?.. Just one of the many reasons why *Nix is awesome.</p>
+<h3><a href="http://forum.micasaverde.com/index.php?topic=9104.15">RasPi Notes</a></h3>
+
+<p>RasPi community has good info on the subject. Should be valid for Pogoplugs too.</p>
+
+<blockquote><p>A few recommendations I have for streaming USB webcams with linux:</p>
+
+<ol>
+<li><p>Unless you need the capabilities of motion (that is, you are using the motion detection built in to motion) use mjpg_streamer instead of motion. Motion processes each image to see if pixels have changed, and by default runs a lot of binary morphology on the images (erode, dilate, etc), where mjpg_streamer just streams. On my Pogoplus with four cameras this means the difference between 60%+ cpu utilization versus single digits (and to get down to 60% I had to drop the framerate to 2Hz and go through a bunch of options to turn off as much processing as possible). I have another machine running zoneminder which processes my streams which is why I don&rsquo;t mind forgoing motion detection.</p></li>
+<li><p>Use MJPEG instead of YUV
+If you want multiple webcams on a single USB bus this is basically a necessity. Even if you don&rsquo;t it means a lot less data to process. This is the default in mjpg_streamer, in motion set: &ldquo;v4l2_palette 2&rdquo; in motion.conf</p></li>
+<li><p>Get a webcam with known support
+Some webcams have a problem where the request a lot more bandwidth than they need and this means you can&rsquo;t use two at the same time. There is a hack to get around this in YUV mode, but not MJPEG which isn&rsquo;t much of a help. If you are up for hacking the driver yourself it should be possible to skip the BW check and make these work anyway, but that is quite a bit of work.</p></li>
+</ol>
+
+
+<p>Cameras that work simultaneously (no bandwidth bug):
+-Logitech C120
+-Logitech C160
+-Logitech B500
+-Logitech Quickcam E 3500
+-Logitech Quickcam Messenger
+-Microsoft HD-3000
+-Microsoft HD-5000
+-Rocketfish HD Webcam Pro</p>
+
+<p>Cameras that do not work in multiples (bandwidth bug?):
+-Logitech C110
+-Logitech C310
+-Creative Live! Cam Video IM Ultra
+-HP 2-Megapixel Webcam (RZ406AA)</p>
+
+<p>My current recommendation is probably the HD-3000. It is 720p and can be found for about $20. It does NOT have autofocus which I think is good for a webcam you leave running 24/7. I tried the HD-5000 and it spends a lot of time refocusing. I&rsquo;m afraid it would break after a few weeks. The C160 is currently the cheapest, about $8 shipped on ebay. Meritline sometimes sells it for $6. The irritating thing about the c120/c160 is that they have a focusing ring you have to adjust. For a security camera I would prefer fixed focus. I buy any webcam I can get at a firesale so I&rsquo;ll keep trying more &ndash; I would appreciate results from anyone else as well.</p>
+
+<p>EDIT: Added a few more cameras]</p>
+
+<p>It turns out you can disable autofocus on UVC supported webcams like this:</p>
+
+<p>v4l2-ctl &mdash;verbose &mdash;set-ctrl=focus_auto=0</p>
+
+<p>At least it works for me on all the AF cameras I have to test (Microsoft &amp; Rocketfish).</p>
+
+<p>Not only is this a good idea for camera longevity (I would think so at least) it helps prevents false motion alarms.</p></blockquote>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://elinux.org/RPi_USB_Webcams">eLinux: RasPi Webcam compatibility list</a></li>
+</ol>
+
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Bitbucket, CherryTree, and Tweetdeck]]></title>
-    <link href="http://pnd4.github.io/blog/2013/01/27/bitbucket-cherrytree-and-tweetdeck/"/>
-    <updated>2013-01-27T22:01:32-08:00</updated>
-    <id>http://pnd4.github.io/blog/2013/01/27/bitbucket-cherrytree-and-tweetdeck</id>
-    <content type="html"><![CDATA[<p>Keeping this one short because I&rsquo;m feeling kinda lazy.</p>
+    <title type="html"><![CDATA[Gentoo - Genkernel Upgrade Steps]]></title>
+    <link href="http://pnd4.github.io/blog/2013/11/09/gentoo-genkernel-upgrade/"/>
+    <updated>2013-11-09T00:00:00-08:00</updated>
+    <id>http://pnd4.github.io/blog/2013/11/09/gentoo-genkernel-upgrade</id>
+    <content type="html"><![CDATA[<p><em>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
 
-<p>Just pushed a few things to BitBucket.org so far. Still not used to using Git but its coming in handy and keeping things organized so hopefully my brain catches on.
-<a href="https://bitbucket.org/pnd4">https://bitbucket.org/pnd4</a></p>
+<p>Make sure Gentoo is matched up with your target kernel version</p>
 
-<p>Trying out CherryTree too. I usually only post things I feel havent been covered too much so this thing doesn&rsquo;t become too convoluted. All my little snippets and comments to myself I keep in a digital notebook at Evernote. But I wanted a way to back it up and one with syntax-highlighting or if not, at least support for preformatted text. So far its pretty nice and if you&rsquo;re interested in the idea you might wanna check it out for yourself.</p>
+<p><code>
+eselect kernel list
+eselect kernel set #
+</code></p>
 
-<p>Also been loving the TweetDeck Chrome-app for managing my Twitter/FB. Seems like Facebook doesnt support reading the main news feed as RSS though (although it once did ::sadface::). Tweetdeck is the next best thing. But Im going to eventually try using fbcmd to do something similar since the amount of advertising on Facebook is getting outta hand.</p>
+<p>Build it</p>
 
-<p>ttfn</p>
+<p><code>
+zcat /proc/config.gz &gt; /usr/src/linux
+cd /usr/src/linux
+make oldconfig
+make modules_prepare
+emerge --ask @module-rebuild
+make
+make modules_install
+</code></p>
+
+<p>Install it</p>
+
+<p><code>
+genkernel --no-menuconfig --no-clean --install all
+</code></p>
+
+<p>Update bootloader</p>
+
+<p><code>
+vim /boot/extlinux/extlinux.conf
+</code></p>
+
+<p>Reboot and cross your fingers.</p>
+
+<p>Clean-up/delete old files in <code>/boot</code> and corresponding bootloader entries.</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade" title="Kernel/Upgrade">Gentoo Wiki: Kernel/Upgrade</a></li>
+</ol>
+
 ]]></content>
   </entry>
   

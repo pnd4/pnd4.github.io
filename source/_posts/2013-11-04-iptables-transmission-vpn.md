@@ -1,6 +1,8 @@
 ---
 layout: post
 title: IPTables + Transmission + VPN
+categories: 
+- Computing
 ---
 Transmission doesn't have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like 'pacman' vs patching 'BindInterface' into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically. 
 The script should basically:

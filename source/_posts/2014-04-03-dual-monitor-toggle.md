@@ -3,7 +3,8 @@ layout: post
 title: "Dual-Monitor Toggle"
 date: 2014-04-03 02:07
 comments: true
-categories: 
+categories:
+- Computing
 ---
 
 _Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don't have any unsaved work, since it crashes all programs running within X as well._

@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Ruby Installation
+categories: 
+- Computing
 ---
 Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by root).
 
