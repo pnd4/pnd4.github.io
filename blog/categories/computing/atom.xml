@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Computing | PND4]]></title>
   <link href="http://pnd4.github.io/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2014-04-07T08:16:02-07:00</updated>
+  <updated>2014-04-15T22:34:57-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Gentoo - Genkernel Upgrade Steps]]></title>
+    <link href="http://pnd4.github.io/blog/2013/11/09/gentoo-genkernel-upgrade/"/>
+    <updated>2013-11-09T00:00:00-08:00</updated>
+    <id>http://pnd4.github.io/blog/2013/11/09/gentoo-genkernel-upgrade</id>
+    <content type="html"><![CDATA[<p><em>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
+
+<p>Make sure Gentoo is matched up with your target kernel version</p>
+
+<p><code>
+eselect kernel list
+eselect kernel set #
+</code></p>
+
+<p>Build it</p>
+
+<p><code>
+zcat /proc/config.gz &gt; /usr/src/linux
+cd /usr/src/linux
+make oldconfig
+make modules_prepare
+emerge --ask @module-rebuild
+make
+make modules_install
+</code></p>
+
+<p>Install it</p>
+
+<p><code>
+genkernel --no-menuconfig --no-clean --install all
+</code></p>
+
+<p>Update bootloader</p>
+
+<p><code>
+vim /boot/extlinux/extlinux.conf
+</code></p>
+
+<p>Reboot and cross your fingers.</p>
+
+<p>Clean-up/delete old files in <code>/boot</code> and corresponding bootloader entries.</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade" title="Kernel/Upgrade">Gentoo Wiki: Kernel/Upgrade</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Markdown Template]]></title>
@@ -143,24 +194,6 @@ test 1 -eq 1 &amp;amp;&amp;amp; echo true || echo false
 <p>This results in original-file.mp3 , a high-quality 320 kbps VBR MP3.</p>
 
 <p>Wasn&rsquo;t that much easier than opening some GUI-intensive bloatware in Windows?.. Just one of the many reasons why *Nix is awesome.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Bitbucket, CherryTree, and Tweetdeck]]></title>
-    <link href="http://pnd4.github.io/blog/2013/01/27/bitbucket-cherrytree-and-tweetdeck/"/>
-    <updated>2013-01-27T22:01:32-08:00</updated>
-    <id>http://pnd4.github.io/blog/2013/01/27/bitbucket-cherrytree-and-tweetdeck</id>
-    <content type="html"><![CDATA[<p>Keeping this one short because I&rsquo;m feeling kinda lazy.</p>
-
-<p>Just pushed a few things to BitBucket.org so far. Still not used to using Git but its coming in handy and keeping things organized so hopefully my brain catches on.
-<a href="https://bitbucket.org/pnd4">https://bitbucket.org/pnd4</a></p>
-
-<p>Trying out CherryTree too. I usually only post things I feel havent been covered too much so this thing doesn&rsquo;t become too convoluted. All my little snippets and comments to myself I keep in a digital notebook at Evernote. But I wanted a way to back it up and one with syntax-highlighting or if not, at least support for preformatted text. So far its pretty nice and if you&rsquo;re interested in the idea you might wanna check it out for yourself.</p>
-
-<p>Also been loving the TweetDeck Chrome-app for managing my Twitter/FB. Seems like Facebook doesnt support reading the main news feed as RSS though (although it once did ::sadface::). Tweetdeck is the next best thing. But Im going to eventually try using fbcmd to do something similar since the amount of advertising on Facebook is getting outta hand.</p>
-
-<p>ttfn</p>
 ]]></content>
   </entry>
   

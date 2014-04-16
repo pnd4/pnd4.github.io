@@ -454,29 +454,49 @@ Some webcams have a problem where the request a lot more bandwidth than they nee
   </header>
 
 
-  <div class="entry-content"><p>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</p>
+  <div class="entry-content"><p><em>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
 
-<h3>TL;DR/Commands</h3>
+<p>Make sure Gentoo is matched up with your target kernel version</p>
 
-<p>After using &lsquo;eselect kernel [list|set #]&rsquo; to switch to the latest version</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>eselect kernel list
+</span><span class='line'>eselect kernel set #</span></code></pre></td></tr></table></div></figure>
 
-<div>
-  <pre><code class='bash'>zcat /proc/config.gz &gt; /usr/src/linux
-    cd /usr/src/linux
-    make oldconfig
-    make modules_prepare
-    emerge --ask @module-rebuild
-    make
-    # Now sit and wait til your childen get old and put you in a retirement home.
-    make modules_install
-    genkernel --no-menuconfig --no-clean --install all
-    # Update your bootloader&#39;s config
-    # Reboot and cross your fingers
 
-    # Clean-up/delete old files from /boot
-    # Clean-up old bootloader entries</code></pre>
-</div>
+<p>Build it</p>
 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zcat /proc/config.gz &gt; /usr/src/linux
+</span><span class='line'>cd /usr/src/linux
+</span><span class='line'>make oldconfig
+</span><span class='line'>make modules_prepare
+</span><span class='line'>emerge --ask @module-rebuild
+</span><span class='line'>make
+</span><span class='line'>make modules_install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>genkernel --no-menuconfig --no-clean --install all</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Update bootloader</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /boot/extlinux/extlinux.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reboot and cross your fingers.</p>
+
+<p>Clean-up/delete old files in <code>/boot</code> and corresponding bootloader entries.</p>
 
 <h4>Useful Links and References</h4>
 
