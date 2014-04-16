@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2014-04-15T22:34:57-07:00</updated>
+  <updated>2014-04-15T22:58:30-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -1310,25 +1310,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ArchLinuxARM x Pogoplug-E02]]></title>
-    <link href="http://pnd4.github.io/blog/2013/02/10/archlinuxarm-x-pogoplug-e02/"/>
-    <updated>2013-02-10T13:49:54-08:00</updated>
-    <id>http://pnd4.github.io/blog/2013/02/10/archlinuxarm-x-pogoplug-e02</id>
-    <content type="html"><![CDATA[<p><em>Just a long rant about an ongoing project that failed.. hoping for a little cognitive therapy.</em></p>
-
-<p>So the $16.99 Pogoplug I bought about a month ago isn&rsquo;t working out to be such a breeze setting up. I originally was planning to use this as a low-powered *nix box to deploy Intrusion Detection and host OpenVPN on my home network, but several factors have impeded my master plan:</p>
-
-<p>Right off the bat, my Pogoplug accepted the modified bootloader u-Boot which gave me a false sense of comfort in modding this device. The trouble began during the second phase of installing the OS where you put the rootfs on a medium such as USB-flashdrive for uBoot to boot. It turns out the only thumbdrive I own is not great at being detected before uBoot decides to give up.</p>
-
-<p>The next place I had difficulty is where you actually have the console broadcast over the network interactively for debugging.. This is my first experience with net-console, but my first experience dealing with uBoot&rsquo;s prompt which turns out isn&rsquo;t like GRUB or Syslinux at all. Somehow enabling this left my Pogoplug in a state where it could no longer boot to the &ldquo;Pogoplug>&rdquo; prompt and instead only be accessible through NetCat like it intended.. My mistake here was not undo-ing my changes and getting my ass back to the safety of &ldquo;Pogoplug>&rdquo;</p>
-
-<p>Digging through the plethora of resources about soft-modding the Pogoplug and learning a great deal about embedded-Linux along the way, I finally found my Pogoplug worse off than when I had originally abandoned it (after the Flash-drive difficulty).. Last night I begun trying to restore the default Pogoplug OS by flashing its MTD partitions with what I thought were default Nanddumps. After the console became unresponsive the device itself no longer shows up on the network, or has its LED indicate any activity. Seems that the rabbit-hole that is Archlinux-ARM, while vast, is also riddled with old, and as it turns out, conflicting advice..</p>
-
-<p>Now I wait for my USB-to-Serial adapter to arrive so I can hack together a Serial-TTL interface to possibly revive the Pogoplug and further waste more time than the project is probably worth. I keep trying to promise myself it&rsquo;ll end in success but the outlook is kinda bleak at this point.. Definitely not going to rush into Nandwrite&rsquo;s this time around and sure as hell gonna try and stop being so impatient when it comes to advancing along these little projects I get myself into.</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Bitbucket, CherryTree, and Tweetdeck]]></title>
     <link href="http://pnd4.github.io/blog/2013/01/27/bitbucket-cherrytree-and-tweetdeck/"/>
     <updated>2013-01-27T22:01:32-08:00</updated>
@@ -1357,6 +1338,82 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
 <p>As usual, I&rsquo;ve been busy.. powering through the new year&rsquo;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&rsquo;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
 
 <p>Happy New Years &lsquo;errbody !</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenSSH: Public Key Auth]]></title>
+    <link href="http://pnd4.github.io/blog/2012/12/14/ssh-pubkeyauth/"/>
+    <updated>2012-12-14T17:33:07-08:00</updated>
+    <id>http://pnd4.github.io/blog/2012/12/14/ssh-pubkeyauth</id>
+    <content type="html"><![CDATA[<p><img class="center" src="http://pnd4.github.io/images/2012-12-15-ssh-pubkeyauth/screenshot-12152012-011033-am.png"></p>
+
+<p><em>I finally set up OpenSSH&rsquo;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I had to reference a few to get this working. Its kind of confusing figuring out where the public and private keys go in most guides. They don&rsquo;t really say what keys need to be on what box and what doesn&rsquo;t. A lot are pretty confusing about their naming conventions for remote/local and server/client. Also most completely leave out the user&rsquo;s .ssh/config in which you can specify the identity file to try in SSH. Naturally, I compiled a few snippets from the ssh manual page, and an example I cooked up from tonight&rsquo;s mucking around.. enjoi.</em></p>
+
+<p><strong>Public-Key Authentication</strong>:</p>
+
+<ul>
+<li><p>The server knows the public key, and only the user knows the private key.</p></li>
+<li><p>The file ~/.ssh/authorized_keys lists the public keys that are permitted for logging in.</p></li>
+<li><p>When the user logs in, the ssh program tells the server which key pair it would like to use for authentication.</p></li>
+<li><p>The client proves that it has access to the private key and the server checks that the corresponding public key is authorized to accept the account.</p></li>
+</ul>
+
+
+<p>Example:
+This will set up ssh without password connecting as foo@desktop (their account on their machine at home) to root@server (root account on machine at work)</p>
+
+<p>On the desktop: Generate a key-pair</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ ssh-keygen -t rsa -f 'foo'
+</span><span class='line'>foo@desktop: ~/.ssh$ mkdir ~/.ssh/private-keys
+</span><span class='line'>foo@desktop: ~/.ssh$ mv ~/.ssh/foo ~/.ssh/private-keys
+</span><span class='line'>foo@desktop: ~/.ssh$ chmod -R go-rw ~/.ssh/private-keys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Create or modify the user&rsquo;s .ssh/config file to use the new private key</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ vi config</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
+</span><span class='line'>IdentityFile ~/.ssh/foo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Copy the public key to server&rsquo;s authorized_keys file.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ cat ~/.ssh/foo.pub | ssh root@server 'umask 077; cat >>~/.ssh/authorized_keys'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the server: Modify the sshd_config file to allow for Public-Key Authentication</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~/etc/ssh/# mv sshd_config sshd_config.orig ; sed &lt; sshd_config.orig 's/^#Pubkey/Pubkey/' > sshd_config</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the server: Restart the ssh-daemon on the server</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~# systemctl restart sshd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Test it out.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~$ ssh root@server</span></code></pre></td></tr></table></div></figure>
+
+
+
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="I finally set up OpenSSH&rsquo;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I &hellip;">
+  <meta name="description" content="&ldquo;I remember new years eve 2010/11, crystal clear night, awesome fireworks in Zurich Switzerland, drinking with my bro and then he said &#8220; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,109 +67,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/14/ssh-pubkeyauth/">OpenSSH: Public Key Auth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-14T17:33:07-08:00" pubdate data-updated="true">Dec 14<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-12-15-ssh-pubkeyauth/screenshot-12152012-011033-am.png"></p>
-
-<p><em>I finally set up OpenSSH&rsquo;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I had to reference a few to get this working. Its kind of confusing figuring out where the public and private keys go in most guides. They don&rsquo;t really say what keys need to be on what box and what doesn&rsquo;t. A lot are pretty confusing about their naming conventions for remote/local and server/client. Also most completely leave out the user&rsquo;s .ssh/config in which you can specify the identity file to try in SSH. Naturally, I compiled a few snippets from the ssh manual page, and an example I cooked up from tonight&rsquo;s mucking around.. enjoi.</em></p>
-
-<p><strong>Public-Key Authentication</strong>:</p>
-
-<ul>
-<li><p>The server knows the public key, and only the user knows the private key.</p></li>
-<li><p>The file ~/.ssh/authorized_keys lists the public keys that are permitted for logging in.</p></li>
-<li><p>When the user logs in, the ssh program tells the server which key pair it would like to use for authentication.</p></li>
-<li><p>The client proves that it has access to the private key and the server checks that the corresponding public key is authorized to accept the account.</p></li>
-</ul>
-
-
-<p>Example:
-This will set up ssh without password connecting as foo@desktop (their account on their machine at home) to root@server (root account on machine at work)</p>
-
-<p>On the desktop: Generate a key-pair</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ ssh-keygen -t rsa -f 'foo'
-</span><span class='line'>foo@desktop: ~/.ssh$ mkdir ~/.ssh/private-keys
-</span><span class='line'>foo@desktop: ~/.ssh$ mv ~/.ssh/foo ~/.ssh/private-keys
-</span><span class='line'>foo@desktop: ~/.ssh$ chmod -R go-rw ~/.ssh/private-keys</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On the desktop: Create or modify the user&rsquo;s .ssh/config file to use the new private key</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ vi config</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
-</span><span class='line'>IdentityFile ~/.ssh/foo</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On the desktop: Copy the public key to server&rsquo;s authorized_keys file.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ cat ~/.ssh/foo.pub | ssh root@server 'umask 077; cat >>~/.ssh/authorized_keys'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On the server: Modify the sshd_config file to allow for Public-Key Authentication</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~/etc/ssh/# mv sshd_config sshd_config.orig ; sed &lt; sshd_config.orig 's/^#Pubkey/Pubkey/' > sshd_config</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On the server: Restart the ssh-daemon on the server</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~# systemctl restart sshd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On the desktop: Test it out.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~$ ssh root@server</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -913,6 +810,56 @@ _</p>
 <p>and.. voilà!</p>
 
 <p><em>Continue by customizing your install with a browser, file manager, window manager, or be lazy and just get a whole desktop environment. Have fun making any necessary tweaks to file&rsquo;s we&rsquo;ve already used, like make.conf USE flags, kernel configuration, bootloader.. but be happy, if you&rsquo;ve got this far, you&rsquo;ve got a working system.</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/26/fresh-easys-beer-selection/">Fresh & Easy&#8217;s Beer Selection</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-26T13:34:08-07:00" pubdate data-updated="true">Aug 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg"></p>
+
+<p>If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
+
+<p>9 / 10 &ndash; Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
+
+<p>9 / 10 &ndash; Leffe: &lsquo;Leffe Blonde&rsquo;</p>
+
+<p>3 / 10 &ndash; Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
+
+<p>7 / 10 &ndash; Racer5</p>
+
+<p>Hopefully this helps someone pacing up and down the cooler isle trying to make their selection, so they can get to where they need to be and back to loving life.</p>
+
+<p>Thanks goes out to Adriel, John, and Fresh &amp; Easy for making this post possible.. <em>hiccup</em></p>
 </div>
   
   
