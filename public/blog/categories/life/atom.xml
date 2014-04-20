@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Life | PND4]]></title>
   <link href="http://pnd4.github.io/blog/categories/life/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2014-04-15T23:20:00-07:00</updated>
+  <updated>2014-04-20T06:06:05-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -32,7 +32,7 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
     <link href="http://pnd4.github.io/blog/2012/08/26/fresh-easys-beer-selection/"/>
     <updated>2012-08-26T13:34:08-07:00</updated>
     <id>http://pnd4.github.io/blog/2012/08/26/fresh-easys-beer-selection</id>
-    <content type="html"><![CDATA[<p><img class="center" src="/images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg"></p>
+    <content type="html"><![CDATA[<p>{% img center /images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg %}</p>
 
 <p>If you ever find yourself frequenting a Fresh n' Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
 
@@ -63,9 +63,9 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
 
 <p>&mdash;pnd4</p>
 
-<p><img class="center <a" src="href="http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png">http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png</a>"></p>
+<p>{% img center <a href="http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png">http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png</a> %}</p>
 
-<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=7W7HS7N8WVYXJ&amp;lc=US&amp;item_name=Send%20Kevin%20to%20Defcon%2020&amp;item_number=115501337&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3adc20%2dlogo%2epng%3aNonHosted"><img class="center" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"></a></p>
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=7W7HS7N8WVYXJ&amp;lc=US&amp;item_name=Send%20Kevin%20to%20Defcon%2020&amp;item_number=115501337&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3adc20%2dlogo%2epng%3aNonHosted">{% img center https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif %}</a></p>
 ]]></content>
   </entry>
   

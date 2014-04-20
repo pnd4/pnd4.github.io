@@ -23,11 +23,23 @@ module Jekyll
     def render(context)
       if parts = @text.match(/([a-zA-Z\d]*) (.*)/)
         gist, file = parts[1].strip, parts[2].strip
+<<<<<<< HEAD
         script_url = script_url_for gist, file
         code       = get_cached_gist(gist, file) || get_gist_from_web(gist, file)
         html_output_for script_url, code
       else
         ""
+=======
+      else
+        gist, file = @text.strip, ""
+      end
+      if gist.empty?
+        ""
+      else
+        script_url = script_url_for gist, file
+        code       = get_cached_gist(gist, file) || get_gist_from_web(gist, file)
+        html_output_for script_url, code
+>>>>>>> f6ed4125b56ee28775f0fe1c3ebac7d6ef33daf9
       end
     end
 
@@ -74,8 +86,16 @@ module Jekyll
       gist_url = get_gist_url_for(gist, file)
       data     = get_web_content(gist_url)
 
+<<<<<<< HEAD
       if data.code.to_i == 302
         data = handle_gist_redirecting(data)
+=======
+      locations = Array.new
+      while (data.code.to_i == 301 || data.code.to_i == 302)
+        data = handle_gist_redirecting(data)
+        break if locations.include? data.header['Location']
+        locations << data.header['Location']
+>>>>>>> f6ed4125b56ee28775f0fe1c3ebac7d6ef33daf9
       end
 
       if data.code.to_i != 200
@@ -91,6 +111,10 @@ module Jekyll
       if redirected_url.nil? || redirected_url.empty?
         raise ArgumentError, "GitHub replied with a 302 but didn't provide a location in the response headers."
       end
+<<<<<<< HEAD
+=======
+
+>>>>>>> f6ed4125b56ee28775f0fe1c3ebac7d6ef33daf9
       get_web_content(redirected_url)
     end
 
