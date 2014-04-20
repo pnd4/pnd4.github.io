@@ -28,7 +28,7 @@ tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
 
 The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to `/etc/rc.local` 
 
-``` ruby Discover if a number is prime http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/ Source Article 
+``` 
 echo deadline > /sys/block/sda/queue/scheduler
 ```
 

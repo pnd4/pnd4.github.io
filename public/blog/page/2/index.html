@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like & &hellip;">
+  <meta name="description" content="I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,7 +24,7 @@
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -73,6 +73,91 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/11/09/gentoo-genkernel-upgrade/">Gentoo - Genkernel Upgrade Steps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-09T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
+
+<p>Make sure Gentoo is matched up with your target kernel version</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>eselect kernel list
+</span><span class='line'>eselect kernel set #</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Build it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zcat /proc/config.gz &gt; /usr/src/linux
+</span><span class='line'>cd /usr/src/linux
+</span><span class='line'>make oldconfig
+</span><span class='line'>make modules_prepare
+</span><span class='line'>emerge --ask @module-rebuild
+</span><span class='line'>make
+</span><span class='line'>make modules_install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>genkernel --no-menuconfig --no-clean --install all</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Update bootloader</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /boot/extlinux/extlinux.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reboot and cross your fingers.</p>
+
+<p>Clean-up/delete old files in <code>/boot</code> and corresponding bootloader entries.</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade" title="Kernel/Upgrade">Gentoo Wiki: Kernel/Upgrade</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/11/04/iptables-transmission-vpn/">IPTables + Transmission + VPN</a></h1>
     
     
@@ -89,7 +174,7 @@
   
 
 
-<time datetime="2013-11-04T00:00:00-08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2013</time>
+<time datetime="2013-11-04T00:00:00-08:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -202,7 +287,7 @@ fi</code></pre>
   
 
 
-<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true">Oct 21<span>st</span>, 2013</time>
+<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -309,7 +394,7 @@ Solidworks grabs 340mb on launch.
   
 
 
-<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true">Oct 18<span>th</span>, 2013</time>
+<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -595,7 +680,7 @@ From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-c
   
 
 
-<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2013</time>
+<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -638,167 +723,6 @@ bundle install # make sure to run this one in the 'octopress' directory
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/17/git/">GIT Version Control System</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true">Oct 17<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Starting a new repo</h2>
-
-<p>create project directory</p>
-
-<pre><code>mkdir -p &lt;folder&gt;
-cd &lt;folder&gt;
-</code></pre>
-
-<p>create files or copy them from existing project.</p>
-
-<pre><code>touch README.md
-</code></pre>
-
-<p>initialize barebone git files</p>
-
-<pre><code>git init
-</code></pre>
-
-<p>prepare commit with annotations and files</p>
-
-<pre><code>git add README.md
-git commit -m "&lt;message&gt;"
-</code></pre>
-
-<p>new project, so create remote origin, and master branch</p>
-
-<pre><code>git remote add origin &lt;url | git@github.com:pnd4/&lt;project&gt;.git"
-</code></pre>
-
-<p>publish files to the new git-repository</p>
-
-<pre><code>git push -u origin master
-</code></pre>
-
-<h2>Tips from the IRC guys</h2>
-
-<p><em>Excerpt from: freenode_#crunchbang-offtopic_20130929.log</em></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[00:04:25] &lt;Ferus&gt; also thats why you git pull
-</span><span class='line'>[00:04:28] &lt;Ferus&gt; all the time
-</span><span class='line'>[00:04:29] &lt;Ferus&gt; lel
-</span><span class='line'>[00:04:33] &lt;orik&gt; xD
-</span><span class='line'>[00:04:57] * Ferus passes pnd4 an american spirit black
-</span><span class='line'>[00:04:59] &lt;pnd4&gt; hmm whats the diff between git pull and clone?
-</span><span class='line'>[00:05:00] &lt;orik&gt; well phoronix even has good things to say about mpv
-</span><span class='line'>[00:05:10] &lt;orik&gt; a pull just checks for changes and
-</span><span class='line'>[00:05:19] &lt;Ferus&gt; clone clones a new repo, pull pulls the new changes from master
-</span><span class='line'>[00:05:26] &lt;orik&gt; ^^
-</span><span class='line'>[00:05:27] &lt;pnd4&gt; oh ok.. thanks
-</span><span class='line'>[00:05:50] &lt;orik&gt; man I've been using git at work for the past three months and I swear I still don't fully understand it
-</span><span class='line'>[00:05:56] &lt;Ferus&gt; tl;dr if the repo doesnt exist locally, you clone from master, if it does exist locally, you pull from master
-</span><span class='line'>[00:06:19] &lt;Ferus&gt; orik: i've been using git for two years, i broke my repo 5 months ago and havent fixed it
-</span><span class='line'>[00:06:34] &lt;Ferus&gt; (i dont know how ;_;)
-</span><span class='line'>[00:07:41] &lt;pnd4&gt; ok so Ive cloned dwmstatus earlier, made changes. if I do a pull, does it undo my changes to match the current master?
-</span><span class='line'>[00:07:52] *** Joins: salam4ik (~salam4ik@89.106.233.158)
-</span><span class='line'>[00:08:10] * pnd4 copies directory and just tries it.. 'banzai!'
-</span><span class='line'>[00:08:21] &lt;Ferus&gt; no, it'll complain that you have un-stashed changed
-</span><span class='line'>[00:08:23] &lt;Ferus&gt; changes*
-</span><span class='line'>[00:08:39] &lt;Ferus&gt; so you want to do `git stash; git pull; git stash pop`
-</span><span class='line'>[00:09:05] &lt;pnd4&gt; stash, thats a new one too.. did I mention I'm quite new to git ? haha.
-</span><span class='line'>[00:09:17] &lt;Ferus&gt; (this is all i know how to do)
-</span><span class='line'>[00:09:27] &lt;Ferus&gt; besides add and rm, but thats kinda obvious
-</span><span class='line'>[00:09:44] &lt;pnd4&gt; thanks. I'll try and remember that if/when suckless puts out a new version
-</span><span class='line'>[00:10:49] &lt;pnd4&gt; I think having familiarity with git should help in the job search.. I mean, who wouldn't want a guy that's familiar with widely used version control systems?
-</span><span class='line'>[00:10:49] &lt;Ferus&gt; you can always google it
-</span><span class='line'>[00:11:46] &lt;pnd4&gt; that is true, but the tl;dr versions are always nice
-</span><span class='line'>[00:12:52] &lt;pnd4&gt; Halts: ebay has the hat I want for 25 (down from 35$) .. they're out of my size.. I share your pain.
-</span><span class='line'>[00:14:05] &lt;pnd4&gt; its like that scene in 'The Last Samurai' where they cut his hair
-</span><span class='line'>[00:15:40] &lt;Halts&gt; at least you can buy your hat.
-</span><span class='line'>[00:16:01] &lt;pnd4&gt; would you buy your jersey still if it was 120 ?
-</span><span class='line'>[00:16:59] &lt;Ferus&gt; &gt; IP Location: Kingston / New York / United States
-</span><span class='line'>[00:17:08] &lt;Ferus&gt; bahaha this site is horrible, cant even geolocate
-</span><span class='line'>[00:18:22] &lt;Halts&gt; haha, not right now.
-</span><span class='line'>[00:18:28] &lt;Halts&gt; but I eventually would, yes.
-</span><span class='line'>[00:18:40] &lt;Halts&gt; I'd like to get it for
-</span><span class='line'>[00:18:50] &lt;Halts&gt; but, a bunch of cunts ruined that
-</span><span class='line'>[00:19:57] *** Quits: orik (~orik@50-46-134-47.evrt.wa.frontiernet.net) (Remote host closed the connection)
-</span><span class='line'>[00:20:51] &lt;n2o4&gt; pnd4: Just checkout your features into it's own branch, for example git clone foobar, git checkout -b my-super-branch, make edits and commit, issue git checkout master to check into the master branch again.</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Useful Links and References</h2>
-
-<ol>
-<li><a href="https://github.com">GitHub</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -812,8 +736,12 @@ git commit -m "&lt;message&gt;"
 <aside class="sidebar">
   
     <section>
-  <h1>Latest Topics</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
@@ -823,15 +751,11 @@ git commit -m "&lt;message&gt;"
         <a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/11/23/rtmpdump/">CLI RTMP Streaming</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Git</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>

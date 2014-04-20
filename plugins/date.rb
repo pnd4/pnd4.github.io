@@ -41,8 +41,6 @@ module Octopress
       end
       date_formatted
     end
-<<<<<<< HEAD
-=======
     
     # Returns the date-specific liquid attributes
     def liquid_date_attributes
@@ -52,7 +50,6 @@ module Octopress
       date_attributes['updated_formatted'] = format_date(self.data['updated'], date_format) if self.data.has_key?('updated')
       date_attributes
     end
->>>>>>> f6ed4125b56ee28775f0fe1c3ebac7d6ef33daf9
 
   end
 end
@@ -63,64 +60,22 @@ module Jekyll
   class Post
     include Octopress::Date
 
-<<<<<<< HEAD
-    # Convert this post into a Hash for use in Liquid templates.
-    #
-    # Returns <Hash>
-    def to_liquid
-      date_format = self.site.config['date_format']
-      self.data.deep_merge({
-        "title"             => self.data['title'] || self.slug.split('-').select {|w| w.capitalize! || w }.join(' '),
-        "url"               => self.url,
-        "date"              => self.date,
-        # Monkey patch
-        "date_formatted"    => format_date(self.date, date_format),
-        "updated_formatted" => self.data.has_key?('updated') ? format_date(self.data['updated'], date_format) : nil,
-        "id"                => self.id,
-        "categories"        => self.categories,
-        "next"              => self.next,
-        "previous"          => self.previous,
-        "tags"              => self.tags,
-        "content"           => self.content })
-=======
     # Convert this Convertible's data to a Hash suitable for use by Liquid.
     # Overrides the default return data and adds any date-specific liquid attributes
     alias :super_to_liquid :to_liquid
     def to_liquid
       super_to_liquid.deep_merge(liquid_date_attributes)
->>>>>>> f6ed4125b56ee28775f0fe1c3ebac7d6ef33daf9
     end
   end
 
   class Page
     include Octopress::Date
 
-<<<<<<< HEAD
-    # Initialize a new Page.
-    #
-    # site - The Site object.
-    # base - The String path to the source.
-    # dir  - The String path between the source and the file.
-    # name - The String filename of the file.
-    def initialize(site, base, dir, name)
-      @site = site
-      @base = base
-      @dir  = dir
-      @name = name
-
-      self.process(name)
-      self.read_yaml(File.join(base, dir), name)
-      # Monkey patch
-      date_format = self.site.config['date_format']
-      self.data['date_formatted']    = format_date(self.data['date'], date_format) if self.data.has_key?('date')
-      self.data['updated_formatted'] = format_date(self.data['updated'], date_format) if self.data.has_key?('updated')
-=======
     # Convert this Convertible's data to a Hash suitable for use by Liquid.
     # Overrides the default return data and adds any date-specific liquid attributes
     alias :super_to_liquid :to_liquid
     def to_liquid
       super_to_liquid.deep_merge(liquid_date_attributes)
->>>>>>> f6ed4125b56ee28775f0fe1c3ebac7d6ef33daf9
     end
   end
 end
