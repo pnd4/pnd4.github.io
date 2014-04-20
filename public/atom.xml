@@ -4,7 +4,11 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
+<<<<<<< HEAD:public/atom.xml
   <updated>2014-04-20T04:45:44-07:00</updated>
+=======
+  <updated>2014-04-15T23:20:00-07:00</updated>
+>>>>>>> b45e7eecba31e0249255ba8e52b956d98d6e2dcc:atom.xml
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
