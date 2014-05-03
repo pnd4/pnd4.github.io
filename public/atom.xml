@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://pnd4.github.io/atom.xml" rel="self"/>
   <link href="http://pnd4.github.io/"/>
-  <updated>2014-04-20T07:20:59-07:00</updated>
+  <updated>2014-05-03T09:12:05-07:00</updated>
   <id>http://pnd4.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Pay-per-webcast?.. Srsly?]]></title>
+    <link href="http://pnd4.github.io/blog/2014/05/03/pay-per-stream-bypass/"/>
+    <updated>2014-05-03T07:56:55-07:00</updated>
+    <id>http://pnd4.github.io/blog/2014/05/03/pay-per-stream-bypass</id>
+    <content type="html"><![CDATA[<p><img class="center" src="http://pnd4.github.io/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
+
+<p><em>After studying the source of a live webcast and the data that gets thrown around once the plugin is triggered to play, I managed to get a 10$ webcast for free. Honestly, I havent taken the time to try and understand all the jquery and javascript behind html5 media plugins but it turns out you can figure out the URI to pass to <code>mplayer</code> (or similar) using the contents of the SMIL file pretty easily.</em></p>
+
+<p>First, you&rsquo;re going to want to check out the source where the stream is embedded. Take note of the <code>vendorID</code> and <code>mediaID</code> parameters.</p>
+
+<p>Next we want to examine the SMIL file which holds will tell us exactly where we can find our stream.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There should be a <code>content="http://yadayadayada.yup"</code> as well as one or more <code>src="/theStreamsYouWereLookingFor@rightHurr"</code> key-value pairs to help you put together a URI to give a go using your chosen media player. If your target is anything like mine, you’ll have direct access to the stream, and saved yourself some money.</p>
+
+<p>Here&rsquo;s my result to serve as an example or hint. More than likely it&rsquo;ll apply to all Mobilerider webcasts.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayadayada.yup/i/theStreamsYouWereLookingFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The parts of the string not supplied explicitly in the SMIL were taken from a previously valid URI from the same site.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Optimizing a Pogoplug]]></title>
@@ -1361,20 +1390,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <p>Also been loving the TweetDeck Chrome-app for managing my Twitter/FB. Seems like Facebook doesnt support reading the main news feed as RSS though (although it once did ::sadface::). Tweetdeck is the next best thing. But Im going to eventually try using fbcmd to do something similar since the amount of advertising on Facebook is getting outta hand.</p>
 
 <p>ttfn</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Twenty-Thirteen]]></title>
-    <link href="http://pnd4.github.io/blog/2013/01/11/twenty-thirteen/"/>
-    <updated>2013-01-11T15:44:15-08:00</updated>
-    <id>http://pnd4.github.io/blog/2013/01/11/twenty-thirteen</id>
-    <content type="html"><![CDATA[<p><a href="http://pnd4.github.io/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="http://pnd4.github.io/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013" /></a>
-Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by ChicagoVPS.net. So much thanks goes out to my Tita Fe, Tito Ram, Mom and Dad for funding this. Its been 2-weeks and already the experience has taught me so much more than simulating it on my local network.</p>
-
-<p>As usual, I&rsquo;ve been busy.. powering through the new year&rsquo;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&rsquo;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
-
-<p>Happy New Years &lsquo;errbody !</p>
 ]]></content>
   </entry>
   

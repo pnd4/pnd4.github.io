@@ -9,7 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [ &hellip;">
+  <meta name="description" content="Use iptables to secure netlink infrastructure. Where the rules files go In Arch, the usual /etc/iptables/iptables.rules
+In Gentoo, the rules are &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +68,213 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/16/firewall/">Firewalls</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
+
+<h3>Where the rules files go</h3>
+
+<p>In Arch, the usual /etc/iptables/iptables.rules
+In Gentoo, the rules are restored from /var/lib/iptables/rules-save
+In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
+
+<h3>Rules Basic Template</h3>
+
+<p>Based on: <a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*filter
+</span><span class='line'>:INPUT DROP [0:0]
+</span><span class='line'>:FORWARD DROP [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:TCP - [0:0]
+</span><span class='line'>:UDP - [0:0]
+</span><span class='line'>## === BEGIN: First Rule ======================================
+</span><span class='line'># Keep before ping limiting rules to limit pings per connection
+</span><span class='line'>-I INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</span><span class='line'>## === END: First Rule ========================================
+</span><span class='line'>## === BEGIN: Ping limiting ===================================
+</span><span class='line'># Keep after 'RELATED, ESTABLISHED' to limit pings per connection
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --set
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --update --hitcount 6 --seconds 10 -j DROP
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+</span><span class='line'>## === END: Ping limiting =====================================
+</span><span class='line'>## === BEGIN: General Rules ===================================
+</span><span class='line'># Extra protection against spoofing attacks (see: sysctl regarding rp_filter)
+</span><span class='line'>-I INPUT ! -i lo -s 127.0.0.0/8 -j DROP
+</span><span class='line'># Accept all traffic coming from localhost
+</span><span class='line'>-A INPUT -i lo -j ACCEPT
+</span><span class='line'>-A INPUT -d 127.0.0.0/8 -j REJECT
+</span><span class='line'>-A INPUT -m conntrack --ctstate INVALID -j DROP
+</span><span class='line'>-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP
+</span><span class='line'>-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+</span><span class='line'>## === END: General Rules =====================================
+</span><span class='line'>## === BEGIN: Services ========================================
+</span><span class='line'>## NTP
+</span><span class='line'>#-A UDP -p tcp -i eth0 -s 192.168.12.0/24 --dport 123 -j ACCEPT
+</span><span class='line'>## SSH
+</span><span class='line'>#-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 22 -j ACCEPT
+</span><span class='line'>## TRANSMISSION
+</span><span class='line'>#Allow transmission to talk to users
+</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.18 -j ACCEPT
+</span><span class='line'>#Restrict transmission from using other ports.
+</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission ! -o tun+ -j REJECT
+</span><span class='line'>#Allow users to talk to transmission
+</span><span class='line'>-A TCP -p tcp -s 192.168.12.18 --dport 9091 -j ACCEPT
+</span><span class='line'>## === END: Services ==========================================
+</span><span class='line'>## === BEGIN: Trick Port Scanning =============================
+</span><span class='line'>-I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+</span><span class='line'>-I UDP -p udp -m recent --update --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with port-unreach
+</span><span class='line'>-A INPUT -p tcp -m recent --set --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+</span><span class='line'>-A INPUT -p udp -m recent --set --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreach
+</span><span class='line'>## === END: Trick Port Scanning ===============================
+</span><span class='line'>## === BEGIN: Last Rule =======================================
+</span><span class='line'># This rule must be kept at the end, regardless if port-scan or ping limit is used.
+</span><span class='line'>-A INPUT -j REJECT --reject-with icmp-proto-unreachable
+</span><span class='line'>## === END: Last Rule =========================================
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Internet Connection Sharing</h3>
+
+<p>Involves adding additional rules</p>
+
+<p><em>For the template below:</em></p>
+
+<pre><code>|          |              wan |             lan  |  
+|---------:|-----------------:|-----------------:|  
+|  iface   |             wan0 |            lan0  |  
+|  subnet  |     192.168.12.0 |    172.168.42.0  |  
+</code></pre>
+
+<p><em>Example Template</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*nat
+</span><span class='line'>:PREROUTING ACCEPT [0:0]
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:POSTROUTING ACCEPT [0:0]
+</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
+</span><span class='line'>COMMIT
+</span><span class='line'>*filter
+</span><span class='line'>:INPUT ACCEPT [0:0]
+</span><span class='line'>:FORWARD DROP [0:0]
+</span><span class='line'>:OUTPUT ACCEPT [0:0]
+</span><span class='line'>:fw-interfaces - [0:0]
+</span><span class='line'>:fw-open - [0:0]
+</span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</span><span class='line'>-A FORWARD -j fw-interfaces
+</span><span class='line'>-A FORWARD -j fw-open
+</span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
+</span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>References</h4>
+
+<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
+<a href="https://wiki.debian.org/iptables">Debwiki</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -269,47 +477,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/11/twenty-thirteen/">Twenty-Thirteen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-11T15:44:15-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013" /></a>
-Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by ChicagoVPS.net. So much thanks goes out to my Tita Fe, Tito Ram, Mom and Dad for funding this. Its been 2-weeks and already the experience has taught me so much more than simulating it on my local network.</p>
-
-<p>As usual, I&rsquo;ve been busy.. powering through the new year&rsquo;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&rsquo;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
-
-<p>Happy New Years &lsquo;errbody !</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -327,15 +494,15 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a>
       </li>
     
   </ul>

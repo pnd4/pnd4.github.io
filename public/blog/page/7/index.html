@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Tonight ParkerR and I decided to get some pentesting tools into our devices. He has a Nexus 7 and I.. well I have my phone. Anyway, after a &hellip;">
+  <meta name="description" content="Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/10/64/">Herp Derp.. 3 Std&#8217;s and a Null</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-10T10:03:29-07:00" pubdate data-updated="true">Aug 10<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-10-64/screenshot-08102012-050248-pm2.png"></p>
+
+<p>Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you&rsquo;ll see a lot in command-line scripting languages such as bash or Python.</p>
+
+<p>A good way to check which &lsquo;devices&rsquo; correspond with which number is by running this command.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l /dev/null /dev/std*</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the &lsquo;bit-bucket&rsquo; and certainly is a doorway to hell in which any data becomes a doomed soul.</p>
+
+<p>Now, you&rsquo;re gonna want to know how to use these devices in a command line. Look no further:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l / 2>/dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This command will list your root partition with &ldquo;long lists&rdquo; and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.</p>
+
+<p>A couple more resources:
+<a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “> /dev/null 2>&amp;1″ mean?</a>
+<a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&rsquo;s Blog: /dev/null</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -239,15 +297,15 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a>
       </li>
     
   </ul>

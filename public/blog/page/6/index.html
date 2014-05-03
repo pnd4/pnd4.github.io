@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale &hellip;">
+  <meta name="description" content="_This time I power-walk you through each command to install Gentoo (using a Hardened Stage 3 toolchain). I used this same set of commands, with a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,350 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/28/gentoo-walkthru/">Hardened Gentoo Installation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-28T19:31:49-07:00" pubdate data-updated="true">Aug 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-29-gentoo-walkthru/screenshot-082912-035809.png"></p>
+
+<p>_This time I power-walk you through each command to install Gentoo (using a Hardened Stage 3 toolchain). I used this same set of commands, with a little modification of course, to install Gentoo onto my desktop. My hardware configuration is very unlikely the same as yours; adjust accordingly, otherwise these instructions should be all you need to tackle one of the hardest distro&rsquo;s to install (by reputation). _</p>
+
+<p>_.. Before you tl;dr, realize that even though the process is long and gruesome, there&rsquo;s so much to learn by just even trying, so do not dispair. There&rsquo;s tons of resources out there! Good luck.
+_</p>
+
+<p><strong>Installing Hardened Gentoo with Xorg.</strong></p>
+
+<p>Boot live media</p>
+
+<p>Disable network manager if running</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># /etc/init.d/NetworkManager stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Connect to wireless</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># iwconfig wlan0 essid NETGEAR key s:yourmom
+</span><span class='line'># ifconfig wlan0 192.168.1.100 netmask 255.255.255.0
+</span><span class='line'># route add default gw 192.168.1.254
+</span><span class='line'># ping -c 3 www.google.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set root password</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># passwd root</span></code></pre></td></tr></table></div></figure>
+
+
+<p>[now we switch to our remote computer]</p>
+
+<p>SSH into the box we&rsquo;re install Gentoo onto</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ssh 192.168.1.100 -l root</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create partitions</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># fdisk /dev/sda</span></code></pre></td></tr></table></div></figure>
+
+
+<p>They should look something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/dev/sda1 1G Linux /boot
+</span><span class='line'> /dev/sda2 4G Linux Swap /swap
+</span><span class='line'> /dev/sda3 Rest Linux /root</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create filesystems</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># mkfs.ext2 /dev/sda1 -L boot
+</span><span class='line'># mkswap /dev/sda2 -L swap && swapon /dev/sda2
+</span><span class='line'># mkfs.ext2 -j /dev/sda3 -L root</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Mount filesystems for install</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># mount /dev/sda3 /mnt/gentoo
+</span><span class='line'># mkdir /mnt/gentoo/boot
+</span><span class='line'># mount /dev/sda1 /mnt/gentoo/boot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Download and extract latest stage 3</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cd /mnt/gentoo
+</span><span class='line'># wget http://ftp.ucsb.edu/pub/mirrors/linux/gentoo/releases/amd64/current-stage3/hardened/stage3-amd64-hardened-20120621.tar.bz2
+</span><span class='line'># tar xjpf stage3-*</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Download and extract latest portage snapshot</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cd /mnt/gentoo/usr
+</span><span class='line'># wget http://ftp.ucsb.edu/pub/mirrors/linux/gentoo/releases/snapshots/current/portage-latest.tar.bz2
+</span><span class='line'># tar xjf portage-latest.tar.bz2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Mount relevant directories and chroot into new environment</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cd /
+</span><span class='line'># mount -t proc proc /mnt/gentoo/proc
+</span><span class='line'># mount --rbind /dev /mnt/gentoo/dev
+</span><span class='line'># cp -L /etc/resolv.conf /mnt/gentoo/etc
+</span><span class='line'># chroot /mnt/gentoo /bin/bash
+</span><span class='line'># env-update && source /etc/profile</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Configure time zone</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+</span><span class='line'># echo "America/Los_Angeles" > /etc/timezone
+</span><span class='line'># date</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Configure hostname and domain name</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># nano /etc/hosts
+</span><span class='line'># nano /etc/conf.d/hostname
+</span><span class='line'># hostname blackbox
+</span><span class='line'># hostname -f</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Download and compile your kernel</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># emerge -av hardened-sources linux-firmware
+</span><span class='line'># cd /usr/src/linux
+</span><span class='line'># make menuconfig</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Make and install kernel and modules</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># make -j2
+</span><span class='line'># make modules_install
+</span><span class='line'># cp arch/x86_64/boot/bzImage /boot/kernel
+</span><span class='line'># echo 'modules="ath9k_htc"' >> /etc/conf.d/modules</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Configure fstab</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># nano /etc/fstab</span></code></pre></td></tr></table></div></figure>
+
+
+<p> /dev/sda1 /boot ext2 noauto,noatime 1 2
+ /dev/sda2 none swap swap sw 0 0
+ /dev/sda3 / ext3 noatime 0 1
+ /dev/sr0 /mnt/cdrom auto 0 0</p>
+
+<p>Add sshd as a default service</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># rc-update add sshd default</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set the root password</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># passwd root</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install some recommended tools (syslog-ng, vixie-cron, wireless-tools, wpa_supplicant)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># emerge -av syslog-ng vixie-cron wireless-tools wpa_supplicant
+</span><span class='line'># rc-update add syslog-ng default
+</span><span class='line'># rc-update add vixie-cron default</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install and configure bootloader</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># emerge -av grub
+</span><span class='line'># nano /boot/grub/grub.conf
+</span><span class='line'>**grub.conf**
+</span><span class='line'>default 0
+</span><span class='line'>timeout 10
+</span><span class='line'>title Gentoo
+</span><span class='line'>root (hd0,0)
+</span><span class='line'>kernel /boot/kernel root=/dev/sda3 video=800x600
+</span><span class='line'>
+</span><span class='line'># grub
+</span><span class='line'>>root (hd0,0)
+</span><span class='line'>>setup (hd0)
+</span><span class='line'>>quit</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Exit chroot, umount everything, and reboot</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># exit
+</span><span class='line'># umount -l /mnt/gentoo/dev{/shm,/pts,}
+</span><span class='line'># umount -l /mnt/gentoo{/proc,/boot,}
+</span><span class='line'># reboot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add new user</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># useradd -g users -G lp,wheel,audio,cdrom,portage,cron -m somefag
+</span><span class='line'># passwd somefag</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sort mirrors</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># emerge mirrorselect
+</span><span class='line'># mirrorselect -i -o >> /etc/portage/make.conf
+</span><span class='line'># mirrorselect -i -r -o >> /etc/portage/make.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Configure stuff in /etc/portage/make.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MAKEOPTS="-j2"
+</span><span class='line'>USE= [fill in]
+</span><span class='line'>CFLAGS="-O2 -march=native -pipe"
+</span><span class='line'>VIDEO_CARDS="radeon"
+</span><span class='line'>INPUT_DEVICES="evdev synaptics"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Uncomment and generate locales you&rsquo;re going to use</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># nano /etc/locale.gen
+</span><span class='line'># locale-gen</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Re-emerge world, libtool</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># emerge -vuD --newuse world
+</span><span class='line'># emerge --oneshot libtool</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Update config (do not overwrite the files you&rsquo;ve done your own editing to)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># dispatch-conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>(Optional, if Perl or Python got updated, but doesnt hurt)</em></p>
+
+<p>Run perl-cleaner and python-updater</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># perl-cleaner all
+</span><span class='line'># python-updater</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install xorg</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># emerge -av xorg-server
+</span><span class='line'># env-update && source /etc/profile</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and.. voilà!</p>
+
+<p><em>Continue by customizing your install with a browser, file manager, window manager, or be lazy and just get a whole desktop environment. Have fun making any necessary tweaks to file&rsquo;s we&rsquo;ve already used, like make.conf USE flags, kernel configuration, bootloader.. but be happy, if you&rsquo;ve got this far, you&rsquo;ve got a working system.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -293,7 +637,7 @@
 
 <h2>Testing</h2>
 
-<p>SSH into the server with &ldquo;ssh -X <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x75;&#115;&#101;&#x72;&#64;&#x31;&#48;&#x2e;&#x30;&#x2e;&#x30;&#x2e;&#49;">&#x75;&#x73;&#x65;&#114;&#x40;&#49;&#48;&#x2e;&#x30;&#46;&#x30;&#x2e;&#x31;</a>&rdquo; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
+<p>SSH into the server with &ldquo;ssh -X <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x75;&#115;&#101;&#x72;&#x40;&#x31;&#x30;&#46;&#x30;&#46;&#48;&#46;&#x31;">&#x75;&#115;&#101;&#114;&#64;&#49;&#48;&#x2e;&#x30;&#46;&#x30;&#x2e;&#49;</a>&rdquo; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
 </div>
   
   
@@ -401,64 +745,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/10/64/">Herp Derp.. 3 Std&#8217;s and a Null</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-10T10:03:29-07:00" pubdate data-updated="true">Aug 10<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-08-10-64/screenshot-08102012-050248-pm2.png"></p>
-
-<p>Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you&rsquo;ll see a lot in command-line scripting languages such as bash or Python.</p>
-
-<p>A good way to check which &lsquo;devices&rsquo; correspond with which number is by running this command.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l /dev/null /dev/std*</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the &lsquo;bit-bucket&rsquo; and certainly is a doorway to hell in which any data becomes a doomed soul.</p>
-
-<p>Now, you&rsquo;re gonna want to know how to use these devices in a command line. Look no further:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l / 2>/dev/null</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This command will list your root partition with &ldquo;long lists&rdquo; and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.</p>
-
-<p>A couple more resources:
-<a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “> /dev/null 2>&amp;1″ mean?</a>
-<a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&rsquo;s Blog: /dev/null</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -476,15 +762,15 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a>
       </li>
     
   </ul>
