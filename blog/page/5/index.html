@@ -1,0 +1,717 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PND4</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.pnd4.net/blog/page/5">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">PND4</a></h1>
+  
+    <h2>/dev/notes</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/profile/">Profile</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/11/twenty-thirteen/">Twenty-Thirteen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-11T15:44:15-08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013" /></a>
+Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by ChicagoVPS.net. So much thanks goes out to my Tita Fe, Tito Ram, Mom and Dad for funding this. Its been 2-weeks and already the experience has taught me so much more than simulating it on my local network.</p>
+
+<p>As usual, I&rsquo;ve been busy.. powering through the new year&rsquo;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&rsquo;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
+
+<p>Happy New Years &lsquo;errbody !</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/14/ssh-pubkeyauth/">OpenSSH: Public Key Auth</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-14T17:33:07-08:00" pubdate data-updated="true">Dec 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-12-15-ssh-pubkeyauth/screenshot-12152012-011033-am.png"></p>
+
+<p><em>I finally set up OpenSSH&rsquo;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I had to reference a few to get this working. Its kind of confusing figuring out where the public and private keys go in most guides. They don&rsquo;t really say what keys need to be on what box and what doesn&rsquo;t. A lot are pretty confusing about their naming conventions for remote/local and server/client. Also most completely leave out the user&rsquo;s .ssh/config in which you can specify the identity file to try in SSH. Naturally, I compiled a few snippets from the ssh manual page, and an example I cooked up from tonight&rsquo;s mucking around.. enjoi.</em></p>
+
+<p><strong>Public-Key Authentication</strong>:</p>
+
+<ul>
+<li><p>The server knows the public key, and only the user knows the private key.</p></li>
+<li><p>The file ~/.ssh/authorized_keys lists the public keys that are permitted for logging in.</p></li>
+<li><p>When the user logs in, the ssh program tells the server which key pair it would like to use for authentication.</p></li>
+<li><p>The client proves that it has access to the private key and the server checks that the corresponding public key is authorized to accept the account.</p></li>
+</ul>
+
+
+<p>Example:
+This will set up ssh without password connecting as foo@desktop (their account on their machine at home) to root@server (root account on machine at work)</p>
+
+<p>On the desktop: Generate a key-pair</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ ssh-keygen -t rsa -f 'foo'
+</span><span class='line'>foo@desktop: ~/.ssh$ mkdir ~/.ssh/private-keys
+</span><span class='line'>foo@desktop: ~/.ssh$ mv ~/.ssh/foo ~/.ssh/private-keys
+</span><span class='line'>foo@desktop: ~/.ssh$ chmod -R go-rw ~/.ssh/private-keys</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Create or modify the user&rsquo;s .ssh/config file to use the new private key</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ vi config</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
+</span><span class='line'>IdentityFile ~/.ssh/foo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Copy the public key to server&rsquo;s authorized_keys file.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ cat ~/.ssh/foo.pub | ssh root@server 'umask 077; cat >>~/.ssh/authorized_keys'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the server: Modify the sshd_config file to allow for Public-Key Authentication</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~/etc/ssh/# mv sshd_config sshd_config.orig ; sed &lt; sshd_config.orig 's/^#Pubkey/Pubkey/' > sshd_config</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the server: Restart the ssh-daemon on the server</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~# systemctl restart sshd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On the desktop: Test it out.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~$ ssh root@server</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/30/encrypted-arch-luks-on-lvm/">Arch Install: Encrypted (LUKS on LVM)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-30T10:49:09-08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-11-30-encrypted-arch-luks-on-lvm/arch94e.jpg"></p>
+
+<blockquote><p>&ldquo;I remember new years eve 2010/11, crystal clear night, awesome fireworks in Zurich Switzerland, drinking with my bro and then he said &#8220;you have no soul do you?&rdquo; &mdash; <strong>nohitall</strong></p></blockquote>
+
+<p><em>Alright, so it&rsquo;s been awhile since I made an entry, &lsquo;boo-hoo&rsquo;.. But I bring treats: Notes I took while replacing Gentoo with Arch on my desktop. Yeah, since I finally got my monitors in, I figured it would be a lot of wasted time compiling in Gentoo when I could be doing hood-rat stuff instead on Arch.. Well anyway I figured I&rsquo;d kick things up a notch, having watched Inception recently. Using this install you get 3 things: block-disk-encryption (LUKS) on top of logical-volume-management (LVM2), and finally your OS (Arch) all warm up inside all of that.. Now you may ask yourself: &ldquo;why did he use LVM when he seems to be using a pretty simple partition scheme?__&rdquo;, and the answer is: &ldquo;Because, pnd4 can.&rdquo; .. Yeah-see, I took that one out of nohitall&rsquo;s evil book of nerd things to do when you&rsquo;re lacking sleep and bored. Come say &lsquo;Hi&rsquo; on #crunchbang (via Freenode); Im serving up &lsquo;Das Boot&rsquo; to anyone who wants to complain about how pointless this block of text is.. enjoi!</em></p>
+
+<p>Start by booting the installation media</p>
+
+<p>Use fdisk to create 2 partitions</p>
+
+<ul>
+<li>the boot partition can be pretty small at around 100MiB or so.</li>
+</ul>
+
+
+<p>Write random data to drive</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup -d /dev/random -c aes-xts-plain -s 512 create lvmname /dev/&lt;device>
+</span><span class='line'># dd if=/dev/urandom of=/dev/mapper/lvmname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Optional: In another terminal run a command to monitor progress</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># watch -n 10 killall -USR1 dd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Remove volume of scrambled data.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup remove lvmname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set up LVM logical volumes: root, swap, var, tmp, home</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># lvm pvcreate /dev/&lt;device>
+</span><span class='line'># lvm vgcreate lvmname /dev/&lt;device>
+</span><span class='line'># lvm lvcreate -L 12G -n rootname lvmname
+</span><span class='line'># lvm lvcreate -L 4G -n swapname lvmname
+</span><span class='line'># lvm lvcreate -L 8G -n varname lvmname
+</span><span class='line'># lvm lvcreate -L 1G -n tmpname lvmname
+</span><span class='line'># lvm lvcreate -l 100%FREE -n homename lvmname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Encrypt root</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/rootname
+</span><span class='line'># cryptsetup luksOpen /dev/lvmname/rootname root</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set up root with chosen filesystem [for example; ext4]</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># mkfs.ext4 /dev/mapper/root -L root
+</span><span class='line'># mount /dev/mapper/root /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set up boot with chosen filesystem [for example; ext2]</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># dd if=/dev/zero of=/dev/sda1 bs=1M
+</span><span class='line'># mkfs.ext2 /dev/sda1 -L boot
+</span><span class='line'># mkdir /mnt/boot
+</span><span class='line'># mount /dev/sda1 /mnt/boot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create key for home and var store in /etc/luks-keys/home</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># mkdir -p -m 700 /mnt/etc/luks-keys
+</span><span class='line'># dd if=/dev/random of=/mnt/etc/luks-keys/home bs=1 count=256
+</span><span class='line'># dd if=/dev/random of=/mnt/etc/luks-keys/var bs=1 count=256</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Encrypt, format, and mount var</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/varname /mnt/etc/luks-keys/var
+</span><span class='line'># cryptsetup luksOpen /dev/lvmname/varname var
+</span><span class='line'># mkfs.ext4 /dev/mapper/var -L var
+</span><span class='line'># mkdir /mnt/var
+</span><span class='line'># mount /dev/mapper/var /mnt/var</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Encrypt, format, and mount home</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/varname /mnt/etc/luks-keys/home
+</span><span class='line'># cryptsetup luksOpen /dev/lvmname/homename home
+</span><span class='line'># mkfs.ext4 /dev/mapper/home -L home
+</span><span class='line'># mkdir /mnt/home
+</span><span class='line'># mount /dev/mapper/home /mnt/home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Connect to internet</p>
+
+<h4>Install arch via &lsquo;pacstrap&rsquo;</h4>
+
+<ul>
+<li><p>Syslinux or GRUB, whatever floats your boat.</p></li>
+<li><p>Wicd optional but great if planning to use Wi-Fi</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># pacstrap /mnt base base-devel syslinux wicd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Generate new fstab</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># genfstab -p /mnt >> /mnt/etc/fstab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Chroot into new install</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># arch-chroot /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set hostname</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># echo "h0stname" >> /etc/hostname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set timezone</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Edit /etc/locale.gen</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># locale-gen</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Configure /etc/locale.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LANG="en_US.UTF-8"
+</span><span class='line'>LC_COLLATE="C"
+</span><span class='line'>LC_TIME="en_US.UTF-8"</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Edit /etc/mkinitcpio.conf and generate initrd</h4>
+
+<ul>
+<li>Put lvm2 and encrypt (in this order) before filesystems in HOOKS</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># mkinitcpio -p linux</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Change APPEND line in /boot/syslinux/syslinux.cfg</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>APPEND cryptdevice=/dev/mapper/lvmname-root:root root=/dev/mapper/root ro</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Commit changes to /boot</p>
+
+<ul>
+<li><p> -i = Puts file</p></li>
+<li><p>-a = Set boot flag</p></li>
+<li><p>-m = Install MBR boot code</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># syslinux-install_update -i -a -m</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add to /etc/fstab</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/dev/mapper/tmp  /tmp      tmpfs   defaults            0 0
+</span><span class='line'>/dev/mapper/swap none      swap    sw                  0 0
+</span><span class='line'>tmpfs            /dev/shm  tmpfs   nodev,nosuid,noexec 0 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Edit /etc/crypttab</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var   /dev/lvmname/varname  /etc/luks-keys/var
+</span><span class='line'>home  /dev/lvmname/homename /etc/luks-keys/home
+</span><span class='line'>swap  /dev/lvmname/swap     /dev/urandom  swap,cipher:aes-cbc-essiv:sha256,size=256
+</span><span class='line'>tmp   /dev/lvmname/tmp      /dev/urandom  tmp,cipher:aes-cbc-essiv:sha256,size=256</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Set root password</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># passwd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reboot</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># reboot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>[Fin]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/07/rtmp-streaming/">RTMP Streaming</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-07T09:48:06-07:00" pubdate data-updated="true">Oct 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png"><img src="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png" alt="screenshot-100712-174012.png" /></a></p>
+
+<p>Human beings must have action; they will make it if they cannot find it.</p>
+
+<p><strong><em>&mdash; Albert Einstein</em></strong></p>
+
+<h1>Requirements</h1>
+
+<ul>
+<li><p>video player that supports rtmp streaming [ex: vlc, mplayer]</p></li>
+<li><p>rtmpdump</p></li>
+</ul>
+
+
+<h1>Syntax</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r [rtmp://stream] -W "[webBasedApplet] -v | [localMediaPlayer] -</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Example 1</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r rtmp://188.122.86.236:1935/live/_definst_/kdjfkdfksjkfs1 -W http://cdn.yycast.com/player/player.swf -p http://www.limev.com/ | mplayer -</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/31/adventures-w-freebsd/">Adventures W/ FreeBSD</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-31T04:26:16-07:00" pubdate data-updated="true">Aug 31<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-31-adventures-w-freebsd/image0.png"></p>
+
+<p><em>Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to use BSD-Labeling for our partition table.. I tried a good ol&#8217; MS-DOS MBR with nested freebsd file systems, but it didnt work either. BSD-labeling is our only option as far as I know.. Also, as usual, the method I will be using here is the simplest case, using the whole disk and as 2 partitions, root and swap.</em></p>
+
+<p>Ok so in the FreeBSD installer, choose manual partitioning.</p>
+
+<p>Now highlight the hard drive you want to install to and select &ldquo;Create&rdquo;.</p>
+
+<p>This will create the partition table, we chose &ldquo;BSD labels&rdquo;. It should automatically choose to use your whole drive, so just select &ldquo;Ok&rdquo; and get back to the partitioning menu.</p>
+
+<p>Now we highlight the drive again which should have &ldquo;BSD&rdquo; next to it instead of &ldquo;none&rdquo;, and select &ldquo;Create&rdquo; again to make our root partition inside the BSD-labeling table.</p>
+
+<ul>
+<li><p>type = freebsd-ufs</p></li>
+<li><p>size =  total disk size &ndash; size of swap</p></li>
+<li><p>mount point = /</p></li>
+</ul>
+
+
+<p>Select &ldquo;Ok&rdquo; to confirm and get back to the partitioning menu.</p>
+
+<p>Now scroll back up to highlight the drive with &ldquo;BSD&rdquo; next to it like we did in the previous step. We&rsquo;re creating another partition to use as swap, so select &ldquo;Create&rdquo; once more.</p>
+
+<ul>
+<li><p>type = freebsd-swap</p></li>
+<li><p>size = remaining space (this should be automatically filled in)</p></li>
+<li><p>mount point = blank</p></li>
+</ul>
+
+
+<p>Select &ldquo;Ok&rdquo; to confirm and get back to the partitioning menu.</p>
+
+<p>Ok now we can select &ldquo;Finish&rdquo; and exit the installer&rsquo;s partitioner and install as usual.</p>
+
+<p><em>Good luck with the rest of your installation.. and know that your hate for old motherboards that don&rsquo;t support GPT partition tables is shared by those like me, with similar hardware.</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/6/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/pnd4">@pnd4</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'pnd4',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

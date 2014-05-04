@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PND4</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="Webcam Prices [as of 11.11.2013] 20-23 HD-3000
+15-20 Rocketfish 720p RF-HDWEB
+17 M$ HD-2300 RasPi Notes RasPi community has good info on the subject &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.pnd4.net/blog/page/2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">PND4</a></h1>
+  
+    <h2>/dev/notes</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/profile/">Profile</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/11/motion-webcam/">Motion Webcam</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-11T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Webcam Prices</h3>
+
+<p>[as of 11.11.2013]</p>
+
+<ul>
+<li>20-23 HD-3000</li>
+<li>15-20 Rocketfish 720p RF-HDWEB</li>
+<li>17 M$ HD-2300</li>
+</ul>
+
+
+<h3><a href="http://forum.micasaverde.com/index.php?topic=9104.15">RasPi Notes</a></h3>
+
+<p>RasPi community has good info on the subject. Should be valid for Pogoplugs too.</p>
+
+<blockquote><p>A few recommendations I have for streaming USB webcams with linux:</p>
+
+<ol>
+<li><p>Unless you need the capabilities of motion (that is, you are using the motion detection built in to motion) use mjpg_streamer instead of motion. Motion processes each image to see if pixels have changed, and by default runs a lot of binary morphology on the images (erode, dilate, etc), where mjpg_streamer just streams. On my Pogoplus with four cameras this means the difference between 60%+ cpu utilization versus single digits (and to get down to 60% I had to drop the framerate to 2Hz and go through a bunch of options to turn off as much processing as possible). I have another machine running zoneminder which processes my streams which is why I don&rsquo;t mind forgoing motion detection.</p></li>
+<li><p>Use MJPEG instead of YUV
+If you want multiple webcams on a single USB bus this is basically a necessity. Even if you don&rsquo;t it means a lot less data to process. This is the default in mjpg_streamer, in motion set: &ldquo;v4l2_palette 2&rdquo; in motion.conf</p></li>
+<li><p>Get a webcam with known support
+Some webcams have a problem where the request a lot more bandwidth than they need and this means you can&rsquo;t use two at the same time. There is a hack to get around this in YUV mode, but not MJPEG which isn&rsquo;t much of a help. If you are up for hacking the driver yourself it should be possible to skip the BW check and make these work anyway, but that is quite a bit of work.</p></li>
+</ol>
+
+
+<p>Cameras that work simultaneously (no bandwidth bug):
+-Logitech C120
+-Logitech C160
+-Logitech B500
+-Logitech Quickcam E 3500
+-Logitech Quickcam Messenger
+-Microsoft HD-3000
+-Microsoft HD-5000
+-Rocketfish HD Webcam Pro</p>
+
+<p>Cameras that do not work in multiples (bandwidth bug?):
+-Logitech C110
+-Logitech C310
+-Creative Live! Cam Video IM Ultra
+-HP 2-Megapixel Webcam (RZ406AA)</p>
+
+<p>My current recommendation is probably the HD-3000. It is 720p and can be found for about $20. It does NOT have autofocus which I think is good for a webcam you leave running 24/7. I tried the HD-5000 and it spends a lot of time refocusing. I&rsquo;m afraid it would break after a few weeks. The C160 is currently the cheapest, about $8 shipped on ebay. Meritline sometimes sells it for $6. The irritating thing about the c120/c160 is that they have a focusing ring you have to adjust. For a security camera I would prefer fixed focus. I buy any webcam I can get at a firesale so I&rsquo;ll keep trying more &ndash; I would appreciate results from anyone else as well.</p>
+
+<p>EDIT: Added a few more cameras]</p>
+
+<p>It turns out you can disable autofocus on UVC supported webcams like this:</p>
+
+<p>v4l2-ctl &mdash;verbose &mdash;set-ctrl=focus_auto=0</p>
+
+<p>At least it works for me on all the AF cameras I have to test (Microsoft &amp; Rocketfish).</p>
+
+<p>Not only is this a good idea for camera longevity (I would think so at least) it helps prevents false motion alarms.</p></blockquote>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://elinux.org/RPi_USB_Webcams">eLinux: RasPi Webcam compatibility list</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/09/gentoo-genkernel-upgrade/">Gentoo - Genkernel Upgrade Steps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-09T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
+
+<p>Make sure Gentoo is matched up with your target kernel version</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>eselect kernel list
+</span><span class='line'>eselect kernel set #</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Build it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zcat /proc/config.gz &gt; /usr/src/linux
+</span><span class='line'>cd /usr/src/linux
+</span><span class='line'>make oldconfig
+</span><span class='line'>make modules_prepare
+</span><span class='line'>emerge --ask @module-rebuild
+</span><span class='line'>make
+</span><span class='line'>make modules_install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>genkernel --no-menuconfig --no-clean --install all</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Update bootloader</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /boot/extlinux/extlinux.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reboot and cross your fingers.</p>
+
+<p>Clean-up/delete old files in <code>/boot</code> and corresponding bootloader entries.</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade" title="Kernel/Upgrade">Gentoo Wiki: Kernel/Upgrade</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/04/iptables-transmission-vpn/">IPTables + Transmission + VPN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &lsquo;pacman&rsquo; vs patching &lsquo;BindInterface&rsquo; into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically.
+The script should basically:</p>
+
+<ul>
+<li>first make sure the VPN is up and operational</li>
+<li>correct transmission&rsquo;s config if the address isn&rsquo;t current.. [stop, edit, start]</li>
+<li>definitely end with transmission running</li>
+</ul>
+
+
+<h3>Quote</h3>
+
+<blockquote><p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
+Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&rsquo;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p></blockquote>
+
+<pre><code>iptables -A OUTPUT -m owner --uid-owner debian-transmission -d 192.168.0.100 -j ACCEPT
+iptables -A OUTPUT -m owner --uid-owner debian-transmission \! -o tun0 -j REJECT
+</code></pre>
+
+<blockquote><p>The first line ensures that, my Mac-mini having IP address 192.168.0.100 on the lan, can always access the web interface of transmission. The second line makes sure, no outgoing traffic can leave via anything other that tun0.
+Peace of mind restored, thanks to iptables.</p></blockquote>
+
+<h3>Code</h3>
+
+<p>transmission-vpn-only.sh</p>
+
+<p><em>Ver. ArchLinuxARM-110413</em></p>
+
+<div>
+  <pre><code class='bash'>#!/bin/sh
+
+iface=&quot;tun0&quot;
+service=&quot;transmission.service&quot;
+config=&quot;/var/lib/transmission/.config/transmission-daemon/settings.json&quot;
+
+# test if service is currently running
+systemctl --quiet is-active $service
+if [ $? -eq 0 ]; then
+    # get the ip from the current config
+    savedIP=$(cat $config | egrep -o &#39;\&quot;bind-address-ipv4\&quot;: \&quot;[^ ]*&#39; | cut -d&#39;&quot;&#39; -f4)
+    # test if ip has changed and is no longer available
+    ping -i1 -w2 -c1 $savedIP &gt;/dev/null
+    if [[ $? -ne 0 || &quot;x$savedIP&quot; == &quot;x0.0.0.0&quot; ]]; then
+        echo IP unavailable, stop and reconfigure transmission..
+        systemctl stop $service
+        # test if VPN went down completely
+        ifconfig $iface &gt;/dev/null
+        if [ $? -ne 0 ]; then
+            echo Oops.. $iface not available, exiting without restarting transmission..
+            exit 1
+        fi
+        # reconfigure transmission with new ip address
+        sed -i &quot;s/\&quot;bind-address-ipv4\&quot;:.*\$/\&quot;bind-address-ipv4\&quot;: \&quot;$(ip a show dev $iface | egrep -o &#39;inet [^ ]* &#39; | cut -d&#39; &#39; -f2 | sed &#39;s/ //&#39;)\&quot;,/&quot; $config
+        systemctl start $service
+        echo Transmission started.
+    fi
+else
+    echo &quot;Transmission isn&#39;t running..&quot;
+    exit 1
+fi</code></pre>
+</div>
+
+
+<h3>To-Do</h3>
+
+<ul>
+<li>Figure out how to &lsquo;BindInterface&rsquo;, if possible.</li>
+<li>Revise transmission-vpn-only script.</li>
+<li>Figure out why openvpn config leaves routes behind.</li>
+</ul>
+
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://www.botcyb.org/2012/11/force-application-to-use-vpn-using.html" title="BotCyborg">BotCyborg</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/21/solidworks-build/">Solidworks Rig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>Min Reqs (Win7x64)</h4>
+
+<pre><code>CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
+RAM     2GB+
+HDD     5GB+
+Video   Quadro/QuadroFX/FireGL/FirePro
+</code></pre>
+
+<h2>Notes regarding HW selection</h2>
+
+<ul>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814195112">FirePro v3900</a> was best bang for buck. Good Solidworks reviews.</li>
+<li>4GB of RAM will work, can always upgrade.</li>
+<li>3.5Ghz Dual core + Hyper-Threading (<a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16819116775">i3-3220</a>/3240) should be plenty.</li>
+</ul>
+
+
+<p><a href="http://www.capinc.com/support/tips/solidworks-tech-tips-hardware">Capinc Solidworks HW Tips</a></p>
+
+<ul>
+<li>Video Card: VERY important</li>
+<li>Proc: Solidworks is optimized for multiple cores</li>
+<li>RAM:
+Solidworks grabs 340mb on launch.
+4gb+ is only necessary for very large assemblies (over 10,000 parts)</li>
+<li>HD: Generally, does not affect Solidworks performance</li>
+</ul>
+
+
+<h2>Newegg specials for Oct.</h2>
+
+<p><strong>&ldquo;i5&rdquo; Combo + FirePro V3900 [ ~$630 ] (until 10/25)</strong></p>
+
+<p>Someone mentioned i5 &amp; i7&rsquo;s have decent enough graphics to run Solidworks.. maybe just get FirePro later, if needed?</p>
+
+<ul>
+<li>Trustworthy PSU</li>
+<li>i5 is Quad Core, 8MB-L2, HD4000 &lsquo;integrated&rsquo; gfx</li>
+<li>8GB RAM</li>
+<li>1TB HDD, SSD would&rsquo;ve been nicer.</li>
+<li>USB 3.0</li>
+<li><p>No case.</p>
+
+<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151">Combo: 1291151</a></p></li>
+</ul>
+
+
+<p><strong>&ldquo;i3&rdquo; Combo + FirePro V3900 [ ~$ 430 ] (until 10/31)</strong></p>
+
+<ul>
+<li>Decent PSU. But low wattage.</li>
+<li>500GB HDD</li>
+<li>USB 3.0</li>
+<li><p>Plain Case.</p>
+
+<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103">Combo: 1271103</a></p></li>
+</ul>
+
+
+<p><strong>&ldquo;Budget Gaming&rdquo; Combo [ $ 370 ] (until 10/31)</strong></p>
+
+<ul>
+<li>nVidia GT 640 2GB, instead of FirePro ?<br/>
+  .. donno if that&rsquo;s such a good idea.</li>
+<li>Good PSU</li>
+<li>500GB HDD</li>
+<li>USB 3.0</li>
+<li><p>Decent looking case.</p>
+
+<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943">Combo: 1461943</a></p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/18/hostapd/">Hostapd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Wireless access point daemon</p>
+
+<p><strong>Karma</strong> a version of hostapd for creating <em>rogue</em> access points.</p>
+
+<h3>NAT or Bridge</h3>
+
+<p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
+
+<ul>
+<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
+
+<blockquote><p>see the <a href="/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
+<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
+
+<blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
+
+<p>If you use netctl, see Bridge with netctl for details (just do not add tap0 used in that example).</p></blockquote></li>
+</ul>
+
+
+<h3>Configuration</h3>
+
+<p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
+
+<p>To override at runtime:</p>
+
+<pre><code>sudo hostapd /path/to/hostapd.conf
+</code></pre>
+
+<p>General use, non-Karma, WPA/WPA2 config<br/>
+From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#sets the wifi interface to use, is wlan0 in most cases
+</span><span class='line'>interface=wlan0
+</span><span class='line'>#driver to use, nl80211 works in most cases
+</span><span class='line'>driver=nl80211
+</span><span class='line'>#sets the ssid of the virtual wifi access point
+</span><span class='line'>ssid=dontMessWithVincentValentine
+</span><span class='line'>#sets the mode of wifi, depends upon the devices you will be using. It can be a,b,g,n. Setting to g ensures backward compatiblity.
+</span><span class='line'>hw_mode=g
+</span><span class='line'>#sets the channel for your wifi
+</span><span class='line'>channel=6
+</span><span class='line'>#macaddr_acl sets options for mac address filtering. 0 means "accept unless in deny list"
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>#setting ignore_broadcast_ssid to 1 will disable the broadcasting of ssid
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>#Sets authentication algorithm
+</span><span class='line'>#1 - only open system authentication
+</span><span class='line'>#2 - both open system authentication and shared key authentication
+</span><span class='line'>auth_algs=1
+</span><span class='line'> 
+</span><span class='line'>#####Sets WPA and WPA2 authentication#####
+</span><span class='line'>#wpa option sets which wpa implementation to use
+</span><span class='line'>#1 - wpa only
+</span><span class='line'>#2 - wpa2 only
+</span><span class='line'>#3 - both
+</span><span class='line'> wpa=3
+</span><span class='line'>#sets wpa passphrase required by the clients to authenticate themselves on the network
+</span><span class='line'> wpa_passphrase=KeePGuessinG
+</span><span class='line'>#sets wpa key management
+</span><span class='line'> wpa_key_mgmt=WPA-PSK
+</span><span class='line'>#sets encryption used by WPA
+</span><span class='line'> wpa_pairwise=TKIP
+</span><span class='line'>#sets encryption used by WPA2
+</span><span class='line'> rsn_pairwise=CCMP
+</span><span class='line'>  
+</span><span class='line'>#################################
+</span><span class='line'>   
+</span><span class='line'>#####Sets WEP authentication#####
+</span><span class='line'>#WEP is not recommended as it can be easily broken into
+</span><span class='line'>   wep_default_key=0
+</span><span class='line'>   wep_key0=qwert    #5,13, or 16 characters
+</span><span class='line'>#optionally you may also define wep_key2, wep_key3, and wep_key4
+</span><span class='line'>    
+</span><span class='line'>#################################
+</span><span class='line'>#For No encryption, you don't need to set any options</span></code></pre></td></tr></table></div></figure>
+
+
+<p>non-Karma w/ WPA2</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>interface=tpl0
+</span><span class='line'>driver=nl80211
+</span><span class='line'>ssid=2WIRE022
+</span><span class='line'>hw_mode=g
+</span><span class='line'>channel=10
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>auth_algs=1
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>wpa=2
+</span><span class='line'>wpa_passphrase=SecretPassword1234
+</span><span class='line'>wpa_key_mgmt=WPA-PSK
+</span><span class='line'>rsn_pairwise=CCMP</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Karma w/ WEP</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># config file to use with the Karma'd version of hostapd
+</span><span class='line'># created by Robin Wood - robin@digininja.org - www.digininja.org
+</span><span class='line'>
+</span><span class='line'>interface=tpl0
+</span><span class='line'>driver=nl80211
+</span><span class='line'>country_code=US
+</span><span class='line'>
+</span><span class='line'>ssid=AndroidAP
+</span><span class='line'>channel=3
+</span><span class='line'>
+</span><span class='line'>wep_default_key=0
+</span><span class='line'>wep_key0=SecretPassword1234
+</span><span class='line'>
+</span><span class='line'># Both open and shared auth
+</span><span class='line'>auth_algs=3
+</span><span class='line'>
+</span><span class='line'># no SSID cloaking
+</span><span class='line'>ignore_broadcast_ssid=0
+</span><span class='line'>
+</span><span class='line'># -1 = log all messages
+</span><span class='line'>logger_syslog=-1
+</span><span class='line'>logger_stdout=-1
+</span><span class='line'>
+</span><span class='line'># 2 = informational messages
+</span><span class='line'>logger_syslog_level=2
+</span><span class='line'>logger_stdout_level=2
+</span><span class='line'>
+</span><span class='line'># Dump file for state information (on SIGUSR1)
+</span><span class='line'># example: kill -USR1 &lt;pid&gt;
+</span><span class='line'>dump_file=/tmp/hostapd.dump
+</span><span class='line'>ctrl_interface=/var/run/hostapd
+</span><span class='line'>ctrl_interface_group=adm
+</span><span class='line'>
+</span><span class='line'># 0 = accept unless in deny list
+</span><span class='line'>macaddr_acl=0
+</span><span class='line'>
+</span><span class='line'># only used if you want to do filter by MAC address
+</span><span class='line'>accept_mac_file=/etc/hostapd/hostapd.accept
+</span><span class='line'>deny_mac_file=/etc/hostapd/hostapd.deny
+</span><span class='line'>
+</span><span class='line'># Finally, enable Karma
+</span><span class='line'>enable_karma=0
+</span><span class='line'>
+</span><span class='line'># Black and white listing
+</span><span class='line'># 0 = white
+</span><span class='line'># 1 = black
+</span><span class='line'>karma_black_white=1</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Useful links and references</h5>
+
+<p><a href="https://wiki.archlinux.org/index.php/Software_Access_Point">ArchWiki: Software Access Point</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/pnd4">@pnd4</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'pnd4',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

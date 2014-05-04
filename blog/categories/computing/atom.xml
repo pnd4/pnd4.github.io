@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Computing | PND4]]></title>
+  <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
+  <link href="http://www.pnd4.net/"/>
+  <updated>2014-05-03T18:02:18-07:00</updated>
+  <id>http://www.pnd4.net/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    <email><![CDATA[kevin@pnd4.net]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[pay-per-webcast?.. srsly?]]></title>
+    <link href="http://www.pnd4.net/blog/2014/05/03/pay-per-stream-bypass/"/>
+    <updated>2014-05-03T07:56:55-07:00</updated>
+    <id>http://www.pnd4.net/blog/2014/05/03/pay-per-stream-bypass</id>
+    <content type="html"><![CDATA[<p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
+
+<p><em>After studying the source of a live webcast and the data that gets thrown around once the plugin is triggered to play, I managed to get a 10$ webcast for free. Honestly, I havent taken the time to try and understand all the jquery and javascript behind html5 media plugins but it turns out you can figure out the URI to pass to <code>mplayer</code> (or similar) using the contents of the SMIL file pretty easily.</em></p>
+
+<p>First, you&rsquo;re going to want to check out the source where the stream is embedded. Take note of the <code>vendorID</code> and <code>mediaID</code> parameters.</p>
+
+<p>Next we want to examine the SMIL file which holds will tell us exactly where we can find our stream.</p>
+
+<p><code>
+curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil
+</code></p>
+
+<p>There should be a <code>content="http://yadayadayada.yup"</code> as well as one or more <code>src="/theStreamsYouWereLookingFor@rightHurr"</code> key-value pairs to help you put together a URI to give a go using your chosen media player. If your target is anything like mine, you’ll have direct access to the stream, and saved yourself some money.</p>
+
+<p>Here&rsquo;s my result to serve as an example or hint. More than likely it&rsquo;ll apply to all Mobilerider webcasts.</p>
+
+<p><code>
+http://yadayadayada.yup/i/theStreamsYouWereLookingFor@rightHurr/master.m3u8
+</code></p>
+
+<p>The parts of the string not supplied explicitly in the SMIL were taken from a previously valid URI from the same site.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Optimizing a Pogoplug]]></title>
+    <link href="http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug/"/>
+    <updated>2014-04-20T04:46:00-07:00</updated>
+    <id>http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug</id>
+    <content type="html"><![CDATA[<p><strong> Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. </strong></p>
+
+<h4>Flash-Drive I/O</h4>
+
+<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&rsquo;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&rsquo;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
+
+<p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
+
+<p><code>
+tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
+tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
+tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
+tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
+tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
+</code></p>
+
+<h4>I/O Governor</h4>
+
+<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
+
+<p><code>
+echo deadline &gt; /sys/block/sda/queue/scheduler
+</code></p>
+
+<p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dual-Monitor Toggle]]></title>
+    <link href="http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle/"/>
+    <updated>2014-04-03T02:07:00-07:00</updated>
+    <id>http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle</id>
+    <content type="html"><![CDATA[<p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
+
+<h2>xrandr</h2>
+
+<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
+
+<p><strong>OFF</strong></p>
+
+<p><code>
+xrandr --output DVI-0 --off
+</code></p>
+
+<p><strong>ON</strong></p>
+
+<p><code>
+xrandr --output DVI-0 --left-of VGA-0 --auto
+</code></p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenVPN Hang Issue]]></title>
+    <link href="http://www.pnd4.net/blog/2013/12/05/ovpn-hang/"/>
+    <updated>2013-12-05T00:00:00-08:00</updated>
+    <id>http://www.pnd4.net/blog/2013/12/05/ovpn-hang</id>
+    <content type="html"><![CDATA[<h1>Problem</h1>
+
+<p>CyberGhostVPN connection hangs on service start-up
+Doesnt</p>
+
+<h1>Investigation</h1>
+
+<h4>DNS</h4>
+
+<p><strong>Dec 05 2013 &ndash; 04:38</strong></p>
+
+<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
+
+<p>The thread below talks about tuning openvpn to fix this.</p>
+
+<blockquote><p>By default, on initial startup and restart, the &mdash;remote name is resolved
+once. If the DNS resolve fails, OpenVPN will abort.</p>
+
+<p>If &mdash;resolve-retry is specified, the DNS resolve will be retried for n
+seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
+will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
+
+<p>If you want to disable the DNS re-resolve on restart, you can use
+&mdash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &mdash;remote IP
+address without doing a new DNS lookup.</p></blockquote>
+
+<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CLI RTMP Streaming]]></title>
+    <link href="http://www.pnd4.net/blog/2013/11/23/rtmpdump/"/>
+    <updated>2013-11-23T00:00:00-08:00</updated>
+    <id>http://www.pnd4.net/blog/2013/11/23/rtmpdump</id>
+    <content type="html"><![CDATA[<p>As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
+
+<h3>Commands</h3>
+
+<p>Redirect rtmp port using iptables.</p>
+
+<pre><code>sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre>
+
+<p>Sniffing for stream parameters.</p>
+
+<pre><code>rtmpsrv
+</code></pre>
+
+<p>Once you&rsquo;ve captured a stream, you can undo the redirection.</p>
+
+<pre><code>sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre>
+
+<p>Use rtmpdump like so, piping the output to mplayer/vlc</p>
+
+<pre><code>rtmpdump -q -r "rtmpe://origin.hdcast.org:1935/redirect/" -a "redirect/" -f "LNX 11,9,900,152" -W "http://www.udemy.com/static/flash/player5.9.swf" -p "http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com" -y "ban5" -b "10000" -v | mplayer -really-quiet -framedrop -
+</code></pre>
+
+<h4>Important options</h4>
+
+<p>rtmpdump</p>
+
+<ul>
+<li>-r [tcURL ex. &ldquo;rtmp://stream.url/&rdquo;]</li>
+<li>-a [app ex. &ldquo;redirect/&rdquo;</li>
+<li>-y [playpath ex. &ldquo;freetv4&rdquo;]</li>
+<li>-v [live]</li>
+<li>-b [buffersize ex. &ldquo;10000&rdquo;]</li>
+<li>-W [swfURL ex. &ldquo;<a href="http://stream.url/flash/player5.9.swf">http://stream.url/flash/player5.9.swf</a>&rdquo;]</li>
+</ul>
+
+
+<p>mplayer</p>
+
+<ul>
+<li>-really-quiet [Suppresses output.]</li>
+<li>-framedrop [Helps with streams.]</li>
+<li><ul>
+<li>[Plays from stdout.]</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Port redirect helper script</h4>
+
+<p>I wrote a bash script that takes the hard part, remembering, out of the <strong>iptables</strong> step.</p>
+
+<p><div>
+  <pre><code class='bash'>&lt;/p&gt;
+
+&lt;h1&gt;!/bin/bash&lt;/h1&gt;
+
+&lt;h2&gt;PND4&lt;/h2&gt;
+
+&lt;h2&gt;o1.27.13&lt;/h2&gt;
+
+&lt;p&gt;success() {
+  echo &amp;ldquo;.. success :)&amp;rdquo;
+}&lt;/p&gt;
+
+&lt;p&gt;failure() {
+  echo &amp;ldquo;&amp;mdash; FAILURE :(&amp;rdquo;
+}&lt;/p&gt;
+
+&lt;p&gt;add-rule() {
+  sudo iptables -t nat -A OUTPUT -p tcp &amp;mdash;dport 1935 -j REDIRECT
+}&lt;/p&gt;
+
+&lt;p&gt;del-rule() {
+  sudo iptables -t nat -D OUTPUT -p tcp &amp;mdash;dport 1935 -j REDIRECT
+}&lt;/p&gt;
+
+&lt;p&gt;case &amp;ldquo;$1&amp;rdquo; in
+  start)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;Starting..&quot;
+# also delete rule if it exists for some reason to avoid dupes.
+# always errors out so we ignore it
+del-rule 2&amp;gt;/dev/null
+add-rule
+[ $? -eq 0 ] &amp;amp;&amp;amp; success || failure
+;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  stop)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;Stopping..&quot;
+del-rule
+[ $? -eq 0 ] &amp;amp;&amp;amp; success || failure
+;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  *)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;Usage: $0 &amp;lt;start|stop&amp;gt;&quot;
+;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;esac</code></pre>
+</div>
+</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://stream-recorder.com/forum/tutorial-simply-use-rtmpsrv-and-example-t6325.html?p=18142">rtmpsrv tutorial</a></li>
+<li><a href="http://trac.xbmc.org/ticket/14089">XBMC: hint on buffer option</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
