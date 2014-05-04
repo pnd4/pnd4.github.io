@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 04.20.14 
+## pnd4
+
 git pull octopress master     # Get the latest Octopress
 bundle install                # Keep gems updated
 bundle exec rake update_source            # update the template's source
