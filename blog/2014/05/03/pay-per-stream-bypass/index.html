@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="After studying the source of a live webcast and the data that gets thrown around once the plugin is triggered to play, I managed to get a 10$ &hellip;">
+  <meta name="description" content="*After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,25 +95,29 @@
 
 <div class="entry-content"><p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
 
-<p><em>After studying the source of a live webcast and the data that gets thrown around once the plugin is triggered to play, I managed to get a 10$ webcast for free. Honestly, I havent taken the time to try and understand all the jquery and javascript behind html5 media plugins but it turns out you can figure out the URI to pass to <code>mplayer</code> (or similar) using the contents of the SMIL file pretty easily.</em></p>
+<p>*After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags  as it was back when Geocities was booming, where besides the scrolling marquee, we all insisted on transparently embedding our favorte &lsquo;.wav&rsquo;, this time theres all sorts of new protocols, plugins, and codecs at work. You can&rsquo;t just &lsquo;view-source&rsquo; and expect to see 10-dollars-worth-of.mp4. Theres nothing to worry about though, this only means we have to dig a little harder. Probably real hard if you&rsquo;re like me and have never had much experience with media plugins.</p>
 
-<p>First, you&rsquo;re going to want to check out the source where the stream is embedded. Take note of the <code>vendorID</code> and <code>mediaID</code> parameters.</p>
+<p>So lets get to it.*</p>
 
-<p>Next we want to examine the SMIL file which holds will tell us exactly where we can find our stream.</p>
+<p>First, you&rsquo;re going to want to check out the source of the page where the plugin and stream play. Your browser&rsquo;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
+
+<p>Right now we just need to take note of the <code>vendorID</code> and <code>mediaID</code> parameters. Both were mentioned at least a few times thoughout the page.</p>
+
+<p>Next we want to examine the SMIL file which holds will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
 
 
-<p>There should be a <code>content="http://yadayadayada.yup"</code> as well as one or more <code>src="/theStreamsYouWereLookingFor@rightHurr"</code> key-value pairs to help you put together a URI to give a go using your chosen media player. If your target is anything like mine, you’ll have direct access to the stream, and saved yourself some money.</p>
+<p>Running the previous command on a linux machine should output the contents of the SMIL file. There should be a <code>content="http://yadayadayada.yup"</code> as well as one or more <code>src="/theStreamsYouWereLookingFor@rightHurr"</code> key-value pairs to help you put together a URI to pass to your chosen media player. This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success.</p>
 
-<p>Here&rsquo;s my result to serve as an example or hint. More than likely it&rsquo;ll apply to all Mobilerider webcasts.</p>
+<p>As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values stated previously.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayadayada.yup/i/theStreamsYouWereLookingFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The parts of the string not supplied explicitly in the SMIL were taken from a previously valid URI from the same site.</p>
+<p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
 </div>
 
 
