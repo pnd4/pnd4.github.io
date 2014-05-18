@@ -9,22 +9,24 @@ categories:
 
 {% img center /images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png %}
 
-*After studying the source of a live webcast and the data that gets thrown around once the plugin is triggered to play, I managed to get a 10$ webcast for free. Honestly, I havent taken the time to try and understand all the jquery and javascript behind html5 media plugins but it turns out you can figure out the URI to pass to `mplayer` (or similar) using the contents of the SMIL file pretty easily.*
+*After 'inspecting' the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags  as it was back when Geocities was booming, where besides the scrolling marquee, we all insisted on transparently embedding our favorte '.wav', this time theres all sorts of new protocols, plugins, and codecs at work. You can't just 'view-source' and expect to see 10-dollars-worth-of.mp4. Theres nothing to worry about though, this only means we have to dig a little harder. Probably real hard if you're like me and have never had much experience with media plugins.. So lets get to it.*
 
-First, you're going to want to check out the source where the stream is embedded. Take note of the `vendorID` and `mediaID` parameters.
+First, you're going to want to check out the source of the page where the plugin and stream play. Your browser's developer tools come in real handy and should have everything you need for sleuthing around.
 
-Next we want to examine the SMIL file which holds will tell us exactly where we can find our stream.
+Right now we just need to take note of the `vendorID` and `mediaID` parameters. Both were mentioned at least a few times thoughout the page.
+
+Next we want to examine the SMIL file which holds will tell us exactly where we can find our stream. I found mine by using Firefox's network console and paying attention to the back-and-forth dialog going on between the browser's plugin and the webcast host. I suspect if you did the same you'd come up with similar, so here's mine to save you the trouble.
 
 ```
 curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/<vendorID>/media/file/<mediaID>/streams.smil
 ```
 
-There should be a `content="http://yadayadayada.yup"` as well as one or more `src="/theStreamsYouWereLookingFor@rightHurr"` key-value pairs to help you put together a URI to give a go using your chosen media player. If your target is anything like mine, you’ll have direct access to the stream, and saved yourself some money.
+In the output of the previous command here should be a couple key-value pairs like `content="http://yadayada.yup"` and `src="/theStreamsUWereLookinFor@rightHurr"` to help you put together a URI to pass to your chosen media player. 
 
-Here's my result to serve as an example or hint. More than likely it'll apply to all Mobilerider webcasts.
+This URI is direct access to the stream, but if it returns an error or otherwise you're going to need to invesigate further. My hope is that I've at least set you on the right foot toward success. As a final clue, here's what my result would've looked like using the example values I've used thus far.
 
 ```
-http://yadayadayada.yup/i/theStreamsYouWereLookingFor@rightHurr/master.m3u8
+http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
 ```
 
-The parts of the string not supplied explicitly in the SMIL were taken from a previously valid URI from the same site.
+If you're wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.
