@@ -107,9 +107,9 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Running the previous command on a linux machine should output the contents of the SMIL file. There should be a <code>content="http://yadayada.yup"</code> as well as one or more <code>src="/theStreamsUWereLookinFor@rightHurr"</code> key-value pairs to help you put together a URI to pass to your chosen media player. This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success.</p>
+<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
 
-<p>As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values stated previously.</p>
+<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>

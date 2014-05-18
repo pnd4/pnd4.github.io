@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Computing | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2014-05-18T02:54:40-07:00</updated>
+  <updated>2014-05-18T02:58:37-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -32,9 +32,9 @@
 curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil
 </code></p>
 
-<p>Running the previous command on a linux machine should output the contents of the SMIL file. There should be a <code>content="http://yadayada.yup"</code> as well as one or more <code>src="/theStreamsUWereLookinFor@rightHurr"</code> key-value pairs to help you put together a URI to pass to your chosen media player. This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success.</p>
+<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
 
-<p>As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values stated previously.</p>
+<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
 
 <p><code>
 http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
