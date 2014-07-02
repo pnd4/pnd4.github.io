@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2014-07-02T07:35:23-07:00</updated>
+  <updated>2014-07-02T07:59:18-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -22,9 +22,9 @@
 
 <h4>Using 2.07-2 as a base</h4>
 
-<p>Copied PKGBUILD for lzo2-2.07-2 from ABS.
-Changed &lsquo;arch&rsquo; to suit ALARM.
-Deleted the stuff regarding 2.07 (patch: src, checksums).
+<p>Copied PKGBUILD for lzo2-2.07-2 from ABS.<br/>
+Changed &lsquo;arch&rsquo; to suit ALARM.<br/>
+Deleted the stuff regarding 2.07 (patch: src, checksums).<br/>
 Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;2.08-1&rsquo; respectively.</p>
 
 <h4>Making it work</h4>
@@ -35,14 +35,10 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
 <p>However setting the CFLAGS environment variable showed a warning that if not using at least &ldquo;-O&rdquo; (&ldquo;-O2&rdquo; being the default makepkg.conf optimization CFLAG) then it would not use &ldquo;-D_FORTIFY_SOURCE=2&rdquo; which sounds important from a security-minded perspective.</p>
 
-<p>After some light reading about GCC&rsquo;s flags:</p>
-
-<ul>
-<li><a href="http://www.outflux.net/blog/archives/2014/01/27/fstack-protector-strong/">Security Related Flags</a></li>
-<li><a href="http://www.rapidtables.com/code/linux/gcc/gcc-o.htm#optimization">-O option flag</a></li>
-<li><a href="http://gentoo.2317880.n4.nabble.com/Should-we-disable-FORTIFY-SOURCE-for-packages-where-it-is-not-default-td138737.html">Relationship: FORTIFY_SOURCE &amp; O-Flag</a></li>
-</ul>
-
+<p>After some light reading about GCC&rsquo;s flags:<br/>
+<a href="http://www.outflux.net/blog/archives/2014/01/27/fstack-protector-strong/">Security Related Flags</a><br/>
+<a href="http://www.rapidtables.com/code/linux/gcc/gcc-o.htm#optimization">-O option flag</a><br/>
+<a href="http://gentoo.2317880.n4.nabble.com/Should-we-disable-FORTIFY-SOURCE-for-packages-where-it-is-not-default-td138737.html">Relationship: FORTIFY_SOURCE &amp; O-Flag</a></p>
 
 <p>Looks like the best option would be to disable &lsquo;_FORTIFY_SOURCE&rsquo; but still maintain the highest level of security otherwise and retain the ability to protect from stack-smashing attacks by setting &lsquo;stack-protector-all&rsquo;. It seems with 2.08 we have only two choices: &ldquo;-O0&rdquo; or no optimizations at all. Personally, I&rsquo;d gladly sacrifice runtime-speed optimizations for security, when having both is not an option and since ARM devices don&rsquo;t have much memory, why not use &ldquo;-O0&rdquo; if we can.</p>
 
