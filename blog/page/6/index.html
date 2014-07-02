@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="_This time I power-walk you through each command to install Gentoo (using a Hardened Stage 3 toolchain). I used this same set of commands, with a &hellip;">
+  <meta name="description" content="Human beings must have action; they will make it if they cannot find it. &mdash; Albert Einstein Requirements video player that supports rtmp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,138 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/07/rtmp-streaming/">RTMP Streaming</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-07T09:48:06-07:00" pubdate data-updated="true">Oct 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png"><img src="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png" alt="screenshot-100712-174012.png" /></a></p>
+
+<p>Human beings must have action; they will make it if they cannot find it.</p>
+
+<p><strong><em>&mdash; Albert Einstein</em></strong></p>
+
+<h1>Requirements</h1>
+
+<ul>
+<li><p>video player that supports rtmp streaming [ex: vlc, mplayer]</p></li>
+<li><p>rtmpdump</p></li>
+</ul>
+
+
+<h1>Syntax</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r [rtmp://stream] -W "[webBasedApplet] -v | [localMediaPlayer] -</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Example 1</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r rtmp://188.122.86.236:1935/live/_definst_/kdjfkdfksjkfs1 -W http://cdn.yycast.com/player/player.swf -p http://www.limev.com/ | mplayer -</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/31/adventures-w-freebsd/">Adventures W/ FreeBSD</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-31T04:26:16-07:00" pubdate data-updated="true">Aug 31<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-31-adventures-w-freebsd/image0.png"></p>
+
+<p><em>Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to use BSD-Labeling for our partition table.. I tried a good ol&#8217; MS-DOS MBR with nested freebsd file systems, but it didnt work either. BSD-labeling is our only option as far as I know.. Also, as usual, the method I will be using here is the simplest case, using the whole disk and as 2 partitions, root and swap.</em></p>
+
+<p>Ok so in the FreeBSD installer, choose manual partitioning.</p>
+
+<p>Now highlight the hard drive you want to install to and select &ldquo;Create&rdquo;.</p>
+
+<p>This will create the partition table, we chose &ldquo;BSD labels&rdquo;. It should automatically choose to use your whole drive, so just select &ldquo;Ok&rdquo; and get back to the partitioning menu.</p>
+
+<p>Now we highlight the drive again which should have &ldquo;BSD&rdquo; next to it instead of &ldquo;none&rdquo;, and select &ldquo;Create&rdquo; again to make our root partition inside the BSD-labeling table.</p>
+
+<ul>
+<li><p>type = freebsd-ufs</p></li>
+<li><p>size =  total disk size &ndash; size of swap</p></li>
+<li><p>mount point = /</p></li>
+</ul>
+
+
+<p>Select &ldquo;Ok&rdquo; to confirm and get back to the partitioning menu.</p>
+
+<p>Now scroll back up to highlight the drive with &ldquo;BSD&rdquo; next to it like we did in the previous step. We&rsquo;re creating another partition to use as swap, so select &ldquo;Create&rdquo; once more.</p>
+
+<ul>
+<li><p>type = freebsd-swap</p></li>
+<li><p>size = remaining space (this should be automatically filled in)</p></li>
+<li><p>mount point = blank</p></li>
+</ul>
+
+
+<p>Select &ldquo;Ok&rdquo; to confirm and get back to the partitioning menu.</p>
+
+<p>Ok now we can select &ldquo;Finish&rdquo; and exit the installer&rsquo;s partitioner and install as usual.</p>
+
+<p><em>Good luck with the rest of your installation.. and know that your hate for old motherboards that don&rsquo;t support GPT partition tables is shared by those like me, with similar hardware.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -569,180 +701,6 @@ _</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/13/x11-over-ssh-tunnel/">X11 Over SSH Tunnel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-13T09:05:07-07:00" pubdate data-updated="true">Aug 13<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-08-13-x11-over-ssh-tunnel/openssh2.gif"></p>
-
-<h2>Conventions</h2>
-
-<ul>
-<li><p>Server &ndash; aka headless. Where X apps will be run on.</p></li>
-<li><p>Client &ndash; aka laptop. Where apps will be shown.</p></li>
-</ul>
-
-
-<h2>Setting up the Server:</h2>
-
-<p>Start by running sshd and configuring /etc/ssh/sshd_config</p>
-
-<ul>
-<li><p>Enable the <strong>AllowTcpForwarding</strong> option in <code>ssh**d**_config</code> on the <strong>server</strong>.</p></li>
-<li><p>Enable the <strong>X11Forwarding</strong> option in <code>ssh**d**_config</code> on the <strong>server</strong>.</p></li>
-<li><p>Set the <strong>X11DisplayOffset</strong> option in <code>ssh**d**_config</code> on the <strong>server</strong> to 10.</p></li>
-<li><p>Enable the <strong>X11UseLocalhost</strong> option in <code>ssh**d**_config</code> on the <strong>server</strong>.</p></li>
-</ul>
-
-
-<p>Restart the server</p>
-
-<p>Check /etc/hosts and make sure it has been configured with correct hostnames and IPs.</p>
-
-<h2>Setting up the Client</h2>
-
-<p>Configure /etc/ssh/ssh_config</p>
-
-<ul>
-<li><p>Enable the <strong>ForwardX11</strong> option in <code>ssh_config</code> on the <strong>client</strong>.</p></li>
-<li><p>Or.. just use &ldquo;ssh -X&rdquo; [or -Y for X11 Trusted Forwarding] when you ssh into the server (for security)</p></li>
-</ul>
-
-
-<h2>Testing</h2>
-
-<p>SSH into the server with &ldquo;ssh -X <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#117;&#x73;&#x65;&#x72;&#64;&#49;&#48;&#x2e;&#48;&#x2e;&#48;&#x2e;&#x31;">&#117;&#x73;&#x65;&#114;&#64;&#49;&#x30;&#46;&#48;&#46;&#48;&#46;&#x31;</a>&rdquo; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/12/intel-graphics-and-early-kms/">Intel Graphics and early-KMS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-12T10:28:59-07:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-08-12-intel-graphics-and-early-kms/intel-logo.jpg"></p>
-
-<p><em>Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
-
-<p><em>You want to enable KMS because it allows the kernel to set the native resolution on the frame-buffer. The effects of this are fast TTY-switching, enhanced 3D performance, and in some cases power-saving features.</em></p>
-
-<p>In order to enable KMS on the Intel mobile platform some changes possibly have to be made to your Kernel, X installation, bootloader, and startup configuration.</p>
-
-<p><strong>Kernel </strong>changes may only be necessary if you compiled your own (aka gentoo). In which case, simply enable the frame-buffer options:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Device Drivers --->
-</span><span class='line'>  Graphics support --->
-</span><span class='line'>    Support for frame buffer devices --->
-</span><span class='line'>    (Disable all drivers, including VGA, Intel, nVidia, and ATI)
-</span><span class='line'>
-</span><span class='line'>    (Further down, enable basic console support. KMS uses this.)
-</span><span class='line'>    Console display driver support --->
-</span><span class='line'>      &lt;*>  Framebuffer Console Support
-</span><span class='line'>
-</span><span class='line'>    /dev/agpgart (AGP Support) --->
-</span><span class='line'>      &lt;*>  Intel 440LX/BX/GX, I8xx and E7x05 chipset support
-</span><span class='line'>      Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
-</span><span class='line'>      &lt;*>  Intel 8xx/9xx/G3x/G4x/HD Graphics
-</span><span class='line'>      [*]    Enable modesetting on intel by default</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>Xorg </strong>&rsquo;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
-
-<p><strong>Bootloader</strong> changes are done so that our grub does not disable, use another driver, or try to set the resolution itself. Remember, we are letting the Kernel do this for us. so edit your /etc/default/grub and remove any of the following:</p>
-
-<ul>
-<li><p>Any &ldquo;nomodeset&rdquo;, &ldquo;i915.modeset=0&rdquo;, &ldquo;vga=&rdquo; or &#8221;video=&ldquo; at all present.</p></li>
-<li><p>Anything that would enable another frame-buffer driver such as uvesafb.</p></li>
-</ul>
-
-
-<p><strong>Start-up configuration</strong> must reflect our efforts so that KMS is started early on in the process as possible to get the best effect. changes should be made to /etc/mkinitcpio.conf in Arch, or /etc/conf.d/modules in Gentoo to include the i915 module.</p>
-
-<p>Finally regen your initial-ramdisk if you used one and your boot partition&rsquo;s GRUB config.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>## make initrd
-</span><span class='line'># mkinitcpio -p linux
-</span><span class='line'>## generate a GRUB config
-</span><span class='line'># grub-mkconfig -o /boot/grub/grub.cfg</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Reboot and [hopefully] reap the fruits of all your hard work.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -760,15 +718,15 @@ _</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
       </li>
     
   </ul>

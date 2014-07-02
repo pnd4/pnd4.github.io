@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>PND4</title>
+  <title>Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM - PND4</title>
   <meta name="author" content="">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net">
+  <link rel="canonical" href="http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a></h1>
+      <h1 class="entry-title">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><p><em>Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user confirmed the issue, a couple days passed without a solution and downgrading to 2.06-3 not only is bad practice due to &ldquo;CVE-2014-4607&rdquo; but paper-thin, since its disappearing from repos and its likely it won&rsquo;t be in your local package cache forever.. Fueled by boredom, I decided to fix the problem myself.</em></p>
+<div class="entry-content"><p><em>Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user confirmed the issue, a couple days passed without a solution and downgrading to 2.06-3 not only is bad practice due to &ldquo;CVE-2014-4607&rdquo; but paper-thin, since its disappearing from repos and its likely it won&rsquo;t be in your local package cache forever.. Fueled by boredom, I decided to fix the problem myself.</em></p>
 
 <h4>Using 2.07-2 as a base.</h4>
 
@@ -230,90 +227,16 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 </ul>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
 
-<time datetime="2014-05-31T22:37:32-07:00" pubdate data-updated="true">May 31<span>st</span>, 2014</time>
-        
-      </p>
-    
-  </header>
 
-
-  <div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d think they&rsquo;d at least offer at least 1 other format, possibly for the old iPod Video&rsquo;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
-
-<p>In any case, doing the deed myself was surprising easy. Though I&rsquo;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&rsquo;d suggest they give my commands a shot.*</p>
-
-<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&rsquo;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
-
-<p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To break it down, here&rsquo;s the same command with placeholders.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg \
-</span><span class='line'>    -i [input-filename] \
-</span><span class='line'>    -ac [# of audio-channels] \
-</span><span class='line'>    -qscale [quality-scale: 1-31 (1 = highest quality)] \
-</span><span class='line'>    -f [format: mp4, avi, mkv, ..] \
-</span><span class='line'>    -s [Resolution: (Width)x(Height)] \
-</span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
-
-<p>As always, good luck!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -325,177 +248,36 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
   
 
 
-<time datetime="2014-05-03T07:56:55-07:00" pubdate data-updated="true">May 3<span>rd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
-
-<p><em>After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&rsquo;t just &lsquo;view-source&rsquo; and expect to see 10-dollars-worth-of.mp4. There&rsquo;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&rsquo;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
-
-<p>First, you&rsquo;re going to want to check out the source of the page where the plugin and stream play. Your browser&rsquo;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
-
-<p>Right now we just need to take note of the <code>vendorID</code> and <code>mediaID</code> parameters. Both were mentioned at least a few times thoughout the page I was working with.</p>
-
-<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
-
-<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2014-07-02T06:41:41-07:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2014</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='/blog/categories/computing/'>Computing</a>
+  
+</span>
 
 
-<time datetime="2014-04-20T04:46:00-07:00" pubdate data-updated="true">Apr 20<span>th</span>, 2014</time>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p><strong> Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. </strong></p>
-
-<h4>Flash-Drive I/O</h4>
-
-<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&rsquo;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&rsquo;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
-
-<p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
-</span><span class='line'>tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
-</span><span class='line'>tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
-</span><span class='line'>tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
-</span><span class='line'>tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>I/O Governor</h4>
-
-<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo deadline &gt; /sys/block/sda/queue/scheduler</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
+      <div class="sharing">
+  
+  
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-03T02:07:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
-
-<h2>xrandr</h2>
-
-<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
-
-<p><strong>OFF</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>ON</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
-
-
-
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
+        <a class="basic-alignment left" href="/blog/2014/05/31/cli-converting-hd-sd/" title="Previous Post: CLI Converting HD > SD">&laquo; CLI Converting HD > SD</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -520,7 +302,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/pnd4">@pnd4</a> on GitHub
@@ -552,6 +334,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
   
 </aside>
+
 
     </div>
   </div>

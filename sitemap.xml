@@ -139,12 +139,22 @@
         <lastmod>2014-05-27T23:04:27-07:00</lastmod>
     </url>
     <url>
+        <loc>http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd/</loc>
+        <lastmod>2014-05-31T23:39:40-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/
+        </loc>
+        <lastmod>2014-07-02T07:25:16-07:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.pnd4.net/profile/</loc>
         <lastmod>2014-05-03T17:31:05-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.pnd4.net/blog/archives/</loc>
-        <lastmod>2014-05-27T23:04:27-07:00</lastmod>
+        <lastmod>2014-07-02T07:25:16-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.pnd4.net/robots.txt</loc>
@@ -152,6 +162,6 @@
     </url>
     <url>
         <loc>http://www.pnd4.net/</loc>
-        <lastmod>2014-05-27T23:04:27-07:00</lastmod>
+        <lastmod>2014-07-02T07:25:16-07:00</lastmod>
     </url>
 </urlset>

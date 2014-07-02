@@ -9,9 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Webcam Prices [as of 11.11.2013] 20-23 HD-3000
-15-20 Rocketfish 720p RF-HDWEB
-17 M$ HD-2300 RasPi Notes RasPi community has good info on the subject &hellip;">
+  <meta name="description" content="Problem CyberGhostVPN connection hangs on service start-up
+Doesnt Investigation DNS Dec 05 2013 &ndash; 04:38 Seems CyberGhost uses a constantly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +66,207 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-05T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Problem</h1>
+
+<p>CyberGhostVPN connection hangs on service start-up
+Doesnt</p>
+
+<h1>Investigation</h1>
+
+<h4>DNS</h4>
+
+<p><strong>Dec 05 2013 &ndash; 04:38</strong></p>
+
+<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
+
+<p>The thread below talks about tuning openvpn to fix this.</p>
+
+<blockquote><p>By default, on initial startup and restart, the &mdash;remote name is resolved
+once. If the DNS resolve fails, OpenVPN will abort.</p>
+
+<p>If &mdash;resolve-retry is specified, the DNS resolve will be retried for n
+seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
+will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
+
+<p>If you want to disable the DNS re-resolve on restart, you can use
+&mdash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &mdash;remote IP
+address without doing a new DNS lookup.</p></blockquote>
+
+<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/23/rtmpdump/">CLI RTMP Streaming</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-23T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
+
+<h3>Commands</h3>
+
+<p>Redirect rtmp port using iptables.</p>
+
+<pre><code>sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre>
+
+<p>Sniffing for stream parameters.</p>
+
+<pre><code>rtmpsrv
+</code></pre>
+
+<p>Once you&rsquo;ve captured a stream, you can undo the redirection.</p>
+
+<pre><code>sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre>
+
+<p>Use rtmpdump like so, piping the output to mplayer/vlc</p>
+
+<pre><code>rtmpdump -q -r "rtmpe://origin.hdcast.org:1935/redirect/" -a "redirect/" -f "LNX 11,9,900,152" -W "http://www.udemy.com/static/flash/player5.9.swf" -p "http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com" -y "ban5" -b "10000" -v | mplayer -really-quiet -framedrop -
+</code></pre>
+
+<h4>Important options</h4>
+
+<p>rtmpdump</p>
+
+<ul>
+<li>-r [tcURL ex. &ldquo;rtmp://stream.url/&rdquo;]</li>
+<li>-a [app ex. &ldquo;redirect/&rdquo;</li>
+<li>-y [playpath ex. &ldquo;freetv4&rdquo;]</li>
+<li>-v [live]</li>
+<li>-b [buffersize ex. &ldquo;10000&rdquo;]</li>
+<li>-W [swfURL ex. &ldquo;<a href="http://stream.url/flash/player5.9.swf">http://stream.url/flash/player5.9.swf</a>&rdquo;]</li>
+</ul>
+
+
+<p>mplayer</p>
+
+<ul>
+<li>-really-quiet [Suppresses output.]</li>
+<li>-framedrop [Helps with streams.]</li>
+<li><ul>
+<li>[Plays from stdout.]</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Port redirect helper script</h4>
+
+<p>I wrote a bash script that takes the hard part, remembering, out of the <strong>iptables</strong> step.</p>
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+
+## PND4
+## o1.27.13
+
+success() {
+  echo &quot;.. success :)&quot;
+}
+
+failure() {
+  echo &quot;-- FAILURE :(&quot;
+}
+
+add-rule() {
+  sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
+}
+
+del-rule() {
+  sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
+}
+
+case &quot;$1&quot; in
+  start)
+    echo &quot;Starting..&quot;
+    # also delete rule if it exists for some reason to avoid dupes.
+    # always errors out so we ignore it
+    del-rule 2&gt;/dev/null
+    add-rule
+    [ $? -eq 0 ] &amp;&amp; success || failure
+    ;;
+  stop)
+    echo &quot;Stopping..&quot;
+    del-rule
+    [ $? -eq 0 ] &amp;&amp; success || failure
+    ;;
+  *)
+    echo &quot;Usage: $0 &lt;start|stop&gt;&quot;
+    ;;
+esac</code></pre>
+</div>
+
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://stream-recorder.com/forum/tutorial-simply-use-rtmpsrv-and-example-t6325.html?p=18142">rtmpsrv tutorial</a></li>
+<li><a href="http://trac.xbmc.org/ticket/14089">XBMC: hint on buffer option</a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -361,399 +561,6 @@ fi</code></pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/21/solidworks-build/">Solidworks Rig</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h4>Min Reqs (Win7x64)</h4>
-
-<pre><code>CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
-RAM     2GB+
-HDD     5GB+
-Video   Quadro/QuadroFX/FireGL/FirePro
-</code></pre>
-
-<h2>Notes regarding HW selection</h2>
-
-<ul>
-<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814195112">FirePro v3900</a> was best bang for buck. Good Solidworks reviews.</li>
-<li>4GB of RAM will work, can always upgrade.</li>
-<li>3.5Ghz Dual core + Hyper-Threading (<a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16819116775">i3-3220</a>/3240) should be plenty.</li>
-</ul>
-
-
-<p><a href="http://www.capinc.com/support/tips/solidworks-tech-tips-hardware">Capinc Solidworks HW Tips</a></p>
-
-<ul>
-<li>Video Card: VERY important</li>
-<li>Proc: Solidworks is optimized for multiple cores</li>
-<li>RAM:
-Solidworks grabs 340mb on launch.
-4gb+ is only necessary for very large assemblies (over 10,000 parts)</li>
-<li>HD: Generally, does not affect Solidworks performance</li>
-</ul>
-
-
-<h2>Newegg specials for Oct.</h2>
-
-<p><strong>&ldquo;i5&rdquo; Combo + FirePro V3900 [ ~$630 ] (until 10/25)</strong></p>
-
-<p>Someone mentioned i5 &amp; i7&rsquo;s have decent enough graphics to run Solidworks.. maybe just get FirePro later, if needed?</p>
-
-<ul>
-<li>Trustworthy PSU</li>
-<li>i5 is Quad Core, 8MB-L2, HD4000 &lsquo;integrated&rsquo; gfx</li>
-<li>8GB RAM</li>
-<li>1TB HDD, SSD would&rsquo;ve been nicer.</li>
-<li>USB 3.0</li>
-<li><p>No case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151">Combo: 1291151</a></p></li>
-</ul>
-
-
-<p><strong>&ldquo;i3&rdquo; Combo + FirePro V3900 [ ~$ 430 ] (until 10/31)</strong></p>
-
-<ul>
-<li>Decent PSU. But low wattage.</li>
-<li>500GB HDD</li>
-<li>USB 3.0</li>
-<li><p>Plain Case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103">Combo: 1271103</a></p></li>
-</ul>
-
-
-<p><strong>&ldquo;Budget Gaming&rdquo; Combo [ $ 370 ] (until 10/31)</strong></p>
-
-<ul>
-<li>nVidia GT 640 2GB, instead of FirePro ?<br/>
-  .. donno if that&rsquo;s such a good idea.</li>
-<li>Good PSU</li>
-<li>500GB HDD</li>
-<li>USB 3.0</li>
-<li><p>Decent looking case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943">Combo: 1461943</a></p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/18/hostapd/">Hostapd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Wireless access point daemon</p>
-
-<p><strong>Karma</strong> a version of hostapd for creating <em>rogue</em> access points.</p>
-
-<h3>NAT or Bridge</h3>
-
-<p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
-
-<ul>
-<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
-
-<blockquote><p>see the <a href="/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
-<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
-
-<blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
-
-<p>If you use netctl, see Bridge with netctl for details (just do not add tap0 used in that example).</p></blockquote></li>
-</ul>
-
-
-<h3>Configuration</h3>
-
-<p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
-
-<p>To override at runtime:</p>
-
-<pre><code>sudo hostapd /path/to/hostapd.conf
-</code></pre>
-
-<p>General use, non-Karma, WPA/WPA2 config<br/>
-From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#sets the wifi interface to use, is wlan0 in most cases
-</span><span class='line'>interface=wlan0
-</span><span class='line'>#driver to use, nl80211 works in most cases
-</span><span class='line'>driver=nl80211
-</span><span class='line'>#sets the ssid of the virtual wifi access point
-</span><span class='line'>ssid=dontMessWithVincentValentine
-</span><span class='line'>#sets the mode of wifi, depends upon the devices you will be using. It can be a,b,g,n. Setting to g ensures backward compatiblity.
-</span><span class='line'>hw_mode=g
-</span><span class='line'>#sets the channel for your wifi
-</span><span class='line'>channel=6
-</span><span class='line'>#macaddr_acl sets options for mac address filtering. 0 means "accept unless in deny list"
-</span><span class='line'>macaddr_acl=0
-</span><span class='line'>#setting ignore_broadcast_ssid to 1 will disable the broadcasting of ssid
-</span><span class='line'>ignore_broadcast_ssid=0
-</span><span class='line'>#Sets authentication algorithm
-</span><span class='line'>#1 - only open system authentication
-</span><span class='line'>#2 - both open system authentication and shared key authentication
-</span><span class='line'>auth_algs=1
-</span><span class='line'> 
-</span><span class='line'>#####Sets WPA and WPA2 authentication#####
-</span><span class='line'>#wpa option sets which wpa implementation to use
-</span><span class='line'>#1 - wpa only
-</span><span class='line'>#2 - wpa2 only
-</span><span class='line'>#3 - both
-</span><span class='line'> wpa=3
-</span><span class='line'>#sets wpa passphrase required by the clients to authenticate themselves on the network
-</span><span class='line'> wpa_passphrase=KeePGuessinG
-</span><span class='line'>#sets wpa key management
-</span><span class='line'> wpa_key_mgmt=WPA-PSK
-</span><span class='line'>#sets encryption used by WPA
-</span><span class='line'> wpa_pairwise=TKIP
-</span><span class='line'>#sets encryption used by WPA2
-</span><span class='line'> rsn_pairwise=CCMP
-</span><span class='line'>  
-</span><span class='line'>#################################
-</span><span class='line'>   
-</span><span class='line'>#####Sets WEP authentication#####
-</span><span class='line'>#WEP is not recommended as it can be easily broken into
-</span><span class='line'>   wep_default_key=0
-</span><span class='line'>   wep_key0=qwert    #5,13, or 16 characters
-</span><span class='line'>#optionally you may also define wep_key2, wep_key3, and wep_key4
-</span><span class='line'>    
-</span><span class='line'>#################################
-</span><span class='line'>#For No encryption, you don't need to set any options</span></code></pre></td></tr></table></div></figure>
-
-
-<p>non-Karma w/ WPA2</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>interface=tpl0
-</span><span class='line'>driver=nl80211
-</span><span class='line'>ssid=2WIRE022
-</span><span class='line'>hw_mode=g
-</span><span class='line'>channel=10
-</span><span class='line'>macaddr_acl=0
-</span><span class='line'>auth_algs=1
-</span><span class='line'>ignore_broadcast_ssid=0
-</span><span class='line'>wpa=2
-</span><span class='line'>wpa_passphrase=SecretPassword1234
-</span><span class='line'>wpa_key_mgmt=WPA-PSK
-</span><span class='line'>rsn_pairwise=CCMP</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Karma w/ WEP</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># config file to use with the Karma'd version of hostapd
-</span><span class='line'># created by Robin Wood - robin@digininja.org - www.digininja.org
-</span><span class='line'>
-</span><span class='line'>interface=tpl0
-</span><span class='line'>driver=nl80211
-</span><span class='line'>country_code=US
-</span><span class='line'>
-</span><span class='line'>ssid=AndroidAP
-</span><span class='line'>channel=3
-</span><span class='line'>
-</span><span class='line'>wep_default_key=0
-</span><span class='line'>wep_key0=SecretPassword1234
-</span><span class='line'>
-</span><span class='line'># Both open and shared auth
-</span><span class='line'>auth_algs=3
-</span><span class='line'>
-</span><span class='line'># no SSID cloaking
-</span><span class='line'>ignore_broadcast_ssid=0
-</span><span class='line'>
-</span><span class='line'># -1 = log all messages
-</span><span class='line'>logger_syslog=-1
-</span><span class='line'>logger_stdout=-1
-</span><span class='line'>
-</span><span class='line'># 2 = informational messages
-</span><span class='line'>logger_syslog_level=2
-</span><span class='line'>logger_stdout_level=2
-</span><span class='line'>
-</span><span class='line'># Dump file for state information (on SIGUSR1)
-</span><span class='line'># example: kill -USR1 &lt;pid&gt;
-</span><span class='line'>dump_file=/tmp/hostapd.dump
-</span><span class='line'>ctrl_interface=/var/run/hostapd
-</span><span class='line'>ctrl_interface_group=adm
-</span><span class='line'>
-</span><span class='line'># 0 = accept unless in deny list
-</span><span class='line'>macaddr_acl=0
-</span><span class='line'>
-</span><span class='line'># only used if you want to do filter by MAC address
-</span><span class='line'>accept_mac_file=/etc/hostapd/hostapd.accept
-</span><span class='line'>deny_mac_file=/etc/hostapd/hostapd.deny
-</span><span class='line'>
-</span><span class='line'># Finally, enable Karma
-</span><span class='line'>enable_karma=0
-</span><span class='line'>
-</span><span class='line'># Black and white listing
-</span><span class='line'># 0 = white
-</span><span class='line'># 1 = black
-</span><span class='line'>karma_black_white=1</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>Useful links and references</h5>
-
-<p><a href="https://wiki.archlinux.org/index.php/Software_Access_Point">ArchWiki: Software Access Point</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -771,15 +578,15 @@ From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-c
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a>
       </li>
     
   </ul>
