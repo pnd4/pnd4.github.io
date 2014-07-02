@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2014-07-02T07:59:18-07:00</updated>
+  <updated>2014-07-02T08:06:58-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -43,7 +43,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 <p>Looks like the best option would be to disable &lsquo;_FORTIFY_SOURCE&rsquo; but still maintain the highest level of security otherwise and retain the ability to protect from stack-smashing attacks by setting &lsquo;stack-protector-all&rsquo;. It seems with 2.08 we have only two choices: &ldquo;-O0&rdquo; or no optimizations at all. Personally, I&rsquo;d gladly sacrifice runtime-speed optimizations for security, when having both is not an option and since ARM devices don&rsquo;t have much memory, why not use &ldquo;-O0&rdquo; if we can.</p>
 
 <p>This equates to <code>CFLAGS="-Wall -O0 -U_FORTIFY_SOURCE -fstack-protector-all"</code><br/>
-(seen on line #18)</p>
+(seen on line #21)</p>
 
 <h4>Full PKGBUILD</h4>
 
