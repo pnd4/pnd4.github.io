@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2014-07-02T07:29:59-07:00</updated>
+  <updated>2014-07-02T07:35:23-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm</id>
     <content type="html"><![CDATA[<p><em>Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user confirmed the issue, a couple days passed without a solution and downgrading to 2.06-3 not only is bad practice due to &ldquo;CVE-2014-4607&rdquo; but paper-thin, since its disappearing from repos and its likely it won&rsquo;t be in your local package cache forever.. Fueled by boredom, I decided to fix the problem myself.</em></p>
 
-<h4>Using 2.07-2 as a base.</h4>
+<h4>Using 2.07-2 as a base</h4>
 
 <p>Copied PKGBUILD for lzo2-2.07-2 from ABS.
 Changed &lsquo;arch&rsquo; to suit ALARM.
@@ -147,7 +147,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>TO-DO</h2>
+<h4>TO-DO</h4>
 
 <ul>
 <li>Have someone proof/verify the PKGBUILD.</li>
