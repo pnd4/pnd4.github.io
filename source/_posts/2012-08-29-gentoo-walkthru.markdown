@@ -236,13 +236,13 @@ Configure fstab
 
 {% codeblock %}
 # nano /etc/fstab
-{% endcodeblock %}
 
  /dev/sda1 /boot ext2 noauto,noatime 1 2
  /dev/sda2 none swap swap sw 0 0
  /dev/sda3 / ext3 noatime 0 1
  /dev/sr0 /mnt/cdrom auto 0 0
 
+{% endcodeblock %}
 
 
 
