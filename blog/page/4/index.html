@@ -9,7 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by &hellip;">
+  <meta name="description" content="A template for markdown posts. Covers some frequently used syntax. Images Markdown 1
+&lt;img class="center" src="/images/that-image.jpg"> Quote More &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +68,95 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/16/template/">Markdown Template</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A template for markdown posts. Covers some frequently used syntax.</p>
+
+<h2>Images</h2>
+
+<figure class='code'><figcaption><span>Markdown </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;img class="center" src="/images/that-image.jpg"></span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Quote</h2>
+
+<blockquote><p>More.<br/>
+Notes.</p></blockquote>
+
+<h2>Code</h2>
+
+<p>example.sh</p>
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+    test 1 -eq 1 &amp;&amp; echo true || echo false</code></pre>
+</div>
+
+
+<p>You can also insert <code>preformatted text</code> using backtick&rsquo;s.</p>
+
+<p>Also see Octopress&rsquo;s Documentation<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+
+<h2>List</h2>
+
+<ul>
+<li>item 1</li>
+<li>item 2</li>
+<li>item 3</li>
+</ul>
+
+
+<h2>References</h2>
+
+<p>See Wordpress&rsquo;s Cheatsheet<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> for more examples of Markdown.</p>
+
+<h2>Useful Links</h2>
+
+<p><a href="http://octopress.org">Octopress.Org</a></p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://octopress.org/docs/blogging/plugins/">Octopress Documentation</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p><a href="http://en.support.wordpress.com/markdown-quick-reference/">Wordpress Markdown Reference</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -450,70 +540,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/24/improve-flash-drive-performance/">Improve Flash Drive Performance</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-24T12:56:36-07:00" pubdate data-updated="true">Mar 24<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But discovering that command wasn&rsquo;t the end, I had to deal with it&rsquo;s almost impossible write-speed, this information helped:</p>
-
-<p>Append to /etc/rc.local</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
-</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
-</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Append to /etc/sysctl.conf</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
-</span><span class='line'>vm.dirty_background_bytes = 4194304
-</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -531,15 +557,15 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
       </li>
     
   </ul>

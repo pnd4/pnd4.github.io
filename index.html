@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user &hellip;">
+  <meta name="description" content="It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,162 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-28T19:04:41-08:00" pubdate data-updated="true">Dec 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk who&rsquo;s offering Unlimited everything for 45/line I hear&hellip; What follows is just some scribble for me to look back on when the topic comes up for discussion, but maybe it&rsquo;ll raise some savings opportunities other&rsquo;s overlooked.</em></p>
+
+<h2>&lsquo;TEP&rsquo; Insurance &ndash; Mom&rsquo;s line</h2>
+
+<pre><code>11$/mon.. Probably unecessary
+</code></pre>
+
+<h2>Available Discounts</h2>
+
+<pre><code>AAA Auto Club -- 10$ Off  
+- Call or add in-store  
+- Currently only getting loyalty discount.
+Maybe qualify for something better? 
+</code></pre>
+
+<h2>&ldquo;Family Share Pack&rdquo;</h2>
+
+<pre><code>2-yr contract (extension?.. ours doesnt end til 06/2015)
+</code></pre>
+
+<p><strong>DATA</strong>
+Total amount shared by entire family</p>
+
+<pre><code>2gb - 25  
+4gb - 40  
+12gb - 80  
+16gb - 90   
+20gb - 100$  
+</code></pre>
+
+<p><strong>DATA ACCESS_FEE</strong></p>
+
+<pre><code>25$ ea line for 1-8gb  
+15$ ea line for 12-16gb  
+15$ ea line for &gt;20gb  
+</code></pre>
+
+<p>Probably unnecessary but what the hell, right?</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'> DATA_COST="40"
+</span><span class='line'> NUM_DEVICES="3"
+</span><span class='line'> NUM_TABS="1"
+</span><span class='line'> ACCFEE="25"
+</span><span class='line'> TAB_FEE="10"
+</span><span class='line'> DISCNTS="10"
+</span><span class='line'> IP_INSTL="27"
+</span><span class='line'> G3_INSTL="25"
+</span><span class='line'> TAXES_N_FEES="15"
+</span><span class='line'> 
+</span><span class='line'>echo "$DATA_COST + ($NUM_DEVICES * $ACCFEE) + ($NUM_TABS * $TAB_FEE) - $DISCNTS + $IP_INSTL + $G3_INSTL + $TAXES_N_FEES" | bc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So this is what we would be paying if we chose to stick with Sprint, extend our contract another 2-yrs and brought in my Mom&rsquo;s iPad which she&rsquo;s currently paying data for separately</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>182$ for 4Gb     &gt;&gt;    40$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]
+</span><span class='line'>212$ for 8Gb  &gt;&gt;    70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
+</span><span class='line'>192$ for 12Gb &gt;&gt;    80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+</span><span class='line'>202$ for 16Gb &gt;&gt;    90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] </span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Reference</h2>
+
+<p><strong>We Are Currently Paying</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+    $45     &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
+</span><span class='line'>+ $83     &gt;&gt; 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
+</span><span class='line'>+ $70     &gt;&gt; 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
+</span><span class='line'>+ $15     &gt;&gt; 10$ 'Taxes and Fees'
+</span><span class='line'>---------
+</span><span class='line'>Total     $213</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Typical Usage</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>     Talk    Text    Data
+</span><span class='line'>  
+</span><span class='line'>Edward        800     5568    1072
+</span><span class='line'>
+</span><span class='line'>Mom           527     854     245
+</span><span class='line'>
+</span><span class='line'>Me            381     250     221
+</span><span class='line'>  -----------------------
+</span><span class='line'>Totals        1708    6672    1538</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>My line&rsquo;s contract ends 06/20/15</strong> .. Don&rsquo;t know yet if this&rsquo;ll be an issue.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -424,68 +580,6 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-03T02:07:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
-
-<h2>xrandr</h2>
-
-<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
-
-<p><strong>OFF</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>ON</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
-
-
-
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -501,15 +595,15 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
       </li>
     
   </ul>

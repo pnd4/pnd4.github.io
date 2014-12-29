@@ -9,7 +9,8 @@
   <meta name="author" content="">
 
   
-  <meta name="description" content="Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what &hellip;">
+  <meta name="description" content="So after having my 32 GB PNY Attache flash drive fail every time I tried to write to sync, it finally let me after using 1
+badblocks -vw /dev/sdx But &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +68,70 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/24/improve-flash-drive-performance/">Improve Flash Drive Performance</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-24T12:56:36-07:00" pubdate data-updated="true">Mar 24<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But discovering that command wasn&rsquo;t the end, I had to deal with it&rsquo;s almost impossible write-speed, this information helped:</p>
+
+<p>Append to /etc/rc.local</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
+</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
+</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Append to /etc/sysctl.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
+</span><span class='line'>vm.dirty_background_bytes = 4194304
+</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -303,279 +368,6 @@ This will set up ssh without password connecting as foo@desktop (their account o
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/30/encrypted-arch-luks-on-lvm/">Arch Install: Encrypted (LUKS on LVM)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-30T10:49:09-08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-11-30-encrypted-arch-luks-on-lvm/arch94e.jpg"></p>
-
-<blockquote><p>&ldquo;I remember new years eve 2010/11, crystal clear night, awesome fireworks in Zurich Switzerland, drinking with my bro and then he said &#8220;you have no soul do you?&rdquo; &mdash; <strong>nohitall</strong></p></blockquote>
-
-<p><em>Alright, so it&rsquo;s been awhile since I made an entry, &lsquo;boo-hoo&rsquo;.. But I bring treats: Notes I took while replacing Gentoo with Arch on my desktop. Yeah, since I finally got my monitors in, I figured it would be a lot of wasted time compiling in Gentoo when I could be doing hood-rat stuff instead on Arch.. Well anyway I figured I&rsquo;d kick things up a notch, having watched Inception recently. Using this install you get 3 things: block-disk-encryption (LUKS) on top of logical-volume-management (LVM2), and finally your OS (Arch) all warm up inside all of that.. Now you may ask yourself: &ldquo;why did he use LVM when he seems to be using a pretty simple partition scheme?__&rdquo;, and the answer is: &ldquo;Because, pnd4 can.&rdquo; .. Yeah-see, I took that one out of nohitall&rsquo;s evil book of nerd things to do when you&rsquo;re lacking sleep and bored. Come say &lsquo;Hi&rsquo; on #crunchbang (via Freenode); Im serving up &lsquo;Das Boot&rsquo; to anyone who wants to complain about how pointless this block of text is.. enjoi!</em></p>
-
-<p>Start by booting the installation media</p>
-
-<p>Use fdisk to create 2 partitions</p>
-
-<ul>
-<li>the boot partition can be pretty small at around 100MiB or so.</li>
-</ul>
-
-
-<p>Write random data to drive</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup -d /dev/random -c aes-xts-plain -s 512 create lvmname /dev/&lt;device>
-</span><span class='line'># dd if=/dev/urandom of=/dev/mapper/lvmname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Optional: In another terminal run a command to monitor progress</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># watch -n 10 killall -USR1 dd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Remove volume of scrambled data.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup remove lvmname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set up LVM logical volumes: root, swap, var, tmp, home</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># lvm pvcreate /dev/&lt;device>
-</span><span class='line'># lvm vgcreate lvmname /dev/&lt;device>
-</span><span class='line'># lvm lvcreate -L 12G -n rootname lvmname
-</span><span class='line'># lvm lvcreate -L 4G -n swapname lvmname
-</span><span class='line'># lvm lvcreate -L 8G -n varname lvmname
-</span><span class='line'># lvm lvcreate -L 1G -n tmpname lvmname
-</span><span class='line'># lvm lvcreate -l 100%FREE -n homename lvmname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Encrypt root</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/rootname
-</span><span class='line'># cryptsetup luksOpen /dev/lvmname/rootname root</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set up root with chosen filesystem [for example; ext4]</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># mkfs.ext4 /dev/mapper/root -L root
-</span><span class='line'># mount /dev/mapper/root /mnt</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set up boot with chosen filesystem [for example; ext2]</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># dd if=/dev/zero of=/dev/sda1 bs=1M
-</span><span class='line'># mkfs.ext2 /dev/sda1 -L boot
-</span><span class='line'># mkdir /mnt/boot
-</span><span class='line'># mount /dev/sda1 /mnt/boot</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Create key for home and var store in /etc/luks-keys/home</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># mkdir -p -m 700 /mnt/etc/luks-keys
-</span><span class='line'># dd if=/dev/random of=/mnt/etc/luks-keys/home bs=1 count=256
-</span><span class='line'># dd if=/dev/random of=/mnt/etc/luks-keys/var bs=1 count=256</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Encrypt, format, and mount var</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/varname /mnt/etc/luks-keys/var
-</span><span class='line'># cryptsetup luksOpen /dev/lvmname/varname var
-</span><span class='line'># mkfs.ext4 /dev/mapper/var -L var
-</span><span class='line'># mkdir /mnt/var
-</span><span class='line'># mount /dev/mapper/var /mnt/var</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Encrypt, format, and mount home</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/varname /mnt/etc/luks-keys/home
-</span><span class='line'># cryptsetup luksOpen /dev/lvmname/homename home
-</span><span class='line'># mkfs.ext4 /dev/mapper/home -L home
-</span><span class='line'># mkdir /mnt/home
-</span><span class='line'># mount /dev/mapper/home /mnt/home</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Connect to internet</p>
-
-<h4>Install arch via &lsquo;pacstrap&rsquo;</h4>
-
-<ul>
-<li><p>Syslinux or GRUB, whatever floats your boat.</p></li>
-<li><p>Wicd optional but great if planning to use Wi-Fi</p></li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># pacstrap /mnt base base-devel syslinux wicd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Generate new fstab</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># genfstab -p /mnt >> /mnt/etc/fstab</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Chroot into new install</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># arch-chroot /mnt</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set hostname</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># echo "h0stname" >> /etc/hostname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set timezone</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Edit /etc/locale.gen</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># locale-gen</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Configure /etc/locale.conf</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>LANG="en_US.UTF-8"
-</span><span class='line'>LC_COLLATE="C"
-</span><span class='line'>LC_TIME="en_US.UTF-8"</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Edit /etc/mkinitcpio.conf and generate initrd</h4>
-
-<ul>
-<li>Put lvm2 and encrypt (in this order) before filesystems in HOOKS</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># mkinitcpio -p linux</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Change APPEND line in /boot/syslinux/syslinux.cfg</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>APPEND cryptdevice=/dev/mapper/lvmname-root:root root=/dev/mapper/root ro</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Commit changes to /boot</p>
-
-<ul>
-<li><p> -i = Puts file</p></li>
-<li><p>-a = Set boot flag</p></li>
-<li><p>-m = Install MBR boot code</p></li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># syslinux-install_update -i -a -m</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Add to /etc/fstab</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/dev/mapper/tmp  /tmp      tmpfs   defaults            0 0
-</span><span class='line'>/dev/mapper/swap none      swap    sw                  0 0
-</span><span class='line'>tmpfs            /dev/shm  tmpfs   nodev,nosuid,noexec 0 0</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Edit /etc/crypttab</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var   /dev/lvmname/varname  /etc/luks-keys/var
-</span><span class='line'>home  /dev/lvmname/homename /etc/luks-keys/home
-</span><span class='line'>swap  /dev/lvmname/swap     /dev/urandom  swap,cipher:aes-cbc-essiv:sha256,size=256
-</span><span class='line'>tmp   /dev/lvmname/tmp      /dev/urandom  tmp,cipher:aes-cbc-essiv:sha256,size=256</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set root password</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># passwd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Reboot</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># reboot</span></code></pre></td></tr></table></div></figure>
-
-
-<p>[Fin]</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -593,15 +385,15 @@ This will set up ssh without password connecting as foo@desktop (their account o
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a>
       </li>
     
   </ul>
