@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Life | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/life/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2014-12-28T21:40:31-08:00</updated>
+  <updated>2014-12-28T23:29:37-08:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -88,12 +88,23 @@ So this is what we would be paying if we chose to stick with Sprint, extend our 
 <h2>Reference</h2>
 
 <p><strong>We Are Currently Paying</strong>
-```
-+   $45 >> 55$ &lsquo;Kevin 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo;
-+   $83 >> 55$ &lsquo;Mom 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo; + 11$ Insur. + 27$ ip5s
-+   $70 >> 55$ &lsquo;Edward 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo; + 25$ LG_G3</p>
+```</p>
 
-<h2>+   $15 >> 10$ &lsquo;Taxes and Fees&rsquo;</h2>
+<pre><code>$45 &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
+</code></pre>
+
+<ul>
+<li>$83 >> 55$ &lsquo;Mom 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo; + 11$ Insur. + 27$ ip5s</li>
+<li>$70 >> 55$ &lsquo;Edward 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo; + 25$ LG_G3
+
+<ul>
+<li>$15 >> 10$ &lsquo;Taxes and Fees&rsquo;</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
 
 <p>Total   $213
 ```</p>
@@ -101,19 +112,19 @@ So this is what we would be paying if we chose to stick with Sprint, extend our 
 <p><strong>Typical Usage</strong>
 ```</p>
 
-<pre><code>        Talk    Text    Data
+<pre><code>    Talk    Text    Data
 </code></pre>
 
-<p>Edward      800     5568    1072</p>
+<p>Edward  800 5568    1072</p>
 
-<p>Mom         527     854     245</p>
+<p>Mom     527 854 245</p>
 
-<p>Me          381     250     221</p>
+<p>Me      381 250 221</p>
 
 <pre><code>    -----------------------
 </code></pre>
 
-<p>Totals      1708    6672    1538
+<p>Totals  1708    6672    1538
 ```</p>
 
 <p><strong>My line&rsquo;s contract ends 06/20/15</strong> .. Don&rsquo;t know yet if this&rsquo;ll be an issue.</p>
