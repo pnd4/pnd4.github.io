@@ -6,11 +6,11 @@
 <head>
   <meta charset="utf-8">
   <title>PND4</title>
-  <meta name="author" content="">
+  <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="A template for markdown posts. Covers some frequently used syntax. Images Markdown 1
-&lt;img class="center" src="/images/that-image.jpg"> Quote More &hellip;">
+  <meta name="description" content="Use iptables to secure netlink infrastructure. Where the rules files go In Arch, the usual /etc/iptables/iptables.rules
+In Gentoo, the rules are &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,13 +19,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net/blog/page/4">
+  <link rel="canonical" href="http://www.pnd4.net/posts/7/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -52,7 +52,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -74,224 +74,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/10/16/template/">Markdown Template</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A template for markdown posts. Covers some frequently used syntax.</p>
-
-<h2>Images</h2>
-
-<figure class='code'><figcaption><span>Markdown </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;img class="center" src="/images/that-image.jpg"></span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Quote</h2>
-
-<blockquote><p>More.<br/>
-Notes.</p></blockquote>
-
-<h2>Code</h2>
-
-<p>example.sh</p>
-
-<div>
-  <pre><code class='bash'>#!/bin/bash
-    test 1 -eq 1 &amp;&amp; echo true || echo false</code></pre>
-</div>
-
-
-<p>You can also insert <code>preformatted text</code> using backtick&rsquo;s.</p>
-
-<p>Also see Octopress&rsquo;s Documentation<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
-
-<h2>List</h2>
-
-<ul>
-<li>item 1</li>
-<li>item 2</li>
-<li>item 3</li>
-</ul>
-
-
-<h2>References</h2>
-
-<p>See Wordpress&rsquo;s Cheatsheet<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> for more examples of Markdown.</p>
-
-<h2>Useful Links</h2>
-
-<p><a href="http://octopress.org">Octopress.Org</a></p>
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p><a href="http://octopress.org/docs/blogging/plugins/">Octopress Documentation</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-<li id="fn:2">
-<p><a href="http://en.support.wordpress.com/markdown-quick-reference/">Wordpress Markdown Reference</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/ruby-install/">Ruby Installation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by root).</p>
-
-<h2>Installing</h2>
-
-<p>Instead of using rvm or rbenv, stick to installing Ruby system-wide with pacman.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pacman -S ruby</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Paths</h2>
-
-<p>Caution editing your .bashrc or .zshrc.. root does not need to have a GEM_HOME or ~/.gem/ruby/2.0.0 added to its PATH</p>
-
-<h4>~/.gemrc</h4>
-
-<p>For root, create .gemrc so that when gems are installed as root, it uses the system-wide directory.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem: --no-user-install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Optionally, create user&rsquo;s .gemrc as well, although it&rsquo;d be the same as in /etc/gemrc, which is automatically made by the ArchPkg</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem: --user-install</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Updating Gems</h2>
-
-<p>Update system:  sudo gem update &mdash;system
-Update user:  gem update</p>
-
-<h2>Useful Links and References</h2>
-
-<p><a href="https://wiki.archlinux.org/index.php/Ruby">Archwiki: Ruby</a></p>
-
-<p><a href="https://projects.archlinux.org/svntogit/packages.git/tree/trunk/ruby.install?h=packages/ruby">Note from ArchDev about .gemrc</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/pinapple-v/">Wifi Pinapple Mark 5</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Advanced standalone pentesting tool for wireless networks.</p>
-
-<h3>Specs</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>AR9331 and RTL8187
-</span><span class='line'>16mb ROM / 64mb DDR2 RAM</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Software</h3>
-
-<blockquote><p>Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver</p></blockquote>
-
-<p>&mdash;HakShop</p>
-
-<h3>Useful Links and References</h3>
-
-<p><a href="http://hakshop.myshopify.com/collections/wifi-pineapple/products/wifi-pineapple" title="Wifi Pinapple Mark 5">HakShop: Wifi Pinapple Mark 5</a></p>
-
-<p><a href="https://wifipineapple.com/index.php">wifipinapple.com</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/2013/10/16/firewall/">Firewalls</a></h1>
     
     
@@ -301,14 +83,7 @@ Update user:  gem update</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T00:00:00-07:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-10-16T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
@@ -433,13 +208,11 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <p>Involves adding additional rules</p>
 
-<p><em>For the template below:</em></p>
-
-<pre><code>|          |              wan |             lan  |  
-|---------:|-----------------:|-----------------:|  
-|  iface   |             wan0 |            lan0  |  
-|  subnet  |     192.168.12.0 |    172.168.42.0  |  
-</code></pre>
+<p><em>For the template below:</em>
+    |          |              wan |             lan  |<br/>
+    |&mdash;&mdash;&mdash;:|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;:|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;:|<br/>
+    |  iface   |             wan0 |            lan0  |<br/>
+    |  subnet  |     192.168.12.0 |    172.168.42.0  |</p>
 
 <p><em>Example Template</em></p>
 
@@ -508,21 +281,14 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-03-25T01:14:11-07:00" pubdate data-updated="true">Mar 25<span>th</span>, 2013</time>
+<time class='entry-date' datetime='2013-03-25T01:14:11-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>1:14 am</span></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] &ndash;> [Commands]</p>
+  <div class="entry-content"><p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] -> [Commands]</p>
 
 <p>You should see a text box, there you can add individual iptables rules as if you were using the command line. Just save the command with the appropriate button labeled [Save Firewall]</p>
 
@@ -540,13 +306,70 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/24/improve-flash-drive-performance/">Improve Flash Drive Performance</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-03-24T12:56:36-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:56 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But discovering that command wasn&rsquo;t the end, I had to deal with it&rsquo;s almost impossible write-speed, this information helped:</p>
+
+<p>Append to /etc/rc.local</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
+</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
+</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Append to /etc/sysctl.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
+</span><span class='line'>vm.dirty_background_bytes = 4194304
+</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+      <a class="prev" href="/posts/8">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    <a class="next" href="/posts/6">Newer &rarr;</a>
     
   </div>
 </div>

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <title>PND4</title>
-  <meta name="author" content="">
+  <meta name="author" content="pnd4">
 
   
   <meta name="description" content="It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk &hellip;">
@@ -18,13 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net">
+  <link rel="canonical" href="http://www.pnd4.net/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -82,14 +82,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-12-28T19:04:41-08:00" pubdate data-updated="true">Dec 28<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-12-28T19:04:41-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:04 pm</span></time>
         
       </p>
     
@@ -98,7 +91,7 @@
 
   <div class="entry-content"><p><em>It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk who&rsquo;s offering Unlimited everything for 45/line I hear&hellip; What follows is just some scribble for me to look back on when the topic comes up for discussion, but maybe it&rsquo;ll raise some savings opportunities other&rsquo;s overlooked.</em></p>
 
-<h2>&lsquo;TEP&rsquo; Insurance &ndash; Mom&rsquo;s line</h2>
+<h2>&lsquo;TEP&rsquo; Insurance - Mom&rsquo;s line</h2>
 
 <pre><code>11$/mon.. Probably unecessary
 </code></pre>
@@ -147,7 +140,9 @@ Total amount shared by entire family</p>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>#!/bin/sh
 </span><span class='line'> DATA_COST="40"
 </span><span class='line'> NUM_DEVICES="3"
 </span><span class='line'> NUM_TABS="1"
@@ -173,7 +168,8 @@ Total amount shared by entire family</p>
 </span><span class='line'>212$ for 8Gb  &gt;&gt;    70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
 </span><span class='line'>192$ for 12Gb &gt;&gt;    80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
 </span><span class='line'>202$ for 16Gb &gt;&gt;    90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>Reference</h2>
@@ -186,12 +182,15 @@ Total amount shared by entire family</p>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>+   $45  &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>+   $45   &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
 </span><span class='line'>+   $83   &gt;&gt; 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
 </span><span class='line'>+   $70   &gt;&gt; 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
 </span><span class='line'>+   $15   &gt;&gt; 10$ 'Taxes and Fees'
-</span><span class='line'>---------
-</span><span class='line'>Total     $213</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>---------  
+</span><span class='line'>Total     $213
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p><strong>Typical Usage</strong></p>
@@ -238,14 +237,7 @@ Total amount shared by entire family</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-07-02T06:41:41-07:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2014</time>
+<time class='entry-date' datetime='2014-07-02T06:41:41-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>6:41 am</span></time>
         
       </p>
     
@@ -404,14 +396,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-05-31T22:37:32-07:00" pubdate data-updated="true">May 31<span>st</span>, 2014</time>
+<time class='entry-date' datetime='2014-05-31T22:37:32-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>10:37 pm</span></time>
         
       </p>
     
@@ -458,131 +443,9 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/03/pay-per-stream-bypass/">Pay-per-webcast?.. Srsly?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-03T07:56:55-07:00" pubdate data-updated="true">May 3<span>rd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
-
-<p><em>After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&rsquo;t just &lsquo;view-source&rsquo; and expect to see 10-dollars-worth-of.mp4. There&rsquo;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&rsquo;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
-
-<p>First, you&rsquo;re going to want to check out the source of the page where the plugin and stream play. Your browser&rsquo;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
-
-<p>Right now we just need to take note of the <code>vendorID</code> and <code>mediaID</code> parameters. Both were mentioned at least a few times thoughout the page I was working with.</p>
-
-<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
-
-<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/20/optimizing-a-pogoplug/">Optimizing a Pogoplug</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-20T04:46:00-07:00" pubdate data-updated="true">Apr 20<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong> Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. </strong></p>
-
-<h4>Flash-Drive I/O</h4>
-
-<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&rsquo;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&rsquo;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
-
-<p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
-</span><span class='line'>tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
-</span><span class='line'>tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
-</span><span class='line'>tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
-</span><span class='line'>tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>I/O Governor</h4>
-
-<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo deadline &gt; /sys/block/sda/queue/scheduler</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Pogoplug | PND4]]></title>
+  <title><![CDATA[Category: pogoplug | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/pogoplug/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-02-20T18:36:45-08:00</updated>
+  <updated>2015-04-03T16:43:12-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
-    <name><![CDATA[]]></name>
+    <name><![CDATA[pnd4]]></name>
     <email><![CDATA[kevin@pnd4.net]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -26,21 +26,19 @@
 
 <p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
 
-<p><code>
-tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
+<pre><code>tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
 tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
 tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
 tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
 tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
-</code></p>
+</code></pre>
 
 <h4>I/O Governor</h4>
 
 <p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
 
-<p><code>
-echo deadline &gt; /sys/block/sda/queue/scheduler
-</code></p>
+<pre><code class="">echo deadline &gt; /sys/block/sda/queue/scheduler
+</code></pre>
 
 <p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
 ]]></content>

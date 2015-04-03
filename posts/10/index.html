@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <title>PND4</title>
-  <meta name="author" content="">
+  <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="&ldquo;I remember new years eve 2010/11, crystal clear night, awesome fireworks in Zurich Switzerland, drinking with my bro and then he said &#8220; &hellip;">
+  <meta name="description" content="Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,13 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net/blog/page/6">
+  <link rel="canonical" href="http://www.pnd4.net/posts/10/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -73,341 +73,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/11/30/encrypted-arch-luks-on-lvm/">Arch Install: Encrypted (LUKS on LVM)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-30T10:49:09-08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-11-30-encrypted-arch-luks-on-lvm/arch94e.jpg"></p>
-
-<blockquote><p>&ldquo;I remember new years eve 2010/11, crystal clear night, awesome fireworks in Zurich Switzerland, drinking with my bro and then he said &#8220;you have no soul do you?&rdquo; &mdash; <strong>nohitall</strong></p></blockquote>
-
-<p><em>Alright, so it&rsquo;s been awhile since I made an entry, &lsquo;boo-hoo&rsquo;.. But I bring treats: Notes I took while replacing Gentoo with Arch on my desktop. Yeah, since I finally got my monitors in, I figured it would be a lot of wasted time compiling in Gentoo when I could be doing hood-rat stuff instead on Arch.. Well anyway I figured I&rsquo;d kick things up a notch, having watched Inception recently. Using this install you get 3 things: block-disk-encryption (LUKS) on top of logical-volume-management (LVM2), and finally your OS (Arch) all warm up inside all of that.. Now you may ask yourself: &ldquo;why did he use LVM when he seems to be using a pretty simple partition scheme?__&rdquo;, and the answer is: &ldquo;Because, pnd4 can.&rdquo; .. Yeah-see, I took that one out of nohitall&rsquo;s evil book of nerd things to do when you&rsquo;re lacking sleep and bored. Come say &lsquo;Hi&rsquo; on #crunchbang (via Freenode); Im serving up &lsquo;Das Boot&rsquo; to anyone who wants to complain about how pointless this block of text is.. enjoi!</em></p>
-
-<p>Start by booting the installation media</p>
-
-<p>Use fdisk to create 2 partitions</p>
-
-<ul>
-<li>the boot partition can be pretty small at around 100MiB or so.</li>
-</ul>
-
-
-<p>Write random data to drive</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup -d /dev/random -c aes-xts-plain -s 512 create lvmname /dev/&lt;device>
-</span><span class='line'># dd if=/dev/urandom of=/dev/mapper/lvmname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Optional: In another terminal run a command to monitor progress</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># watch -n 10 killall -USR1 dd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Remove volume of scrambled data.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup remove lvmname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set up LVM logical volumes: root, swap, var, tmp, home</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># lvm pvcreate /dev/&lt;device>
-</span><span class='line'># lvm vgcreate lvmname /dev/&lt;device>
-</span><span class='line'># lvm lvcreate -L 12G -n rootname lvmname
-</span><span class='line'># lvm lvcreate -L 4G -n swapname lvmname
-</span><span class='line'># lvm lvcreate -L 8G -n varname lvmname
-</span><span class='line'># lvm lvcreate -L 1G -n tmpname lvmname
-</span><span class='line'># lvm lvcreate -l 100%FREE -n homename lvmname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Encrypt root</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/rootname
-</span><span class='line'># cryptsetup luksOpen /dev/lvmname/rootname root</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set up root with chosen filesystem [for example; ext4]</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># mkfs.ext4 /dev/mapper/root -L root
-</span><span class='line'># mount /dev/mapper/root /mnt</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set up boot with chosen filesystem [for example; ext2]</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># dd if=/dev/zero of=/dev/sda1 bs=1M
-</span><span class='line'># mkfs.ext2 /dev/sda1 -L boot
-</span><span class='line'># mkdir /mnt/boot
-</span><span class='line'># mount /dev/sda1 /mnt/boot</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Create key for home and var store in /etc/luks-keys/home</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># mkdir -p -m 700 /mnt/etc/luks-keys
-</span><span class='line'># dd if=/dev/random of=/mnt/etc/luks-keys/home bs=1 count=256
-</span><span class='line'># dd if=/dev/random of=/mnt/etc/luks-keys/var bs=1 count=256</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Encrypt, format, and mount var</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/varname /mnt/etc/luks-keys/var
-</span><span class='line'># cryptsetup luksOpen /dev/lvmname/varname var
-</span><span class='line'># mkfs.ext4 /dev/mapper/var -L var
-</span><span class='line'># mkdir /mnt/var
-</span><span class='line'># mount /dev/mapper/var /mnt/var</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Encrypt, format, and mount home</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cryptsetup luksFormat -c aes-xts-plain -s 512 /dev/lvmname/varname /mnt/etc/luks-keys/home
-</span><span class='line'># cryptsetup luksOpen /dev/lvmname/homename home
-</span><span class='line'># mkfs.ext4 /dev/mapper/home -L home
-</span><span class='line'># mkdir /mnt/home
-</span><span class='line'># mount /dev/mapper/home /mnt/home</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Connect to internet</p>
-
-<h4>Install arch via &lsquo;pacstrap&rsquo;</h4>
-
-<ul>
-<li><p>Syslinux or GRUB, whatever floats your boat.</p></li>
-<li><p>Wicd optional but great if planning to use Wi-Fi</p></li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># pacstrap /mnt base base-devel syslinux wicd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Generate new fstab</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># genfstab -p /mnt >> /mnt/etc/fstab</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Chroot into new install</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># arch-chroot /mnt</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set hostname</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># echo "h0stname" >> /etc/hostname</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set timezone</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Edit /etc/locale.gen</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># locale-gen</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Configure /etc/locale.conf</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>LANG="en_US.UTF-8"
-</span><span class='line'>LC_COLLATE="C"
-</span><span class='line'>LC_TIME="en_US.UTF-8"</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Edit /etc/mkinitcpio.conf and generate initrd</h4>
-
-<ul>
-<li>Put lvm2 and encrypt (in this order) before filesystems in HOOKS</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># mkinitcpio -p linux</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Change APPEND line in /boot/syslinux/syslinux.cfg</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>APPEND cryptdevice=/dev/mapper/lvmname-root:root root=/dev/mapper/root ro</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Commit changes to /boot</p>
-
-<ul>
-<li><p> -i = Puts file</p></li>
-<li><p>-a = Set boot flag</p></li>
-<li><p>-m = Install MBR boot code</p></li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># syslinux-install_update -i -a -m</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Add to /etc/fstab</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/dev/mapper/tmp  /tmp      tmpfs   defaults            0 0
-</span><span class='line'>/dev/mapper/swap none      swap    sw                  0 0
-</span><span class='line'>tmpfs            /dev/shm  tmpfs   nodev,nosuid,noexec 0 0</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Edit /etc/crypttab</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var   /dev/lvmname/varname  /etc/luks-keys/var
-</span><span class='line'>home  /dev/lvmname/homename /etc/luks-keys/home
-</span><span class='line'>swap  /dev/lvmname/swap     /dev/urandom  swap,cipher:aes-cbc-essiv:sha256,size=256
-</span><span class='line'>tmp   /dev/lvmname/tmp      /dev/urandom  tmp,cipher:aes-cbc-essiv:sha256,size=256</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Set root password</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># passwd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Reboot</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># reboot</span></code></pre></td></tr></table></div></figure>
-
-
-<p>[Fin]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/07/rtmp-streaming/">RTMP Streaming</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-07T09:48:06-07:00" pubdate data-updated="true">Oct 7<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png"><img src="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png" alt="screenshot-100712-174012.png" /></a></p>
-
-<p>Human beings must have action; they will make it if they cannot find it.</p>
-
-<p><strong><em>&mdash; Albert Einstein</em></strong></p>
-
-<h1>Requirements</h1>
-
-<ul>
-<li><p>video player that supports rtmp streaming [ex: vlc, mplayer]</p></li>
-<li><p>rtmpdump</p></li>
-</ul>
-
-
-<h1>Syntax</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r [rtmp://stream] -W "[webBasedApplet] -v | [localMediaPlayer] -</span></code></pre></td></tr></table></div></figure>
-
-
-<h1>Example 1</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r rtmp://188.122.86.236:1935/live/_definst_/kdjfkdfksjkfs1 -W http://cdn.yycast.com/player/player.swf -p http://www.limev.com/ | mplayer -</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/2012/08/31/adventures-w-freebsd/">Adventures W/ FreeBSD</a></h1>
     
     
@@ -417,14 +82,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-08-31T04:26:16-07:00" pubdate data-updated="true">Aug 31<span>st</span>, 2012</time>
+<time class='entry-date' datetime='2012-08-31T04:26:16-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>4:26 am</span></time>
         
       </p>
     
@@ -445,7 +103,7 @@
 
 <ul>
 <li><p>type = freebsd-ufs</p></li>
-<li><p>size =  total disk size &ndash; size of swap</p></li>
+<li><p>size =  total disk size - size of swap</p></li>
 <li><p>mount point = /</p></li>
 </ul>
 
@@ -487,14 +145,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-08-28T19:31:49-07:00" pubdate data-updated="true">Aug 28<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-08-28T19:31:49-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>7:31 pm</span></time>
         
       </p>
     
@@ -836,14 +487,7 @@ _</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-08-26T13:34:08-07:00" pubdate data-updated="true">Aug 26<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-08-26T13:34:08-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>1:34 pm</span></time>
         
       </p>
     
@@ -854,13 +498,13 @@ _</p>
 
 <p>If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
 
-<p>9 / 10 &ndash; Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
+<p>9 / 10 - Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
 
-<p>9 / 10 &ndash; Leffe: &lsquo;Leffe Blonde&rsquo;</p>
+<p>9 / 10 - Leffe: &lsquo;Leffe Blonde&rsquo;</p>
 
-<p>3 / 10 &ndash; Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
+<p>3 / 10 - Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
 
-<p>7 / 10 &ndash; Racer5</p>
+<p>7 / 10 - Racer5</p>
 
 <p>Hopefully this helps someone pacing up and down the cooler isle trying to make their selection, so they can get to where they need to be and back to loving life.</p>
 
@@ -874,11 +518,11 @@ _</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/7/">&larr; Older</a>
+      <a class="prev" href="/posts/11">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/blog/page/5/">Newer &rarr;</a>
+    <a class="next" href="/posts/9">Newer &rarr;</a>
     
   </div>
 </div>

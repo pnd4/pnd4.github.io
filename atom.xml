@@ -4,10 +4,10 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-02-20T18:36:45-08:00</updated>
+  <updated>2015-04-03T16:43:12-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
-    <name><![CDATA[]]></name>
+    <name><![CDATA[pnd4]]></name>
     <email><![CDATA[kevin@pnd4.net]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -20,7 +20,7 @@
     <id>http://www.pnd4.net/blog/2014/12/28/sprint-bill</id>
     <content type="html"><![CDATA[<p><em>It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk who&rsquo;s offering Unlimited everything for 45/line I hear&hellip; What follows is just some scribble for me to look back on when the topic comes up for discussion, but maybe it&rsquo;ll raise some savings opportunities other&rsquo;s overlooked.</em></p>
 
-<h2>&lsquo;TEP&rsquo; Insurance &ndash; Mom&rsquo;s line</h2>
+<h2>&lsquo;TEP&rsquo; Insurance - Mom&rsquo;s line</h2>
 
 <pre><code>11$/mon.. Probably unecessary
 </code></pre>
@@ -69,7 +69,9 @@ Total amount shared by entire family</p>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>#!/bin/sh
 </span><span class='line'> DATA_COST="40"
 </span><span class='line'> NUM_DEVICES="3"
 </span><span class='line'> NUM_TABS="1"
@@ -95,7 +97,8 @@ Total amount shared by entire family</p>
 </span><span class='line'>212$ for 8Gb  &gt;&gt;    70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
 </span><span class='line'>192$ for 12Gb &gt;&gt;    80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
 </span><span class='line'>202$ for 16Gb &gt;&gt;    90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>Reference</h2>
@@ -108,12 +111,15 @@ Total amount shared by entire family</p>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>+   $45  &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>+   $45   &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
 </span><span class='line'>+   $83   &gt;&gt; 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
 </span><span class='line'>+   $70   &gt;&gt; 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
 </span><span class='line'>+   $15   &gt;&gt; 10$ 'Taxes and Fees'
-</span><span class='line'>---------
-</span><span class='line'>Total     $213</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>---------  
+</span><span class='line'>Total     $213
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p><strong>Typical Usage</strong></p>
@@ -439,21 +445,21 @@ Doesnt</p>
 
 <h4>DNS</h4>
 
-<p><strong>Dec 05 2013 &ndash; 04:38</strong></p>
+<p><strong>Dec 05 2013 - 04:38</strong></p>
 
 <p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
 
 <p>The thread below talks about tuning openvpn to fix this.</p>
 
-<blockquote><p>By default, on initial startup and restart, the &mdash;remote name is resolved
+<blockquote><p>By default, on initial startup and restart, the &ndash;remote name is resolved
 once. If the DNS resolve fails, OpenVPN will abort.</p>
 
-<p>If &mdash;resolve-retry is specified, the DNS resolve will be retried for n
+<p>If &ndash;resolve-retry is specified, the DNS resolve will be retried for n
 seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
 will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
 
 <p>If you want to disable the DNS re-resolve on restart, you can use
-&mdash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &mdash;remote IP
+&ndash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &ndash;remote IP
 address without doing a new DNS lookup.</p></blockquote>
 
 <p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
@@ -519,47 +525,45 @@ address without doing a new DNS lookup.</p></blockquote>
 
 <p>I wrote a bash script that takes the hard part, remembering, out of the <strong>iptables</strong> step.</p>
 
-<div>
-  <pre><code class='bash'>#!/bin/bash
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
-## PND4
-## o1.27.13
+<span class="c">## PND4</span>
+<span class="c">## o1.27.13</span>
 
-success() {
-  echo &quot;.. success :)&quot;
-}
+success<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;.. success :)&quot;</span>
+<span class="o">}</span>
 
-failure() {
-  echo &quot;-- FAILURE :(&quot;
-}
+failure<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;-- FAILURE :(&quot;</span>
+<span class="o">}</span>
 
-add-rule() {
-  sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
-}
+add-rule<span class="o">()</span> <span class="o">{</span>
+  sudo iptables -t nat -A OUTPUT -p tcp --dport <span class="m">1935</span> -j REDIRECT
+<span class="o">}</span>
 
-del-rule() {
-  sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
-}
+del-rule<span class="o">()</span> <span class="o">{</span>
+  sudo iptables -t nat -D OUTPUT -p tcp --dport <span class="m">1935</span> -j REDIRECT
+<span class="o">}</span>
 
-case &quot;$1&quot; in
-  start)
-    echo &quot;Starting..&quot;
-    # also delete rule if it exists for some reason to avoid dupes.
-    # always errors out so we ignore it
+<span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+  start<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Starting..&quot;</span>
+    <span class="c"># also delete rule if it exists for some reason to avoid dupes.</span>
+    <span class="c"># always errors out so we ignore it</span>
     del-rule 2&gt;/dev/null
     add-rule
-    [ $? -eq 0 ] &amp;&amp; success || failure
-    ;;
-  stop)
-    echo &quot;Stopping..&quot;
+    <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> success <span class="o">||</span> failure
+    <span class="p">;;</span>
+  stop<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Stopping..&quot;</span>
     del-rule
-    [ $? -eq 0 ] &amp;&amp; success || failure
-    ;;
-  *)
-    echo &quot;Usage: $0 &lt;start|stop&gt;&quot;
-    ;;
-esac</code></pre>
-</div>
+    <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> success <span class="o">||</span> failure
+    <span class="p">;;</span>
+  *<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 &lt;start|stop&gt;&quot;</span>
+    <span class="p">;;</span>
+<span class="k">esac</span></code></pre></div>
 
 
 <h4>Useful Links and References</h4>
@@ -619,13 +623,13 @@ Some webcams have a problem where the request a lot more bandwidth than they nee
 -Creative Live! Cam Video IM Ultra
 -HP 2-Megapixel Webcam (RZ406AA)</p>
 
-<p>My current recommendation is probably the HD-3000. It is 720p and can be found for about $20. It does NOT have autofocus which I think is good for a webcam you leave running 24/7. I tried the HD-5000 and it spends a lot of time refocusing. I&rsquo;m afraid it would break after a few weeks. The C160 is currently the cheapest, about $8 shipped on ebay. Meritline sometimes sells it for $6. The irritating thing about the c120/c160 is that they have a focusing ring you have to adjust. For a security camera I would prefer fixed focus. I buy any webcam I can get at a firesale so I&rsquo;ll keep trying more &ndash; I would appreciate results from anyone else as well.</p>
+<p>My current recommendation is probably the HD-3000. It is 720p and can be found for about $20. It does NOT have autofocus which I think is good for a webcam you leave running 24/7. I tried the HD-5000 and it spends a lot of time refocusing. I&rsquo;m afraid it would break after a few weeks. The C160 is currently the cheapest, about $8 shipped on ebay. Meritline sometimes sells it for $6. The irritating thing about the c120/c160 is that they have a focusing ring you have to adjust. For a security camera I would prefer fixed focus. I buy any webcam I can get at a firesale so I&rsquo;ll keep trying more - I would appreciate results from anyone else as well.</p>
 
 <p>EDIT: Added a few more cameras]</p>
 
 <p>It turns out you can disable autofocus on UVC supported webcams like this:</p>
 
-<p>v4l2-ctl &mdash;verbose &mdash;set-ctrl=focus_auto=0</p>
+<p>v4l2-ctl &ndash;verbose &ndash;set-ctrl=focus_auto=0</p>
 
 <p>At least it works for me on all the AF cameras I have to test (Microsoft &amp; Rocketfish).</p>
 
@@ -731,39 +735,37 @@ Peace of mind restored, thanks to iptables.</p></blockquote>
 
 <p><em>Ver. ArchLinuxARM-110413</em></p>
 
-<div>
-  <pre><code class='bash'>#!/bin/sh
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
 
-iface=&quot;tun0&quot;
-service=&quot;transmission.service&quot;
-config=&quot;/var/lib/transmission/.config/transmission-daemon/settings.json&quot;
+<span class="nv">iface</span><span class="o">=</span><span class="s2">&quot;tun0&quot;</span>
+<span class="nv">service</span><span class="o">=</span><span class="s2">&quot;transmission.service&quot;</span>
+<span class="nv">config</span><span class="o">=</span><span class="s2">&quot;/var/lib/transmission/.config/transmission-daemon/settings.json&quot;</span>
 
-# test if service is currently running
-systemctl --quiet is-active $service
-if [ $? -eq 0 ]; then
-    # get the ip from the current config
-    savedIP=$(cat $config | egrep -o &#39;\&quot;bind-address-ipv4\&quot;: \&quot;[^ ]*&#39; | cut -d&#39;&quot;&#39; -f4)
-    # test if ip has changed and is no longer available
-    ping -i1 -w2 -c1 $savedIP &gt;/dev/null
-    if [[ $? -ne 0 || &quot;x$savedIP&quot; == &quot;x0.0.0.0&quot; ]]; then
-        echo IP unavailable, stop and reconfigure transmission..
-        systemctl stop $service
-        # test if VPN went down completely
-        ifconfig $iface &gt;/dev/null
-        if [ $? -ne 0 ]; then
-            echo Oops.. $iface not available, exiting without restarting transmission..
-            exit 1
-        fi
-        # reconfigure transmission with new ip address
-        sed -i &quot;s/\&quot;bind-address-ipv4\&quot;:.*\$/\&quot;bind-address-ipv4\&quot;: \&quot;$(ip a show dev $iface | egrep -o &#39;inet [^ ]* &#39; | cut -d&#39; &#39; -f2 | sed &#39;s/ //&#39;)\&quot;,/&quot; $config
-        systemctl start $service
-        echo Transmission started.
-    fi
-else
-    echo &quot;Transmission isn&#39;t running..&quot;
-    exit 1
-fi</code></pre>
-</div>
+<span class="c"># test if service is currently running</span>
+systemctl --quiet is-active <span class="nv">$service</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># get the ip from the current config</span>
+    <span class="nv">savedIP</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$config</span> <span class="p">|</span> egrep -o <span class="s1">&#39;\&quot;bind-address-ipv4\&quot;: \&quot;[^ ]*&#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39;&quot;&#39;</span> -f4<span class="k">)</span>
+    <span class="c"># test if ip has changed and is no longer available</span>
+    ping -i1 -w2 -c1 <span class="nv">$savedIP</span> &gt;/dev/null
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">||</span> <span class="s2">&quot;x$savedIP&quot;</span> <span class="o">==</span> <span class="s2">&quot;x0.0.0.0&quot;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo </span>IP unavailable, stop and reconfigure transmission..
+        systemctl stop <span class="nv">$service</span>
+        <span class="c"># test if VPN went down completely</span>
+        ifconfig <span class="nv">$iface</span> &gt;/dev/null
+        <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo </span>Oops.. <span class="nv">$iface</span> not available, exiting without restarting transmission..
+            <span class="nb">exit </span>1
+        <span class="k">fi</span>
+        <span class="c"># reconfigure transmission with new ip address</span>
+        sed -i <span class="s2">&quot;s/\&quot;bind-address-ipv4\&quot;:.*\$/\&quot;bind-address-ipv4\&quot;: \&quot;$(ip a show dev $iface | egrep -o &#39;inet [^ ]* &#39; | cut -d&#39; &#39; -f2 | sed &#39;s/ //&#39;)\&quot;,/&quot;</span> <span class="nv">$config</span>
+        systemctl start <span class="nv">$service</span>
+        <span class="nb">echo </span>Transmission started.
+    <span class="k">fi</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Transmission isn&#39;t running..&quot;</span>
+    <span class="nb">exit </span>1
+<span class="k">fi</span></code></pre></div>
 
 
 <h3>To-Do</h3>
@@ -878,10 +880,10 @@ Solidworks grabs 340mb on launch.
 <p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
 
 <ul>
-<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
+<li>NAT - creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &ndash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &ndash; Archwiki
 
 <blockquote><p>see the <a href="http://www.pnd4.net/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
-<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
+<li>Bridge - &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &ndash;ArchWiki
 
 <blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
 
@@ -893,10 +895,8 @@ Solidworks grabs 340mb on launch.
 
 <p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
 
-<p>To override at runtime:</p>
-
-<pre><code>sudo hostapd /path/to/hostapd.conf
-</code></pre>
+<p>To override at runtime:
+    sudo hostapd /path/to/hostapd.conf</p>
 
 <p>General use, non-Karma, WPA/WPA2 config<br/>
 From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
@@ -1317,10 +1317,8 @@ Notes.</p></blockquote>
 
 <p>example.sh</p>
 
-<div>
-  <pre><code class='bash'>#!/bin/bash
-    test 1 -eq 1 &amp;&amp; echo true || echo false</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+    <span class="nb">test </span><span class="m">1</span> -eq <span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="nb">echo true</span> <span class="o">||</span> <span class="nb">echo false</span></code></pre></div>
 
 
 <p>You can also insert <code>preformatted text</code> using backtick&rsquo;s.</p>
@@ -1391,7 +1389,7 @@ Notes.</p></blockquote>
 
 <h2>Updating Gems</h2>
 
-<p>Update system:  sudo gem update &mdash;system
+<p>Update system:  sudo gem update &ndash;system
 Update user:  gem update</p>
 
 <h2>Useful Links and References</h2>
@@ -1421,7 +1419,7 @@ Update user:  gem update</p>
 
 <blockquote><p>Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver</p></blockquote>
 
-<p>&mdash;HakShop</p>
+<p>&ndash;HakShop</p>
 
 <h3>Useful Links and References</h3>
 
@@ -1554,13 +1552,11 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <p>Involves adding additional rules</p>
 
-<p><em>For the template below:</em></p>
-
-<pre><code>|          |              wan |             lan  |  
-|---------:|-----------------:|-----------------:|  
-|  iface   |             wan0 |            lan0  |  
-|  subnet  |     192.168.12.0 |    172.168.42.0  |  
-</code></pre>
+<p><em>For the template below:</em>
+    |          |              wan |             lan  |<br/>
+    |&mdash;&mdash;&mdash;:|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;:|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;:|<br/>
+    |  iface   |             wan0 |            lan0  |<br/>
+    |  subnet  |     192.168.12.0 |    172.168.42.0  |</p>
 
 <p><em>Example Template</em></p>
 
@@ -1616,7 +1612,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
     <link href="http://www.pnd4.net/blog/2013/03/25/dd-wrt-firewall-fine-tuning/"/>
     <updated>2013-03-25T01:14:11-07:00</updated>
     <id>http://www.pnd4.net/blog/2013/03/25/dd-wrt-firewall-fine-tuning</id>
-    <content type="html"><![CDATA[<p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] &ndash;> [Commands]</p>
+    <content type="html"><![CDATA[<p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] -> [Commands]</p>
 
 <p>You should see a text box, there you can add individual iptables rules as if you were using the command line. Just save the command with the appropriate button labeled [Save Firewall]</p>
 

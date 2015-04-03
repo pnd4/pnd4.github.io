@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Life | PND4]]></title>
+  <title><![CDATA[Category: life | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/life/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-02-20T18:36:45-08:00</updated>
+  <updated>2015-04-03T16:43:12-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
-    <name><![CDATA[]]></name>
+    <name><![CDATA[pnd4]]></name>
     <email><![CDATA[kevin@pnd4.net]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -20,7 +20,7 @@
     <id>http://www.pnd4.net/blog/2014/12/28/sprint-bill</id>
     <content type="html"><![CDATA[<p><em>It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk who&rsquo;s offering Unlimited everything for 45/line I hear&hellip; What follows is just some scribble for me to look back on when the topic comes up for discussion, but maybe it&rsquo;ll raise some savings opportunities other&rsquo;s overlooked.</em></p>
 
-<h2>&lsquo;TEP&rsquo; Insurance &ndash; Mom&rsquo;s line</h2>
+<h2>&lsquo;TEP&rsquo; Insurance - Mom&rsquo;s line</h2>
 
 <pre><code>11$/mon.. Probably unecessary
 </code></pre>
@@ -55,66 +55,57 @@ Total amount shared by entire family</p>
 15$ ea line for &gt;20gb  
 </code></pre>
 
-<p>Probably unnecessary but what the hell, right?
-```</p>
+<p>Probably unnecessary but what the hell, right?</p>
 
-<h1>!/bin/sh</h1>
+<pre><code>
+#!/bin/sh
+ DATA_COST="40"
+ NUM_DEVICES="3"
+ NUM_TABS="1"
+ ACCFEE="25"
+ TAB_FEE="10"
+ DISCNTS="10"
+ IP_INSTL="27"
+ G3_INSTL="25"
+ TAXES_N_FEES="15"
 
-<p> DATA_COST=&ldquo;40&rdquo;
- NUM_DEVICES=&ldquo;3&rdquo;
- NUM_TABS=&ldquo;1&rdquo;
- ACCFEE=&ldquo;25&rdquo;
- TAB_FEE=&ldquo;10&rdquo;
- DISCNTS=&ldquo;10&rdquo;
- IP_INSTL=&ldquo;27&rdquo;
- G3_INSTL=&ldquo;25&rdquo;
- TAXES_N_FEES=&ldquo;15&rdquo;</p>
-
-<p>echo &ldquo;$DATA_COST + ($NUM_DEVICES * $ACCFEE) + ($NUM_TABS * $TAB_FEE) &ndash; $DISCNTS + $IP_INSTL + $G3_INSTL + $TAXES_N_FEES&rdquo; | bc</p>
-
-<p><code>
-So this is what we would be paying if we chose to stick with Sprint, extend our contract another 2-yrs and brought in my Mom's iPad which she's currently paying data for separately
-</code></p>
-
-<pre><code>182$ for 4Gb    &gt;&gt;  40$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]
-212$ for 8Gb    &gt;&gt;  70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
-192$ for 12Gb   &gt;&gt;  80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-202$ for 16Gb   &gt;&gt;  90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-212$ for 20Gb   &gt;&gt;  100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+echo "$DATA_COST + ($NUM_DEVICES * $ACCFEE) + ($NUM_TABS * $TAB_FEE) - $DISCNTS + $IP_INSTL + $G3_INSTL + $TAXES_N_FEES" | bc
 </code></pre>
 
-<p>```</p>
+<p>So this is what we would be paying if we chose to stick with Sprint, extend our contract another 2-yrs and brought in my Mom&rsquo;s iPad which she&rsquo;s currently paying data for separately</p>
+
+<pre><code>    182$ for 4Gb    &gt;&gt;  40$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]
+    212$ for 8Gb    &gt;&gt;  70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
+    192$ for 12Gb   &gt;&gt;  80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+    202$ for 16Gb   &gt;&gt;  90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+    212$ for 20Gb   &gt;&gt;  100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+</code></pre>
 
 <h2>Reference</h2>
 
-<p><strong>We Are Currently Paying</strong>
-```
-+   $45 >> 55$ &lsquo;Kevin 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo;
-+   $83 >> 55$ &lsquo;Mom 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo; + 11$ Insur. + 27$ ip5s
-+   $70 >> 55$ &lsquo;Edward 1gb&rsquo; &ndash; 10$ &lsquo;FramilyDiscount&rsquo; + 25$ LG_G3</p>
+<p><strong>We Are Currently Paying</strong></p>
 
-<h2>+   $15 >> 10$ &lsquo;Taxes and Fees&rsquo;</h2>
-
-<p>Total   $213
-```</p>
-
-<p><strong>Typical Usage</strong>
-```</p>
-
-<pre><code>    Talk    Text    Data
+<pre><code>
++   $45 &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
++   $83 &gt;&gt; 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
++   $70 &gt;&gt; 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
++   $15 &gt;&gt; 10$ 'Taxes and Fees'
+---------  
+Total   $213
 </code></pre>
 
-<p>Edward  800     5568    1072</p>
+<p><strong>Typical Usage</strong></p>
 
-<p>Mom     527     854     245</p>
+<pre><code>        Talk    Text    Data
 
-<p>Me      381     250     221</p>
+Edward  800     5568    1072
 
-<pre><code>    -----------------------
+Mom     527     854     245
+
+Me      381     250     221
+        -----------------------
+Totals  1708    6672    1538
 </code></pre>
-
-<p>Totals  1708    6672    1538
-```</p>
 
 <p><strong>My line&rsquo;s contract ends 06/20/15</strong> .. Don&rsquo;t know yet if this&rsquo;ll be an issue.</p>
 ]]></content>
@@ -141,15 +132,15 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
     <id>http://www.pnd4.net/blog/2012/08/26/fresh-easys-beer-selection</id>
     <content type="html"><![CDATA[<p><img class="center" src="/images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg"></p>
 
-<p>If you ever find yourself frequenting a Fresh n' Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
+<p>If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
 
-<p>9 / 10 &ndash; Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
+<p>9 / 10 - Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
 
-<p>9 / 10 &ndash; Leffe: &lsquo;Leffe Blonde&rsquo;</p>
+<p>9 / 10 - Leffe: &lsquo;Leffe Blonde&rsquo;</p>
 
-<p>3 / 10 &ndash; Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
+<p>3 / 10 - Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
 
-<p>7 / 10 &ndash; Racer5</p>
+<p>7 / 10 - Racer5</p>
 
 <p>Hopefully this helps someone pacing up and down the cooler isle trying to make their selection, so they can get to where they need to be and back to loving life.</p>
 
@@ -168,9 +159,9 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
 
 <p>Unfortunately, at this point in my life there&rsquo;s a lot of free time to be spent, and life is short. Conversely, money is short-coming and school is annually getting more expensive. Education and opportunities we can all agree are valuable. Getting me to Def Con 20 isn&rsquo;t going to be easy, but all I have is time,`a willing mind, and a drive to be there. With a little help I&rsquo;m sure I&rsquo;ll be hacking away with the best of them out in Las Vegas at the end of the month.</p>
 
-<p>&mdash;pnd4</p>
+<p>&ndash;pnd4</p>
 
-<p><img class="center <a" src="href="http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png">http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png</a>"></p>
+<p><img class="center <a" src="href="http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png">http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png</a>&#8221;></p>
 
 <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=7W7HS7N8WVYXJ&amp;lc=US&amp;item_name=Send%20Kevin%20to%20Defcon%2020&amp;item_number=115501337&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3adc20%2dlogo%2epng%3aNonHosted"><img class="center" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"></a></p>
 ]]></content>

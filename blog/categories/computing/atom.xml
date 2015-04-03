@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Computing | PND4]]></title>
+  <title><![CDATA[Category: computing | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-02-20T18:36:45-08:00</updated>
+  <updated>2015-04-03T16:43:12-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
-    <name><![CDATA[]]></name>
+    <name><![CDATA[pnd4]]></name>
     <email><![CDATA[kevin@pnd4.net]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -47,7 +47,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
 <h4>Full PKGBUILD</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (PKGBUILD)</span> <a href='/downloads/code/lzo-2.08-1-arm/PKGBUILD'>download</a></figcaption>
+<p><figure class='code'><figcaption><span> (PKGBUILD)</span> <a href='/downloads/code/lzo-2.08-1-arm/PKGBUILD'>download</a></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -140,7 +140,7 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 </span><span class='line'>  <span class="nb">cd</span> <span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span>/usr/lib
 </span><span class='line'>  ln -s libminilzo.so.0 libminilzo.so
 </span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <h4>TO-DO</h4>
 
@@ -164,26 +164,21 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
 <p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
 
-<p><code>
-ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4
-</code></p>
+<pre><code>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4
+</code></pre>
 
 <p>To break it down, here&rsquo;s the same command with placeholders.</p>
 
-<p>```
-ffmpeg \</p>
-
-<pre><code>-i [input-filename] \
--ac [# of audio-channels] \
--qscale [quality-scale: 1-31 (1 = highest quality)] \
--f [format: mp4, avi, mkv, ..] \
--s [Resolution: (Width)x(Height)] \
-[output-filename]
+<pre><code>ffmpeg \
+    -i [input-filename] \
+    -ac [# of audio-channels] \
+    -qscale [quality-scale: 1-31 (1 = highest quality)] \
+    -f [format: mp4, avi, mkv, ..] \
+    -s [Resolution: (Width)x(Height)] \
+    [output-filename]
 </code></pre>
 
-<p>```</p>
-
-<p>Now you may have checked out some examples before mine and noticed others' had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
+<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
 
 <p>As always, good luck!</p>
 ]]></content>
@@ -204,17 +199,15 @@ ffmpeg \</p>
 
 <p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
 
-<p><code>
-curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil
-</code></p>
+<pre><code>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil
+</code></pre>
 
 <p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
 
 <p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
 
-<p><code>
-http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
-</code></p>
+<pre><code>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
+</code></pre>
 
 <p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
 ]]></content>
@@ -233,21 +226,19 @@ http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
 
 <p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
 
-<p><code>
-tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
+<pre><code>tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
 tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
 tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
 tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
 tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
-</code></p>
+</code></pre>
 
 <h4>I/O Governor</h4>
 
 <p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
 
-<p><code>
-echo deadline &gt; /sys/block/sda/queue/scheduler
-</code></p>
+<pre><code class="">echo deadline &gt; /sys/block/sda/queue/scheduler
+</code></pre>
 
 <p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
 ]]></content>
@@ -266,15 +257,13 @@ echo deadline &gt; /sys/block/sda/queue/scheduler
 
 <p><strong>OFF</strong></p>
 
-<p><code>
-xrandr --output DVI-0 --off
-</code></p>
+<pre><code>xrandr --output DVI-0 --off
+</code></pre>
 
 <p><strong>ON</strong></p>
 
-<p><code>
-xrandr --output DVI-0 --left-of VGA-0 --auto
-</code></p>
+<pre><code>xrandr --output DVI-0 --left-of VGA-0 --auto
+</code></pre>
 <div class="footnotes">
 <hr/>
 <ol>

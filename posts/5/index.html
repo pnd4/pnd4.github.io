@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <title>PND4</title>
-  <meta name="author" content="">
+  <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like & &hellip;">
+  <meta name="description" content="Wireless access point daemon Karma a version of hostapd for creating rogue access points. NAT or Bridge IP&rsquo;s must be handed out to the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,13 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net/blog/page/3">
+  <link rel="canonical" href="http://www.pnd4.net/posts/5/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -73,226 +73,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/11/04/iptables-transmission-vpn/">IPTables + Transmission + VPN</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-04T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &lsquo;pacman&rsquo; vs patching &lsquo;BindInterface&rsquo; into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically.
-The script should basically:</p>
-
-<ul>
-<li>first make sure the VPN is up and operational</li>
-<li>correct transmission&rsquo;s config if the address isn&rsquo;t current.. [stop, edit, start]</li>
-<li>definitely end with transmission running</li>
-</ul>
-
-
-<h3>Quote</h3>
-
-<blockquote><p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
-Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&rsquo;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p></blockquote>
-
-<pre><code>iptables -A OUTPUT -m owner --uid-owner debian-transmission -d 192.168.0.100 -j ACCEPT
-iptables -A OUTPUT -m owner --uid-owner debian-transmission \! -o tun0 -j REJECT
-</code></pre>
-
-<blockquote><p>The first line ensures that, my Mac-mini having IP address 192.168.0.100 on the lan, can always access the web interface of transmission. The second line makes sure, no outgoing traffic can leave via anything other that tun0.
-Peace of mind restored, thanks to iptables.</p></blockquote>
-
-<h3>Code</h3>
-
-<p>transmission-vpn-only.sh</p>
-
-<p><em>Ver. ArchLinuxARM-110413</em></p>
-
-<div>
-  <pre><code class='bash'>#!/bin/sh
-
-iface=&quot;tun0&quot;
-service=&quot;transmission.service&quot;
-config=&quot;/var/lib/transmission/.config/transmission-daemon/settings.json&quot;
-
-# test if service is currently running
-systemctl --quiet is-active $service
-if [ $? -eq 0 ]; then
-    # get the ip from the current config
-    savedIP=$(cat $config | egrep -o &#39;\&quot;bind-address-ipv4\&quot;: \&quot;[^ ]*&#39; | cut -d&#39;&quot;&#39; -f4)
-    # test if ip has changed and is no longer available
-    ping -i1 -w2 -c1 $savedIP &gt;/dev/null
-    if [[ $? -ne 0 || &quot;x$savedIP&quot; == &quot;x0.0.0.0&quot; ]]; then
-        echo IP unavailable, stop and reconfigure transmission..
-        systemctl stop $service
-        # test if VPN went down completely
-        ifconfig $iface &gt;/dev/null
-        if [ $? -ne 0 ]; then
-            echo Oops.. $iface not available, exiting without restarting transmission..
-            exit 1
-        fi
-        # reconfigure transmission with new ip address
-        sed -i &quot;s/\&quot;bind-address-ipv4\&quot;:.*\$/\&quot;bind-address-ipv4\&quot;: \&quot;$(ip a show dev $iface | egrep -o &#39;inet [^ ]* &#39; | cut -d&#39; &#39; -f2 | sed &#39;s/ //&#39;)\&quot;,/&quot; $config
-        systemctl start $service
-        echo Transmission started.
-    fi
-else
-    echo &quot;Transmission isn&#39;t running..&quot;
-    exit 1
-fi</code></pre>
-</div>
-
-
-<h3>To-Do</h3>
-
-<ul>
-<li>Figure out how to &lsquo;BindInterface&rsquo;, if possible.</li>
-<li>Revise transmission-vpn-only script.</li>
-<li>Figure out why openvpn config leaves routes behind.</li>
-</ul>
-
-
-<h4>Useful Links and References</h4>
-
-<ol>
-<li><a href="http://www.botcyb.org/2012/11/force-application-to-use-vpn-using.html" title="BotCyborg">BotCyborg</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/21/solidworks-build/">Solidworks Rig</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-21T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h4>Min Reqs (Win7x64)</h4>
-
-<pre><code>CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
-RAM     2GB+
-HDD     5GB+
-Video   Quadro/QuadroFX/FireGL/FirePro
-</code></pre>
-
-<h2>Notes regarding HW selection</h2>
-
-<ul>
-<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814195112">FirePro v3900</a> was best bang for buck. Good Solidworks reviews.</li>
-<li>4GB of RAM will work, can always upgrade.</li>
-<li>3.5Ghz Dual core + Hyper-Threading (<a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16819116775">i3-3220</a>/3240) should be plenty.</li>
-</ul>
-
-
-<p><a href="http://www.capinc.com/support/tips/solidworks-tech-tips-hardware">Capinc Solidworks HW Tips</a></p>
-
-<ul>
-<li>Video Card: VERY important</li>
-<li>Proc: Solidworks is optimized for multiple cores</li>
-<li>RAM:
-Solidworks grabs 340mb on launch.
-4gb+ is only necessary for very large assemblies (over 10,000 parts)</li>
-<li>HD: Generally, does not affect Solidworks performance</li>
-</ul>
-
-
-<h2>Newegg specials for Oct.</h2>
-
-<p><strong>&ldquo;i5&rdquo; Combo + FirePro V3900 [ ~$630 ] (until 10/25)</strong></p>
-
-<p>Someone mentioned i5 &amp; i7&rsquo;s have decent enough graphics to run Solidworks.. maybe just get FirePro later, if needed?</p>
-
-<ul>
-<li>Trustworthy PSU</li>
-<li>i5 is Quad Core, 8MB-L2, HD4000 &lsquo;integrated&rsquo; gfx</li>
-<li>8GB RAM</li>
-<li>1TB HDD, SSD would&rsquo;ve been nicer.</li>
-<li>USB 3.0</li>
-<li><p>No case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151">Combo: 1291151</a></p></li>
-</ul>
-
-
-<p><strong>&ldquo;i3&rdquo; Combo + FirePro V3900 [ ~$ 430 ] (until 10/31)</strong></p>
-
-<ul>
-<li>Decent PSU. But low wattage.</li>
-<li>500GB HDD</li>
-<li>USB 3.0</li>
-<li><p>Plain Case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103">Combo: 1271103</a></p></li>
-</ul>
-
-
-<p><strong>&ldquo;Budget Gaming&rdquo; Combo [ $ 370 ] (until 10/31)</strong></p>
-
-<ul>
-<li>nVidia GT 640 2GB, instead of FirePro ?<br/>
-  .. donno if that&rsquo;s such a good idea.</li>
-<li>Good PSU</li>
-<li>500GB HDD</li>
-<li>USB 3.0</li>
-<li><p>Decent looking case.</p>
-
-<p>  <a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943">Combo: 1461943</a></p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/2013/10/18/hostapd/">Hostapd</a></h1>
     
     
@@ -302,14 +82,7 @@ Solidworks grabs 340mb on launch.
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-10-18T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
@@ -325,10 +98,10 @@ Solidworks grabs 340mb on launch.
 <p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
 
 <ul>
-<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
+<li>NAT - creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &ndash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &ndash; Archwiki
 
 <blockquote><p>see the <a href="/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
-<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
+<li>Bridge - &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &ndash;ArchWiki
 
 <blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
 
@@ -340,10 +113,8 @@ Solidworks grabs 340mb on launch.
 
 <p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
 
-<p>To override at runtime:</p>
-
-<pre><code>sudo hostapd /path/to/hostapd.conf
-</code></pre>
+<p>To override at runtime:
+    sudo hostapd /path/to/hostapd.conf</p>
 
 <p>General use, non-Karma, WPA/WPA2 config<br/>
 From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
@@ -588,14 +359,7 @@ From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-c
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-10-17T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
@@ -652,14 +416,7 @@ bundle install # make sure to run this one in the 'octopress' directory
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-17T00:00:00-07:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-10-17T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
@@ -801,11 +558,11 @@ git commit -m "&lt;message&gt;"
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+      <a class="prev" href="/posts/6">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    <a class="next" href="/posts/4">Newer &rarr;</a>
     
   </div>
 </div>

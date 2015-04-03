@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <title>CLI RTMP Streaming - PND4</title>
-  <meta name="author" content="">
+  <meta name="author" content="pnd4">
 
   
   <meta name="description" content="As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use rtmpdump-ksv instead of rtmpdump Commands &hellip;">
@@ -18,13 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net/blog/2013/11/23/rtmpdump">
+  <link rel="canonical" href="http://www.pnd4.net/blog/2013/11/23/rtmpdump/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,14 +79,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-11-23T00:00:00-08:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-11-23T00:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
@@ -147,47 +140,45 @@
 
 <p>I wrote a bash script that takes the hard part, remembering, out of the <strong>iptables</strong> step.</p>
 
-<div>
-  <pre><code class='bash'>#!/bin/bash
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
-## PND4
-## o1.27.13
+<span class="c">## PND4</span>
+<span class="c">## o1.27.13</span>
 
-success() {
-  echo &quot;.. success :)&quot;
-}
+success<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;.. success :)&quot;</span>
+<span class="o">}</span>
 
-failure() {
-  echo &quot;-- FAILURE :(&quot;
-}
+failure<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;-- FAILURE :(&quot;</span>
+<span class="o">}</span>
 
-add-rule() {
-  sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
-}
+add-rule<span class="o">()</span> <span class="o">{</span>
+  sudo iptables -t nat -A OUTPUT -p tcp --dport <span class="m">1935</span> -j REDIRECT
+<span class="o">}</span>
 
-del-rule() {
-  sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
-}
+del-rule<span class="o">()</span> <span class="o">{</span>
+  sudo iptables -t nat -D OUTPUT -p tcp --dport <span class="m">1935</span> -j REDIRECT
+<span class="o">}</span>
 
-case &quot;$1&quot; in
-  start)
-    echo &quot;Starting..&quot;
-    # also delete rule if it exists for some reason to avoid dupes.
-    # always errors out so we ignore it
+<span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+  start<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Starting..&quot;</span>
+    <span class="c"># also delete rule if it exists for some reason to avoid dupes.</span>
+    <span class="c"># always errors out so we ignore it</span>
     del-rule 2&gt;/dev/null
     add-rule
-    [ $? -eq 0 ] &amp;&amp; success || failure
-    ;;
-  stop)
-    echo &quot;Stopping..&quot;
+    <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> success <span class="o">||</span> failure
+    <span class="p">;;</span>
+  stop<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Stopping..&quot;</span>
     del-rule
-    [ $? -eq 0 ] &amp;&amp; success || failure
-    ;;
-  *)
-    echo &quot;Usage: $0 &lt;start|stop&gt;&quot;
-    ;;
-esac</code></pre>
-</div>
+    <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> success <span class="o">||</span> failure
+    <span class="p">;;</span>
+  *<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 &lt;start|stop&gt;&quot;</span>
+    <span class="p">;;</span>
+<span class="k">esac</span></code></pre></div>
 
 
 <h4>Useful Links and References</h4>
@@ -205,26 +196,19 @@ esac</code></pre>
       
   
 
-
+<span class="byline author vcard">Posted by <span class="fn">pnd4</span></span>
 
       
 
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-11-23T00:00:00-08:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-11-23T00:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/computing/'>Computing</a>
+    <a class='category' href='/blog/categories/computing/'>computing</a>
   
 </span>
 
@@ -275,7 +259,7 @@ esac</code></pre>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   
   <a href="https://github.com/pnd4">@pnd4</a> on GitHub

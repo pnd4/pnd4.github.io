@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <title>Hostapd - PND4</title>
-  <meta name="author" content="">
+  <meta name="author" content="pnd4">
 
   
   <meta name="description" content="Wireless access point daemon Karma a version of hostapd for creating rogue access points. NAT or Bridge IP&rsquo;s must be handed out to the &hellip;">
@@ -18,13 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net/blog/2013/10/18/hostapd">
+  <link rel="canonical" href="http://www.pnd4.net/blog/2013/10/18/hostapd/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.pnd4.net" />
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,14 +79,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-10-18T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
         
       </p>
     
@@ -102,10 +95,10 @@
 <p>IP&rsquo;s must be handed out to the connecting clients so one or the other must be configured</p>
 
 <ul>
-<li>NAT &ndash; creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &mdash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &mdash; Archwiki
+<li>NAT - creates a new subnet &ldquo;.. with IP forwarding/masquerading and DHCP service (wireless clients will use a dedicated subnet, data from/to that subnet is NAT-ted &ndash; similar to a normal WiFi router that&rsquo;s connected to your DSL or cable modem)&rdquo; &ndash; Archwiki
 
 <blockquote><p>see the <a href="/blog/2013/10/16/firewall">Firewalls</a> article</p></blockquote></li>
-<li>Bridge &ndash; &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &mdash;ArchWiki
+<li>Bridge - &ldquo;.. Simple, but it requires that any service that&rsquo;s needed by your wireless clients (like, DHCP) is available on your computers external interface. That means it will not work if you have a dialup connection (e.g., via PPPoE or a 3G modem) or if you&rsquo;re using a cable modem that will supply exactly one IP address to you via DHCP.&rdquo; &ndash;ArchWiki
 
 <blockquote><p>You need to create a network bridge and add your network interface (e.g. eth0) to it. You should not add the wireless device (e.g. wlan0) to the bridge; hostapd will add it on its own.</p>
 
@@ -117,10 +110,8 @@
 
 <p>System configuration is stored in /etc/hostapd/hostapd.conf.</p>
 
-<p>To override at runtime:</p>
-
-<pre><code>sudo hostapd /path/to/hostapd.conf
-</code></pre>
+<p>To override at runtime:
+    sudo hostapd /path/to/hostapd.conf</p>
 
 <p>General use, non-Karma, WPA/WPA2 config<br/>
 From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/">nims.wordpress.com</a></p>
@@ -352,26 +343,19 @@ From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-c
       
   
 
-
+<span class="byline author vcard">Posted by <span class="fn">pnd4</span></span>
 
       
 
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-18T00:00:00-07:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2013-10-18T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/computing/'>Computing</a>
+    <a class='category' href='/blog/categories/computing/'>computing</a>
   
 </span>
 
@@ -422,7 +406,7 @@ From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-c
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   
   <a href="https://github.com/pnd4">@pnd4</a> on GitHub
