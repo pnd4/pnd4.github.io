@@ -5,9 +5,9 @@
 url: http://www.pnd4.net
 title: PND4
 subtitle: "/dev/notes"
-author:
+author: pnd4
 simple_search: http://google.com/search
-description: PND4
+description: PND4's Blog
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in

@@ -38,7 +38,9 @@ Total amount shared by entire family
 
 
 Probably unnecessary but what the hell, right?
+
 ```
+
 #!/bin/sh
  DATA_COST="40"
  NUM_DEVICES="3"
@@ -53,28 +55,35 @@ Probably unnecessary but what the hell, right?
 echo "$DATA_COST + ($NUM_DEVICES * $ACCFEE) + ($NUM_TABS * $TAB_FEE) - $DISCNTS + $IP_INSTL + $G3_INSTL + $TAXES_N_FEES" | bc
 
 ```
+
 So this is what we would be paying if we chose to stick with Sprint, extend our contract another 2-yrs and brought in my Mom's iPad which she's currently paying data for separately 
+
 ```
 	182$ for 4Gb 	>> 	40$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]
 	212$ for 8Gb	>> 	70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
 	192$ for 12Gb	>> 	80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
 	202$ for 16Gb	>> 	90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
 	212$ for 20Gb	>> 	100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
+
 ```
 
 ## Reference
 
 **We Are Currently Paying**
+
 ```
+
 +   $45	>> 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
 +   $83	>> 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
 +   $70	>> 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
 +   $15	>> 10$ 'Taxes and Fees'
----------
+---------  
 Total 	$213
+
 ```
 
 **Typical Usage**
+
 ```
         Talk	Text	Data
 		
