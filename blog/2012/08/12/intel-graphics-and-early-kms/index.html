@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get &hellip;">
+  <meta name="description" content="Since just about every laptop or netbook I&#39;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,7 +88,7 @@
 
 <div class="entry-content"><p><img class="center" src="/images/2012-08-12-intel-graphics-and-early-kms/intel-logo.jpg"></p>
 
-<p><em>Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
+<p><em>Since just about every laptop or netbook I&#39;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
 
 <p><em>You want to enable KMS because it allows the kernel to set the native resolution on the frame-buffer. The effects of this are fast TTY-switching, enhanced 3D performance, and in some cases power-saving features.</em></p>
 
@@ -125,20 +125,18 @@
 </span><span class='line'>      &lt;*>  Intel 8xx/9xx/G3x/G4x/HD Graphics
 </span><span class='line'>      [*]    Enable modesetting on intel by default</span></code></pre></td></tr></table></div></figure>
 
-
-<p><strong>Xorg </strong>&rsquo;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
+<p>*<em>Xorg *</em>&#39;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
 
 <p><strong>Bootloader</strong> changes are done so that our grub does not disable, use another driver, or try to set the resolution itself. Remember, we are letting the Kernel do this for us. so edit your /etc/default/grub and remove any of the following:</p>
 
 <ul>
-<li><p>Any &ldquo;nomodeset&rdquo;, &ldquo;i915.modeset=0&rdquo;, &ldquo;vga=&rdquo; or &#8221;video=&ldquo; at all present.</p></li>
+<li><p>Any &quot;nomodeset&quot;, &quot;i915.modeset=0&quot;, &quot;vga=&quot; or &quot;video=&quot; at all present.</p></li>
 <li><p>Anything that would enable another frame-buffer driver such as uvesafb.</p></li>
 </ul>
 
-
 <p><strong>Start-up configuration</strong> must reflect our efforts so that KMS is started early on in the process as possible to get the best effect. changes should be made to /etc/mkinitcpio.conf in Arch, or /etc/conf.d/modules in Gentoo to include the i915 module.</p>
 
-<p>Finally regen your initial-ramdisk if you used one and your boot partition&rsquo;s GRUB config.</p>
+<p>Finally regen your initial-ramdisk if you used one and your boot partition&#39;s GRUB config.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -148,7 +146,6 @@
 </span><span class='line'># mkinitcpio -p linux
 </span><span class='line'>## generate a GRUB config
 </span><span class='line'># grub-mkconfig -o /boot/grub/grub.cfg</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Reboot and [hopefully] reap the fruits of all your hard work.</p>
 </div>

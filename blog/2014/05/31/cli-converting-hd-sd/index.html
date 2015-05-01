@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d &hellip;">
+  <meta name="description" content="*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,19 +86,18 @@
   </header>
 
 
-<div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d think they&rsquo;d at least offer at least 1 other format, possibly for the old iPod Video&rsquo;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+<div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
 
-<p>In any case, doing the deed myself was surprising easy. Though I&rsquo;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&rsquo;d suggest they give my commands a shot.*</p>
+<p>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.*</p>
 
-<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&rsquo;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
+<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
 
 <p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
 
-
-<p>To break it down, here&rsquo;s the same command with placeholders.</p>
+<p>To break it down, here&#39;s the same command with placeholders.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -115,8 +114,7 @@
 </span><span class='line'>    -s [Resolution: (Width)x(Height)] \
 </span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
 
-
-<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
+<p>Now you may have checked out some examples before mine and noticed others&#39; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &quot;YIFY&quot;, you can&#39;t go wrong.</p>
 
 <p>As always, good luck!</p>
 </div>

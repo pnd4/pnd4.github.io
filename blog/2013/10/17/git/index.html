@@ -9,8 +9,10 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Starting a new repo create project directory mkdir -p &lt;folder&gt;
-cd &lt;folder&gt; create files or copy them from existing project. touch README. &hellip;">
+  <meta name="description" content="Starting a new repo create project directory
+mkdir -p &lt;folder&gt;
+cd &lt;folder&gt; create files or copy them from existing project.
+touch README. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,41 +92,28 @@ cd &lt;folder&gt; create files or copy them from existing project. touch README.
 <div class="entry-content"><h2>Starting a new repo</h2>
 
 <p>create project directory</p>
-
-<pre><code>mkdir -p &lt;folder&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir -p &lt;folder&gt;
 cd &lt;folder&gt;
-</code></pre>
-
+</code></pre></div>
 <p>create files or copy them from existing project.</p>
-
-<pre><code>touch README.md
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">touch README.md
+</code></pre></div>
 <p>initialize barebone git files</p>
-
-<pre><code>git init
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">git init
+</code></pre></div>
 <p>prepare commit with annotations and files</p>
-
-<pre><code>git add README.md
-git commit -m "&lt;message&gt;"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">git add README.md
+git commit -m &quot;&lt;message&gt;&quot;
+</code></pre></div>
 <p>new project, so create remote origin, and master branch</p>
-
-<pre><code>git remote add origin &lt;url | git@github.com:pnd4/&lt;project&gt;.git"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">git remote add origin &lt;url | git@github.com:pnd4/&lt;project&gt;.git&quot;
+</code></pre></div>
 <p>publish files to the new git-repository</p>
-
-<pre><code>git push -u origin master
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">git push -u origin master
+</code></pre></div>
 <h2>Tips from the IRC guys</h2>
 
-<p><em>Excerpt from: freenode_#crunchbang-offtopic_20130929.log</em></p>
-
+<p><em>Excerpt from: freenode<em>#crunchbang-offtopic</em>20130929.log</em>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -176,43 +165,41 @@ git commit -m "&lt;message&gt;"
 </span><span class='line'>[00:05:19] &lt;Ferus&gt; clone clones a new repo, pull pulls the new changes from master
 </span><span class='line'>[00:05:26] &lt;orik&gt; ^^
 </span><span class='line'>[00:05:27] &lt;pnd4&gt; oh ok.. thanks
-</span><span class='line'>[00:05:50] &lt;orik&gt; man I've been using git at work for the past three months and I swear I still don't fully understand it
+</span><span class='line'>[00:05:50] &lt;orik&gt; man I&#39;ve been using git at work for the past three months and I swear I still don&#39;t fully understand it
 </span><span class='line'>[00:05:56] &lt;Ferus&gt; tl;dr if the repo doesnt exist locally, you clone from master, if it does exist locally, you pull from master
-</span><span class='line'>[00:06:19] &lt;Ferus&gt; orik: i've been using git for two years, i broke my repo 5 months ago and havent fixed it
+</span><span class='line'>[00:06:19] &lt;Ferus&gt; orik: i&#39;ve been using git for two years, i broke my repo 5 months ago and havent fixed it
 </span><span class='line'>[00:06:34] &lt;Ferus&gt; (i dont know how ;_;)
 </span><span class='line'>[00:07:41] &lt;pnd4&gt; ok so Ive cloned dwmstatus earlier, made changes. if I do a pull, does it undo my changes to match the current master?
 </span><span class='line'>[00:07:52] *** Joins: salam4ik (~salam4ik@89.106.233.158)
-</span><span class='line'>[00:08:10] * pnd4 copies directory and just tries it.. 'banzai!'
-</span><span class='line'>[00:08:21] &lt;Ferus&gt; no, it'll complain that you have un-stashed changed
+</span><span class='line'>[00:08:10] * pnd4 copies directory and just tries it.. &#39;banzai!&#39;
+</span><span class='line'>[00:08:21] &lt;Ferus&gt; no, it&#39;ll complain that you have un-stashed changed
 </span><span class='line'>[00:08:23] &lt;Ferus&gt; changes*
-</span><span class='line'>[00:08:39] &lt;Ferus&gt; so you want to do `git stash; git pull; git stash pop`
-</span><span class='line'>[00:09:05] &lt;pnd4&gt; stash, thats a new one too.. did I mention I'm quite new to git ? haha.
+</span><span class='line'>[00:08:39] &lt;Ferus&gt; so you want to do <code>git stash; git pull; git stash pop</code>
+</span><span class='line'>[00:09:05] &lt;pnd4&gt; stash, thats a new one too.. did I mention I&#39;m quite new to git ? haha.
 </span><span class='line'>[00:09:17] &lt;Ferus&gt; (this is all i know how to do)
 </span><span class='line'>[00:09:27] &lt;Ferus&gt; besides add and rm, but thats kinda obvious
-</span><span class='line'>[00:09:44] &lt;pnd4&gt; thanks. I'll try and remember that if/when suckless puts out a new version
-</span><span class='line'>[00:10:49] &lt;pnd4&gt; I think having familiarity with git should help in the job search.. I mean, who wouldn't want a guy that's familiar with widely used version control systems?
+</span><span class='line'>[00:09:44] &lt;pnd4&gt; thanks. I&#39;ll try and remember that if/when suckless puts out a new version
+</span><span class='line'>[00:10:49] &lt;pnd4&gt; I think having familiarity with git should help in the job search.. I mean, who wouldn&#39;t want a guy that&#39;s familiar with widely used version control systems?
 </span><span class='line'>[00:10:49] &lt;Ferus&gt; you can always google it
 </span><span class='line'>[00:11:46] &lt;pnd4&gt; that is true, but the tl;dr versions are always nice
-</span><span class='line'>[00:12:52] &lt;pnd4&gt; Halts: ebay has the hat I want for 25 (down from 35$) .. they're out of my size.. I share your pain.
-</span><span class='line'>[00:14:05] &lt;pnd4&gt; its like that scene in 'The Last Samurai' where they cut his hair
+</span><span class='line'>[00:12:52] &lt;pnd4&gt; Halts: ebay has the hat I want for 25 (down from 35$) .. they&#39;re out of my size.. I share your pain.
+</span><span class='line'>[00:14:05] &lt;pnd4&gt; its like that scene in &#39;The Last Samurai&#39; where they cut his hair
 </span><span class='line'>[00:15:40] &lt;Halts&gt; at least you can buy your hat.
 </span><span class='line'>[00:16:01] &lt;pnd4&gt; would you buy your jersey still if it was 120 ?
 </span><span class='line'>[00:16:59] &lt;Ferus&gt; &gt; IP Location: Kingston / New York / United States
 </span><span class='line'>[00:17:08] &lt;Ferus&gt; bahaha this site is horrible, cant even geolocate
 </span><span class='line'>[00:18:22] &lt;Halts&gt; haha, not right now.
 </span><span class='line'>[00:18:28] &lt;Halts&gt; but I eventually would, yes.
-</span><span class='line'>[00:18:40] &lt;Halts&gt; I'd like to get it for
+</span><span class='line'>[00:18:40] &lt;Halts&gt; I&#39;d like to get it for
 </span><span class='line'>[00:18:50] &lt;Halts&gt; but, a bunch of cunts ruined that
 </span><span class='line'>[00:19:57] *** Quits: orik (~orik@50-46-134-47.evrt.wa.frontiernet.net) (Remote host closed the connection)
-</span><span class='line'>[00:20:51] &lt;n2o4&gt; pnd4: Just checkout your features into it's own branch, for example git clone foobar, git checkout -b my-super-branch, make edits and commit, issue git checkout master to check into the master branch again.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'>[00:20:51] &lt;n2o4&gt; pnd4: Just checkout your features into it&#39;s own branch, for example git clone foobar, git checkout -b my-super-branch, make edits and commit, issue git checkout master to check into the master branch again.</span></code></pre></td></tr></table></div></figure></p>
 
 <h2>Useful Links and References</h2>
 
 <ol>
 <li><a href="https://github.com">GitHub</a></li>
 </ol>
-
 </div>
 
 

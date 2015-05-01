@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d &hellip;">
+  <meta name="description" content="*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,19 +89,18 @@
   </header>
 
 
-  <div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d think they&rsquo;d at least offer at least 1 other format, possibly for the old iPod Video&rsquo;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+  <div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
 
-<p>In any case, doing the deed myself was surprising easy. Though I&rsquo;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&rsquo;d suggest they give my commands a shot.*</p>
+<p>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.*</p>
 
-<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&rsquo;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
+<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
 
 <p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
 
-
-<p>To break it down, here&rsquo;s the same command with placeholders.</p>
+<p>To break it down, here&#39;s the same command with placeholders.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -118,8 +117,7 @@
 </span><span class='line'>    -s [Resolution: (Width)x(Height)] \
 </span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
 
-
-<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
+<p>Now you may have checked out some examples before mine and noticed others&#39; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &quot;YIFY&quot;, you can&#39;t go wrong.</p>
 
 <p>As always, good luck!</p>
 </div>
@@ -152,27 +150,25 @@
 
   <div class="entry-content"><p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
 
-<p><em>After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&rsquo;t just &lsquo;view-source&rsquo; and expect to see 10-dollars-worth-of.mp4. There&rsquo;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&rsquo;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
+<p><em>After &#39;inspecting&#39; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&#39;t just &#39;view-source&#39; and expect to see 10-dollars-worth-of.mp4. There&#39;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&#39;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
 
-<p>First, you&rsquo;re going to want to check out the source of the page where the plugin and stream play. Your browser&rsquo;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
+<p>First, you&#39;re going to want to check out the source of the page where the plugin and stream play. Your browser&#39;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
 
 <p>Right now we just need to take note of the <code>vendorID</code> and <code>mediaID</code> parameters. Both were mentioned at least a few times thoughout the page I was working with.</p>
 
-<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
+<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&#39;s network console and paying attention to the back-and-forth dialog going on between the browser&#39;s plugin and the webcast host. I suspect if you did the same you&#39;d come up with similar, so here&#39;s mine to save you the trouble.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
 
+<p>In the output of the previous command here should be a couple key-value pairs like <code>content=&quot;http://yadayada.yup&quot;</code> and <code>src=&quot;/theStreamsUWereLookinFor@rightHurr&quot;</code> to help you put together a URI to pass to your chosen media player. </p>
 
-<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
-
-<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
+<p>This URI is direct access to the stream, but if it returns an error or otherwise you&#39;re going to need to invesigate further. My hope is that I&#39;ve at least set you on the right foot toward success. As a final clue, here&#39;s what my result would&#39;ve looked like using the example values I&#39;ve used thus far.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>
 
-
-<p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
+<p>If you&#39;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
 </div>
   
   
@@ -201,11 +197,11 @@
   </header>
 
 
-  <div class="entry-content"><p><strong> Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. </strong></p>
+  <div class="entry-content"><p>** Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. **</p>
 
 <h4>Flash-Drive I/O</h4>
 
-<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&rsquo;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&rsquo;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
+<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&#39;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&#39;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
 
 <p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
 
@@ -220,14 +216,12 @@
 </span><span class='line'>tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
 </span><span class='line'>tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0</span></code></pre></td></tr></table></div></figure>
 
-
 <h4>I/O Governor</h4>
 
-<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
+<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code> </p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>echo deadline &gt; /sys/block/sda/queue/scheduler</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
 </div>

@@ -89,33 +89,23 @@
   </header>
 
 
-  <div class="entry-content"><p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
+  <div class="entry-content"><p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&#39;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
 
 <h2>xrandr</h2>
 
-<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
+<p>Using <code>xrandr</code>[^1] we are able to dynamically modify our desktop&#39;s properties.</p>
 
 <p><strong>OFF</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
 
-
 <p><strong>ON</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
 
-
-
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
+<p>[^1]: <a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&#39;s Man Page</a></p>
 </div>
   
   
@@ -155,20 +145,22 @@ Doesnt</p>
 
 <p><strong>Dec 05 2013 - 04:38</strong></p>
 
-<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
+<p>Seems CyberGhost uses a constantly renewing IP.. &quot;US.openvpn.cyberghostvpn.com&quot; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
 
 <p>The thread below talks about tuning openvpn to fix this.</p>
 
-<blockquote><p>By default, on initial startup and restart, the &ndash;remote name is resolved
+<blockquote>
+<p>By default, on initial startup and restart, the &#8211;remote name is resolved
 once. If the DNS resolve fails, OpenVPN will abort.</p>
 
-<p>If &ndash;resolve-retry is specified, the DNS resolve will be retried for n
+<p>If &#8211;resolve-retry is specified, the DNS resolve will be retried for n
 seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
-will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
+will abort. Recent versions of OpenVPN allow n to be &quot;infinite&quot;.</p>
 
 <p>If you want to disable the DNS re-resolve on restart, you can use
-&ndash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &ndash;remote IP
-address without doing a new DNS lookup.</p></blockquote>
+&#8211;persist-remote-ip. This will &quot;recycle&quot; the previously used &#8211;remote IP
+address without doing a new DNS lookup.</p>
+</blockquote>
 
 <p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
 </div>
@@ -199,55 +191,42 @@ address without doing a new DNS lookup.</p></blockquote>
   </header>
 
 
-  <div class="entry-content"><p>As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
+  <div class="entry-content"><p>As of 2013, some streams require the &#39;ksv&#39;/&#39;k-s-v&#39; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
 
 <h3>Commands</h3>
 
 <p>Redirect rtmp port using iptables.</p>
-
-<pre><code>sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre></div>
 <p>Sniffing for stream parameters.</p>
-
-<pre><code>rtmpsrv
-</code></pre>
-
-<p>Once you&rsquo;ve captured a stream, you can undo the redirection.</p>
-
-<pre><code>sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">rtmpsrv
+</code></pre></div>
+<p>Once you&#39;ve captured a stream, you can undo the redirection.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre></div>
 <p>Use rtmpdump like so, piping the output to mplayer/vlc</p>
-
-<pre><code>rtmpdump -q -r "rtmpe://origin.hdcast.org:1935/redirect/" -a "redirect/" -f "LNX 11,9,900,152" -W "http://www.udemy.com/static/flash/player5.9.swf" -p "http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com" -y "ban5" -b "10000" -v | mplayer -really-quiet -framedrop -
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">rtmpdump -q -r &quot;rtmpe://origin.hdcast.org:1935/redirect/&quot; -a &quot;redirect/&quot; -f &quot;LNX 11,9,900,152&quot; -W &quot;http://www.udemy.com/static/flash/player5.9.swf&quot; -p &quot;http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com&quot; -y &quot;ban5&quot; -b &quot;10000&quot; -v | mplayer -really-quiet -framedrop -
+</code></pre></div>
 <h4>Important options</h4>
 
 <p>rtmpdump</p>
 
 <ul>
-<li>-r [tcURL ex. &ldquo;rtmp://stream.url/&rdquo;]</li>
-<li>-a [app ex. &ldquo;redirect/&rdquo;</li>
-<li>-y [playpath ex. &ldquo;freetv4&rdquo;]</li>
+<li>-r [tcURL ex. &quot;rtmp://stream.url/&quot;]</li>
+<li>-a [app ex. &quot;redirect/&quot;</li>
+<li>-y [playpath ex. &quot;freetv4&quot;]</li>
 <li>-v [live]</li>
-<li>-b [buffersize ex. &ldquo;10000&rdquo;]</li>
-<li>-W [swfURL ex. &ldquo;<a href="http://stream.url/flash/player5.9.swf">http://stream.url/flash/player5.9.swf</a>&rdquo;]</li>
+<li>-b [buffersize ex. &quot;10000&quot;]</li>
+<li>-W [swfURL ex. &quot;http://stream.url/flash/player5.9.swf&quot;]</li>
 </ul>
-
 
 <p>mplayer</p>
 
 <ul>
 <li>-really-quiet [Suppresses output.]</li>
 <li>-framedrop [Helps with streams.]</li>
-<li><ul>
-<li>[Plays from stdout.]</li>
+<li>- [Plays from stdout.]</li>
 </ul>
-</li>
-</ul>
-
 
 <h4>Port redirect helper script</h4>
 
@@ -293,14 +272,12 @@ del-rule<span class="o">()</span> <span class="o">{</span>
     <span class="p">;;</span>
 <span class="k">esac</span></code></pre></div>
 
-
 <h4>Useful Links and References</h4>
 
 <ol>
 <li><a href="http://stream-recorder.com/forum/tutorial-simply-use-rtmpsrv-and-example-t6325.html?p=18142">rtmpsrv tutorial</a></li>
 <li><a href="http://trac.xbmc.org/ticket/14089">XBMC: hint on buffer option</a></li>
 </ol>
-
 </div>
   
   

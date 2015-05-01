@@ -88,15 +88,15 @@
 
 <div class="entry-content"><p><img class="center" src="/images/2012-08-31-adventures-w-freebsd/image0.png"></p>
 
-<p><em>Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to use BSD-Labeling for our partition table.. I tried a good ol&#8217; MS-DOS MBR with nested freebsd file systems, but it didnt work either. BSD-labeling is our only option as far as I know.. Also, as usual, the method I will be using here is the simplest case, using the whole disk and as 2 partitions, root and swap.</em></p>
+<p><em>Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to use BSD-Labeling for our partition table.. I tried a good ol&#39; MS-DOS MBR with nested freebsd file systems, but it didnt work either. BSD-labeling is our only option as far as I know.. Also, as usual, the method I will be using here is the simplest case, using the whole disk and as 2 partitions, root and swap.</em></p>
 
 <p>Ok so in the FreeBSD installer, choose manual partitioning.</p>
 
-<p>Now highlight the hard drive you want to install to and select &ldquo;Create&rdquo;.</p>
+<p>Now highlight the hard drive you want to install to and select &quot;Create&quot;.</p>
 
-<p>This will create the partition table, we chose &ldquo;BSD labels&rdquo;. It should automatically choose to use your whole drive, so just select &ldquo;Ok&rdquo; and get back to the partitioning menu.</p>
+<p>This will create the partition table, we chose &quot;BSD labels&quot;. It should automatically choose to use your whole drive, so just select &quot;Ok&quot; and get back to the partitioning menu.</p>
 
-<p>Now we highlight the drive again which should have &ldquo;BSD&rdquo; next to it instead of &ldquo;none&rdquo;, and select &ldquo;Create&rdquo; again to make our root partition inside the BSD-labeling table.</p>
+<p>Now we highlight the drive again which should have &quot;BSD&quot; next to it instead of &quot;none&quot;, and select &quot;Create&quot; again to make our root partition inside the BSD-labeling table.</p>
 
 <ul>
 <li><p>type = freebsd-ufs</p></li>
@@ -104,10 +104,9 @@
 <li><p>mount point = /</p></li>
 </ul>
 
+<p>Select &quot;Ok&quot; to confirm and get back to the partitioning menu.</p>
 
-<p>Select &ldquo;Ok&rdquo; to confirm and get back to the partitioning menu.</p>
-
-<p>Now scroll back up to highlight the drive with &ldquo;BSD&rdquo; next to it like we did in the previous step. We&rsquo;re creating another partition to use as swap, so select &ldquo;Create&rdquo; once more.</p>
+<p>Now scroll back up to highlight the drive with &quot;BSD&quot; next to it like we did in the previous step. We&#39;re creating another partition to use as swap, so select &quot;Create&quot; once more.</p>
 
 <ul>
 <li><p>type = freebsd-swap</p></li>
@@ -115,12 +114,11 @@
 <li><p>mount point = blank</p></li>
 </ul>
 
+<p>Select &quot;Ok&quot; to confirm and get back to the partitioning menu.</p>
 
-<p>Select &ldquo;Ok&rdquo; to confirm and get back to the partitioning menu.</p>
+<p>Ok now we can select &quot;Finish&quot; and exit the installer&#39;s partitioner and install as usual.</p>
 
-<p>Ok now we can select &ldquo;Finish&rdquo; and exit the installer&rsquo;s partitioner and install as usual.</p>
-
-<p><em>Good luck with the rest of your installation.. and know that your hate for old motherboards that don&rsquo;t support GPT partition tables is shared by those like me, with similar hardware.</em></p>
+<p><em>Good luck with the rest of your installation.. and know that your hate for old motherboards that don&#39;t support GPT partition tables is shared by those like me, with similar hardware.</em></p>
 </div>
 
 

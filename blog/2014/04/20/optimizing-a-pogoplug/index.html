@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. Flash-Drive I/O Flash &hellip;">
+  <meta name="description" content="** Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. ** Flash-Drive I/O Flash &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,11 +86,11 @@
   </header>
 
 
-<div class="entry-content"><p><strong> Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. </strong></p>
+<div class="entry-content"><p>** Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. **</p>
 
 <h4>Flash-Drive I/O</h4>
 
-<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&rsquo;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&rsquo;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
+<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&#39;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&#39;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
 
 <p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
 
@@ -105,14 +105,12 @@
 </span><span class='line'>tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
 </span><span class='line'>tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0</span></code></pre></td></tr></table></div></figure>
 
-
 <h4>I/O Governor</h4>
 
-<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
+<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code> </p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>echo deadline &gt; /sys/block/sda/queue/scheduler</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
 </div>

@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="If you ever find yourself frequenting a Fresh n' Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo &hellip;">
+  <meta name="description" content="If you ever find yourself frequenting a Fresh n&#39; Easy market like I have, hopefully you try some of the beer&#39;s they rotate into the sale&#39 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,13 +91,13 @@
 
   <div class="entry-content"><p><img class="center" src="/images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg"></p>
 
-<p>If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
+<p>If you ever find yourself frequenting a Fresh n&#39; Easy market like I have, hopefully you try some of the beer&#39;s they rotate into the sale&#39;s page..  I&#39;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&#39;s a short listing of a few randoms I&#39;ve tried in the last month or two, and ratings to go with them.</p>
 
-<p>9 / 10 - Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
+<p>9 / 10 - Kona Brewing Co. &#39;Longboard Island Lager&#39;</p>
 
-<p>9 / 10 - Leffe: &lsquo;Leffe Blonde&rsquo;</p>
+<p>9 / 10 - Leffe: &#39;Leffe Blonde&#39;</p>
 
-<p>3 / 10 - Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
+<p>3 / 10 - Hopper Whitman: &#39;Belgian White&#39;</p>
 
 <p>7 / 10 - Racer5</p>
 
@@ -134,21 +134,18 @@
 
   <div class="entry-content"><p><img class="center" src="/images/2012-08-21-systemd/08202012-105537pm.png"></p>
 
-<p><em>Last night I stumbled upon systemd, freedesktop.org&rsquo;s set of services and scripts for the Linux System Base (LSB) to bring it up to userspace. Making good use of parallelization to beat its predecessor, sysvinit, it boots my laptop up in less than 10 seconds from grub to login-prompt and Im not even using a Solid State Drive (SSD).. Needless to say, I&rsquo;ve been happy with its performance but Ive only been running it on my system for less than 24-hrs and there&rsquo;s still some tweaks need to be made to make a clean and full transition. I really hope more distro&rsquo;s make the migration natively, and it seems that my sentiments are shared in the community.</em></p>
+<p><em>Last night I stumbled upon systemd, freedesktop.org&#39;s set of services and scripts for the Linux System Base (LSB) to bring it up to userspace. Making good use of parallelization to beat its predecessor, sysvinit, it boots my laptop up in less than 10 seconds from grub to login-prompt and Im not even using a Solid State Drive (SSD).. Needless to say, I&#39;ve been happy with its performance but Ive only been running it on my system for less than 24-hrs and there&#39;s still some tweaks need to be made to make a clean and full transition. I really hope more distro&#39;s make the migration natively, and it seems that my sentiments are shared in the community.</em></p>
 
 <p><em>Without further ado, here are my notes:</em></p>
 
 <p>Lets begin by installing the <strong>systemd</strong> package</p>
 
-<p>Manually add <strong>init=/bin/systemd </strong>to your grub config.</p>
+<p>Manually add *<em>init=/bin/systemd *</em>to your grub config.</p>
 
 <p>Setup native systemd configuration files</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># echo "your-hostname" > **/etc/hostname**</span></code></pre></td></tr></table></div></figure>
-
-
-
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -159,9 +156,6 @@
 </span><span class='line'>FONT=lat9w-16
 </span><span class='line'>FONT_MAP=8859-1_to_uni</span></code></pre></td></tr></table></div></figure>
 
-
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -169,26 +163,20 @@
 </span><span class='line'>LANG=en_US.UTF-8
 </span><span class='line'>LC_COLLATE=C</span></code></pre></td></tr></table></div></figure>
 
-
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># echo "America/Los_Angeles" > **/etc/timezone**</span></code></pre></td></tr></table></div></figure>
 
-
-<p>Once the previous steps are complete, you&rsquo;re all clear to reboot. Hopefully all went well and you&rsquo;ll be able to see some drastic speed improvements over sysV. Now all thats left is some optional steps to stay in good, proper form and possibly tweaking of services like syslog-ng which has been deprecated in favor of journalctl (which ships with systemd).</p>
+<p>Once the previous steps are complete, you&#39;re all clear to reboot. Hopefully all went well and you&#39;ll be able to see some drastic speed improvements over sysV. Now all thats left is some optional steps to stay in good, proper form and possibly tweaking of services like syslog-ng which has been deprecated in favor of journalctl (which ships with systemd).</p>
 
 <p>[Optional] By default, running a syslog daemon is no longer required. To read the log, use:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># journalctl</span></code></pre></td></tr></table></div></figure>
 
-
 <p>The journal writes to <code>/run/systemd/journal</code>, meaning logs will be lost on reboot. For non-volatile logs, create <code>/var/log/journal/</code>:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># mkdir /var/log/journal/</span></code></pre></td></tr></table></div></figure>
-
 
 <p>[Optional] Replace acpid with systemd mechanisms by uncommenting these from /etc/systemd/logind.conf&#8220;</p>
 
@@ -198,14 +186,12 @@
 <li><p><strong><code>HandleLidSwitch</code></strong> : Suspend the system when the laptop lid is closed</p></li>
 </ul>
 
-
 <p>[Optional] After a successful reboot, you can clean up by</p>
 
 <ul>
-<li><p>removing packages pertaining to sysV (i.e.<strong> sysvinit</strong>,<strong> initscripts</strong>)</p></li>
-<li><p>remove the <strong>init=/bin/systemd </strong>from your grub.cfg if you used the <strong>systemd-sysvcompat</strong> transitional package.</p></li>
+<li><p>removing packages pertaining to sysV (i.e.** sysvinit<strong>,</strong> initscripts**)</p></li>
+<li><p>remove the <strong>init=/bin/systemd *<em>from your grub.cfg if you used the *</em>systemd-sysvcompat</strong> transitional package.</p></li>
 </ul>
-
 </div>
   
   
@@ -243,7 +229,6 @@
 <li><p>Client - aka laptop. Where apps will be shown.</p></li>
 </ul>
 
-
 <h2>Setting up the Server:</h2>
 
 <p>Start by running sshd and configuring /etc/ssh/sshd_config</p>
@@ -255,7 +240,6 @@
 <li><p>Enable the <strong>X11UseLocalhost</strong> option in <code>ssh**d**_config</code> on the <strong>server</strong>.</p></li>
 </ul>
 
-
 <p>Restart the server</p>
 
 <p>Check /etc/hosts and make sure it has been configured with correct hostnames and IPs.</p>
@@ -266,13 +250,12 @@
 
 <ul>
 <li><p>Enable the <strong>ForwardX11</strong> option in <code>ssh_config</code> on the <strong>client</strong>.</p></li>
-<li><p>Or.. just use &ldquo;ssh -X&rdquo; [or -Y for X11 Trusted Forwarding] when you ssh into the server (for security)</p></li>
+<li><p>Or.. just use &quot;ssh -X&quot; [or -Y for X11 Trusted Forwarding] when you ssh into the server (for security)</p></li>
 </ul>
-
 
 <h2>Testing</h2>
 
-<p>SSH into the server with &ldquo;ssh -X <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x75;&#115;&#x65;&#x72;&#x40;&#x31;&#48;&#x2e;&#48;&#46;&#x30;&#x2e;&#x31;">&#x75;&#115;&#101;&#x72;&#x40;&#x31;&#48;&#46;&#x30;&#x2e;&#48;&#x2e;&#49;</a>&rdquo; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
+<p>SSH into the server with &quot;ssh -X user@10.0.0.1&quot; and then run an X application such as xeyes, xterm, xclock, et cetera.. and enjoy.</p>
 </div>
   
   

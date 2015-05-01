@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10 &hellip;">
+  <meta name="description" content="After &#39;inspecting&#39; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,27 +88,25 @@
 
 <div class="entry-content"><p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
 
-<p><em>After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&rsquo;t just &lsquo;view-source&rsquo; and expect to see 10-dollars-worth-of.mp4. There&rsquo;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&rsquo;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
+<p><em>After &#39;inspecting&#39; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&#39;t just &#39;view-source&#39; and expect to see 10-dollars-worth-of.mp4. There&#39;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&#39;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
 
-<p>First, you&rsquo;re going to want to check out the source of the page where the plugin and stream play. Your browser&rsquo;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
+<p>First, you&#39;re going to want to check out the source of the page where the plugin and stream play. Your browser&#39;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
 
 <p>Right now we just need to take note of the <code>vendorID</code> and <code>mediaID</code> parameters. Both were mentioned at least a few times thoughout the page I was working with.</p>
 
-<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
+<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&#39;s network console and paying attention to the back-and-forth dialog going on between the browser&#39;s plugin and the webcast host. I suspect if you did the same you&#39;d come up with similar, so here&#39;s mine to save you the trouble.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil</span></code></pre></td></tr></table></div></figure>
 
+<p>In the output of the previous command here should be a couple key-value pairs like <code>content=&quot;http://yadayada.yup&quot;</code> and <code>src=&quot;/theStreamsUWereLookinFor@rightHurr&quot;</code> to help you put together a URI to pass to your chosen media player. </p>
 
-<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
-
-<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
+<p>This URI is direct access to the stream, but if it returns an error or otherwise you&#39;re going to need to invesigate further. My hope is that I&#39;ve at least set you on the right foot toward success. As a final clue, here&#39;s what my result would&#39;ve looked like using the example values I&#39;ve used thus far.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8</span></code></pre></td></tr></table></div></figure>
 
-
-<p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
+<p>If you&#39;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
 </div>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: computing | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-01T09:02:34-07:00</updated>
+  <updated>2015-05-01T09:41:29-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -20,17 +20,17 @@
     <id>http://www.pnd4.net/blog/2015/05/01/json-rpc-plus-kodi-bffs</id>
     <content type="html"><![CDATA[<h4>The can of worms.</h4>
 
-<p>The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As expected, something along the way broke and XBMC&rsquo;s dependency, ffmpeg, failed to build. After a long struggle, I gave up on the XBMC ebuild and went with XBMC&rsquo;s successor, Kodi. Making haste, I neglected to enable any of Kodi&rsquo;s optional USE-flags. The result: everything perfect Kodi-side (faster actually), but my various remote-control browser-addons, mobile apps, and scripts were made useless.</p>
+<p>The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As expected, something along the way broke and XBMC&#39;s dependency, ffmpeg, failed to build. After a long struggle, I gave up on the XBMC ebuild and went with XBMC&#39;s successor, Kodi. Making haste, I neglected to enable any of Kodi&#39;s optional USE-flags. The result: everything perfect Kodi-side (faster actually), but my various remote-control browser-addons, mobile apps, and scripts were made useless.</p>
 
-<h4>Meet Kodi&rsquo;s fwiend, JSON-RPC</h4>
+<h4>Meet Kodi&#39;s fwiend, JSON-RPC</h4>
 
-<p>For months now I&rsquo;ve been using a script called <code>xbmc-play</code>. It was simple to use, and lightweight. Problem is that, like most XBMC/Kodi remotes, the underlying mechanics that handle the communication required the webserver feature on the Kodi machine. Since I know a fair amount about scripting and very little of building extensions for browsers and Android apps, scripting became the first part of this journey to regain remoting ability.</p>
+<p>For months now I&#39;ve been using a script called <code>xbmc-play</code>. It was simple to use, and lightweight. Problem is that, like most XBMC/Kodi remotes, the underlying mechanics that handle the communication required the webserver feature on the Kodi machine. Since I know a fair amount about scripting and very little of building extensions for browsers and Android apps, scripting became the first part of this journey to regain remoting ability.</p>
 
-<p>In first discovering the lack of a webserver, running <code>netstat -tuanp</code> confirmed no process was listening on the defaut port 8080. The listing did reveal that after enabling &ldquo;Allow programs on other systems to control Kodi&rdquo; it listens on port 9090. And a quick google of Kodi&rsquo;s relation to this port will tell you that the JSON-RPC protocol is what&rsquo;s understood on Kodi&rsquo;s end.</p>
+<p>In first discovering the lack of a webserver, running <code>netstat -tuanp</code> confirmed no process was listening on the defaut port 8080. The listing did reveal that after enabling &quot;Allow programs on other systems to control Kodi&quot; it listens on port 9090. And a quick google of Kodi&#39;s relation to this port will tell you that the JSON-RPC protocol is what&#39;s understood on Kodi&#39;s end.</p>
 
 <h4>First Impression</h4>
 
-<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&rsquo;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &lsquo;requests&rsquo; the script had to make.</p>
+<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&#39;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &#39;requests&#39; the script had to make.</p>
 
 <p>Prior experience manually interacting over TCP/IP came in handy, and I was quickly able to test some proto-type requests with Kodi using the suggested <code>telnet</code> tool. Ultimately, I chose to work with <code>netcat</code> as it seemed more fitting for use in the resulting script that follows:</p>
 
@@ -157,11 +157,11 @@
 </span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
-<h4>What&rsquo;s Next</h4>
+<h4>What&#39;s Next</h4>
 
-<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&rsquo;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
+<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&#39;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
 
-<p>But like all of these projects I pursue on the side, it&rsquo;s future is uncertain.</p>
+<p>But like all of these projects I pursue on the side, it&#39;s future is uncertain.</p>
 ]]></content>
   </entry>
   
@@ -170,31 +170,31 @@
     <link href="http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/"/>
     <updated>2014-07-02T06:41:41-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm</id>
-    <content type="html"><![CDATA[<p><em>Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user confirmed the issue, a couple days passed without a solution and downgrading to 2.06-3 not only is bad practice due to &ldquo;CVE-2014-4607&rdquo; but paper-thin, since its disappearing from repos and its likely it won&rsquo;t be in your local package cache forever.. Fueled by boredom, I decided to fix the problem myself.</em></p>
+    <content type="html"><![CDATA[<p><em>Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user confirmed the issue, a couple days passed without a solution and downgrading to 2.06-3 not only is bad practice due to &quot;CVE-2014-4607&quot; but paper-thin, since its disappearing from repos and its likely it won&#39;t be in your local package cache forever.. Fueled by boredom, I decided to fix the problem myself.</em></p>
 
 <h4>Using 2.07-2 as a base</h4>
 
-<p>Copied PKGBUILD for lzo2-2.07-2 from ABS.<br/>
-Changed &lsquo;arch&rsquo; to suit ALARM.<br/>
-Deleted the stuff regarding 2.07 (patch: src, checksums).<br/>
-Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;2.08-1&rsquo; respectively.</p>
+<p>Copied PKGBUILD for lzo2-2.07-2 from ABS.<br>
+Changed &#39;arch&#39; to suit ALARM.<br>
+Deleted the stuff regarding 2.07 (patch: src, checksums).<br>
+Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1&#39; respectively.  </p>
 
 <h4>Making it work</h4>
 
-<p>Seems like adding <code>CFLAGS="-DLZO_DEBUG"</code> before <code>./configure ..</code> made the difference whether it built or not.</p>
+<p>Seems like adding <code>CFLAGS=&quot;-DLZO_DEBUG&quot;</code> before <code>./configure ..</code> made the difference whether it built or not.</p>
 
 <h4>Maintaining Security?</h4>
 
-<p>However setting the CFLAGS environment variable showed a warning that if not using at least &ldquo;-O&rdquo; (&ldquo;-O2&rdquo; being the default makepkg.conf optimization CFLAG) then it would not use &ldquo;-D_FORTIFY_SOURCE=2&rdquo; which sounds important from a security-minded perspective.</p>
+<p>However setting the CFLAGS environment variable showed a warning that if not using at least &quot;-O&quot; (&quot;-O2&quot; being the default makepkg.conf optimization CFLAG) then it would not use &quot;-D<em>FORTIFY</em>SOURCE=2&quot; which sounds important from a security-minded perspective.</p>
 
-<p>After some light reading about GCC&rsquo;s flags:<br/>
-<a href="http://www.outflux.net/blog/archives/2014/01/27/fstack-protector-strong/">Security Related Flags</a><br/>
-<a href="http://www.rapidtables.com/code/linux/gcc/gcc-o.htm#optimization">-O option flag</a><br/>
-<a href="http://gentoo.2317880.n4.nabble.com/Should-we-disable-FORTIFY-SOURCE-for-packages-where-it-is-not-default-td138737.html">Relationship: FORTIFY_SOURCE &amp; O-Flag</a></p>
+<p>After some light reading about GCC&#39;s flags:<br>
+<a href="http://www.outflux.net/blog/archives/2014/01/27/fstack-protector-strong/">Security Related Flags</a><br>
+<a href="http://www.rapidtables.com/code/linux/gcc/gcc-o.htm#optimization">-O option flag</a><br>
+<a href="http://gentoo.2317880.n4.nabble.com/Should-we-disable-FORTIFY-SOURCE-for-packages-where-it-is-not-default-td138737.html">Relationship: FORTIFY_SOURCE &amp; O-Flag</a>  </p>
 
-<p>Looks like the best option would be to disable &lsquo;_FORTIFY_SOURCE&rsquo; but still maintain the highest level of security otherwise and retain the ability to protect from stack-smashing attacks by setting &lsquo;stack-protector-all&rsquo;. It seems with 2.08 we have only two choices: &ldquo;-O0&rdquo; or no optimizations at all. Personally, I&rsquo;d gladly sacrifice runtime-speed optimizations for security, when having both is not an option and since ARM devices don&rsquo;t have much memory, why not use &ldquo;-O0&rdquo; if we can.</p>
+<p>Looks like the best option would be to disable &#39;<em>FORTIFY</em>SOURCE&#39; but still maintain the highest level of security otherwise and retain the ability to protect from stack-smashing attacks by setting &#39;stack-protector-all&#39;. It seems with 2.08 we have only two choices: &quot;-O0&quot; or no optimizations at all. Personally, I&#39;d gladly sacrifice runtime-speed optimizations for security, when having both is not an option and since ARM devices don&#39;t have much memory, why not use &quot;-O0&quot; if we can.</p>
 
-<p>This equates to <code>CFLAGS="-Wall -O0 -U_FORTIFY_SOURCE -fstack-protector-all"</code><br/>
+<p>This equates to <code>CFLAGS=&quot;-Wall -O0 -U_FORTIFY_SOURCE -fstack-protector-all&quot;</code><br>
 (seen on line #21)</p>
 
 <h4>Full PKGBUILD</h4>
@@ -299,7 +299,6 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 <ul>
 <li>Have someone proof/verify the PKGBUILD.</li>
 </ul>
-
 ]]></content>
   </entry>
   
@@ -308,29 +307,25 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
     <link href="http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd/"/>
     <updated>2014-05-31T22:37:32-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd</id>
-    <content type="html"><![CDATA[<p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d think they&rsquo;d at least offer at least 1 other format, possibly for the old iPod Video&rsquo;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+    <content type="html"><![CDATA[<p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
 
-<p>In any case, doing the deed myself was surprising easy. Though I&rsquo;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&rsquo;d suggest they give my commands a shot.*</p>
+<p>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.*</p>
 
-<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&rsquo;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
+<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
 
 <p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
-
-<pre><code>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4
-</code></pre>
-
-<p>To break it down, here&rsquo;s the same command with placeholders.</p>
-
-<pre><code>ffmpeg \
+<div class="highlight"><pre><code class="language-text" data-lang="text">ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4
+</code></pre></div>
+<p>To break it down, here&#39;s the same command with placeholders.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ffmpeg \
     -i [input-filename] \
     -ac [# of audio-channels] \
     -qscale [quality-scale: 1-31 (1 = highest quality)] \
     -f [format: mp4, avi, mkv, ..] \
     -s [Resolution: (Width)x(Height)] \
     [output-filename]
-</code></pre>
-
-<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
+</code></pre></div>
+<p>Now you may have checked out some examples before mine and noticed others&#39; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &quot;YIFY&quot;, you can&#39;t go wrong.</p>
 
 <p>As always, good luck!</p>
 ]]></content>
@@ -343,25 +338,21 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
     <id>http://www.pnd4.net/blog/2014/05/03/pay-per-stream-bypass</id>
     <content type="html"><![CDATA[<p><img class="center" src="/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
 
-<p><em>After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&rsquo;t just &lsquo;view-source&rsquo; and expect to see 10-dollars-worth-of.mp4. There&rsquo;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&rsquo;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
+<p><em>After &#39;inspecting&#39; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10$ webcast for free. To be honest, I feel like I just got lucky with this one.. While media is still woven into websites with embed tags as it was back when Geocities was booming, where besides the scrolling marquee we all insisted on looping our favorite song in the background, but this time theres all sorts of new protocols, plugins, and codecs at work. We can&#39;t just &#39;view-source&#39; and expect to see 10-dollars-worth-of.mp4. There&#39;s nothing to worry about though, we only have to dig a little harder. Probably real hard if you&#39;re like me and have never had much experience with media plugins.. So lets get to it.</em></p>
 
-<p>First, you&rsquo;re going to want to check out the source of the page where the plugin and stream play. Your browser&rsquo;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
+<p>First, you&#39;re going to want to check out the source of the page where the plugin and stream play. Your browser&#39;s developer tools come in real handy and should have everything you need for sleuthing around.</p>
 
 <p>Right now we just need to take note of the <code>vendorID</code> and <code>mediaID</code> parameters. Both were mentioned at least a few times thoughout the page I was working with.</p>
 
-<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&rsquo;s network console and paying attention to the back-and-forth dialog going on between the browser&rsquo;s plugin and the webcast host. I suspect if you did the same you&rsquo;d come up with similar, so here&rsquo;s mine to save you the trouble.</p>
+<p>Next we want to examine the SMIL file which will tell us exactly where we can find our stream. I found mine by using Firefox&#39;s network console and paying attention to the back-and-forth dialog going on between the browser&#39;s plugin and the webcast host. I suspect if you did the same you&#39;d come up with similar, so here&#39;s mine to save you the trouble.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil
+</code></pre></div>
+<p>In the output of the previous command here should be a couple key-value pairs like <code>content=&quot;http://yadayada.yup&quot;</code> and <code>src=&quot;/theStreamsUWereLookinFor@rightHurr&quot;</code> to help you put together a URI to pass to your chosen media player. </p>
 
-<pre><code>curl hxxp:||cdn.m0b1ler1der.c0m/m0b1ler1der/mobilestorefront/&lt;vendorID&gt;/media/file/&lt;mediaID&gt;/streams.smil
-</code></pre>
-
-<p>In the output of the previous command here should be a couple key-value pairs like <code>content="http://yadayada.yup"</code> and <code>src="/theStreamsUWereLookinFor@rightHurr"</code> to help you put together a URI to pass to your chosen media player.</p>
-
-<p>This URI is direct access to the stream, but if it returns an error or otherwise you&rsquo;re going to need to invesigate further. My hope is that I&rsquo;ve at least set you on the right foot toward success. As a final clue, here&rsquo;s what my result would&rsquo;ve looked like using the example values I&rsquo;ve used thus far.</p>
-
-<pre><code>http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
-</code></pre>
-
-<p>If you&rsquo;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
+<p>This URI is direct access to the stream, but if it returns an error or otherwise you&#39;re going to need to invesigate further. My hope is that I&#39;ve at least set you on the right foot toward success. As a final clue, here&#39;s what my result would&#39;ve looked like using the example values I&#39;ve used thus far.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
+</code></pre></div>
+<p>If you&#39;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
 ]]></content>
   </entry>
   
@@ -370,28 +361,24 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
     <link href="http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug/"/>
     <updated>2014-04-20T04:46:00-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug</id>
-    <content type="html"><![CDATA[<p><strong> Here&rsquo;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. </strong></p>
+    <content type="html"><![CDATA[<p>** Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. **</p>
 
 <h4>Flash-Drive I/O</h4>
 
-<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&rsquo;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&rsquo;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
+<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&#39;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&#39;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
 
 <p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
-
-<pre><code>tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
+<div class="highlight"><pre><code class="language-text" data-lang="text">tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
 tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
 tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
 tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
 tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
-</code></pre>
-
+</code></pre></div>
 <h4>I/O Governor</h4>
 
-<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code></p>
-
-<pre><code class="">echo deadline &gt; /sys/block/sda/queue/scheduler
-</code></pre>
-
+<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code> </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">echo deadline &gt; /sys/block/sda/queue/scheduler
+</code></pre></div>
 <p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
 ]]></content>
   </entry>

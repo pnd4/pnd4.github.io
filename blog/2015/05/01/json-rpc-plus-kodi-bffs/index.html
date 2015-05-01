@@ -88,17 +88,17 @@
 
 <div class="entry-content"><h4>The can of worms.</h4>
 
-<p>The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As expected, something along the way broke and XBMC&rsquo;s dependency, ffmpeg, failed to build. After a long struggle, I gave up on the XBMC ebuild and went with XBMC&rsquo;s successor, Kodi. Making haste, I neglected to enable any of Kodi&rsquo;s optional USE-flags. The result: everything perfect Kodi-side (faster actually), but my various remote-control browser-addons, mobile apps, and scripts were made useless.</p>
+<p>The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As expected, something along the way broke and XBMC&#39;s dependency, ffmpeg, failed to build. After a long struggle, I gave up on the XBMC ebuild and went with XBMC&#39;s successor, Kodi. Making haste, I neglected to enable any of Kodi&#39;s optional USE-flags. The result: everything perfect Kodi-side (faster actually), but my various remote-control browser-addons, mobile apps, and scripts were made useless.</p>
 
-<h4>Meet Kodi&rsquo;s fwiend, JSON-RPC</h4>
+<h4>Meet Kodi&#39;s fwiend, JSON-RPC</h4>
 
-<p>For months now I&rsquo;ve been using a script called <code>xbmc-play</code>. It was simple to use, and lightweight. Problem is that, like most XBMC/Kodi remotes, the underlying mechanics that handle the communication required the webserver feature on the Kodi machine. Since I know a fair amount about scripting and very little of building extensions for browsers and Android apps, scripting became the first part of this journey to regain remoting ability.</p>
+<p>For months now I&#39;ve been using a script called <code>xbmc-play</code>. It was simple to use, and lightweight. Problem is that, like most XBMC/Kodi remotes, the underlying mechanics that handle the communication required the webserver feature on the Kodi machine. Since I know a fair amount about scripting and very little of building extensions for browsers and Android apps, scripting became the first part of this journey to regain remoting ability.</p>
 
-<p>In first discovering the lack of a webserver, running <code>netstat -tuanp</code> confirmed no process was listening on the defaut port 8080. The listing did reveal that after enabling &ldquo;Allow programs on other systems to control Kodi&rdquo; it listens on port 9090. And a quick google of Kodi&rsquo;s relation to this port will tell you that the JSON-RPC protocol is what&rsquo;s understood on Kodi&rsquo;s end.</p>
+<p>In first discovering the lack of a webserver, running <code>netstat -tuanp</code> confirmed no process was listening on the defaut port 8080. The listing did reveal that after enabling &quot;Allow programs on other systems to control Kodi&quot; it listens on port 9090. And a quick google of Kodi&#39;s relation to this port will tell you that the JSON-RPC protocol is what&#39;s understood on Kodi&#39;s end.</p>
 
 <h4>First Impression</h4>
 
-<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&rsquo;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &lsquo;requests&rsquo; the script had to make.</p>
+<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&#39;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &#39;requests&#39; the script had to make.</p>
 
 <p>Prior experience manually interacting over TCP/IP came in handy, and I was quickly able to test some proto-type requests with Kodi using the suggested <code>telnet</code> tool. Ultimately, I chose to work with <code>netcat</code> as it seemed more fitting for use in the resulting script that follows:</p>
 
@@ -225,12 +225,11 @@
 </span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
+<h4>What&#39;s Next</h4>
 
-<h4>What&rsquo;s Next</h4>
+<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&#39;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
 
-<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&rsquo;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
-
-<p>But like all of these projects I pursue on the side, it&rsquo;s future is uncertain.</p>
+<p>But like all of these projects I pursue on the side, it&#39;s future is uncertain.</p>
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use rtmpdump-ksv instead of rtmpdump Commands &hellip;">
+  <meta name="description" content="As of 2013, some streams require the &#39;ksv&#39;/&#39;k-s-v&#39; patch.. Arch users can use rtmpdump-ksv instead of rtmpdump Commands Redirect rtmp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,55 +86,42 @@
   </header>
 
 
-<div class="entry-content"><p>As of 2013, some streams require the &lsquo;ksv&rsquo;/&lsquo;k-s-v&rsquo; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
+<div class="entry-content"><p>As of 2013, some streams require the &#39;ksv&#39;/&#39;k-s-v&#39; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
 
 <h3>Commands</h3>
 
 <p>Redirect rtmp port using iptables.</p>
-
-<pre><code>sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre></div>
 <p>Sniffing for stream parameters.</p>
-
-<pre><code>rtmpsrv
-</code></pre>
-
-<p>Once you&rsquo;ve captured a stream, you can undo the redirection.</p>
-
-<pre><code>sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">rtmpsrv
+</code></pre></div>
+<p>Once you&#39;ve captured a stream, you can undo the redirection.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT
+</code></pre></div>
 <p>Use rtmpdump like so, piping the output to mplayer/vlc</p>
-
-<pre><code>rtmpdump -q -r "rtmpe://origin.hdcast.org:1935/redirect/" -a "redirect/" -f "LNX 11,9,900,152" -W "http://www.udemy.com/static/flash/player5.9.swf" -p "http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com" -y "ban5" -b "10000" -v | mplayer -really-quiet -framedrop -
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">rtmpdump -q -r &quot;rtmpe://origin.hdcast.org:1935/redirect/&quot; -a &quot;redirect/&quot; -f &quot;LNX 11,9,900,152&quot; -W &quot;http://www.udemy.com/static/flash/player5.9.swf&quot; -p &quot;http://www.hdcast.org/embedlive2.php?u=ban5&amp;vw=640&amp;vh=460&amp;domain=www.btsportshd.com&quot; -y &quot;ban5&quot; -b &quot;10000&quot; -v | mplayer -really-quiet -framedrop -
+</code></pre></div>
 <h4>Important options</h4>
 
 <p>rtmpdump</p>
 
 <ul>
-<li>-r [tcURL ex. &ldquo;rtmp://stream.url/&rdquo;]</li>
-<li>-a [app ex. &ldquo;redirect/&rdquo;</li>
-<li>-y [playpath ex. &ldquo;freetv4&rdquo;]</li>
+<li>-r [tcURL ex. &quot;rtmp://stream.url/&quot;]</li>
+<li>-a [app ex. &quot;redirect/&quot;</li>
+<li>-y [playpath ex. &quot;freetv4&quot;]</li>
 <li>-v [live]</li>
-<li>-b [buffersize ex. &ldquo;10000&rdquo;]</li>
-<li>-W [swfURL ex. &ldquo;<a href="http://stream.url/flash/player5.9.swf">http://stream.url/flash/player5.9.swf</a>&rdquo;]</li>
+<li>-b [buffersize ex. &quot;10000&quot;]</li>
+<li>-W [swfURL ex. &quot;http://stream.url/flash/player5.9.swf&quot;]</li>
 </ul>
-
 
 <p>mplayer</p>
 
 <ul>
 <li>-really-quiet [Suppresses output.]</li>
 <li>-framedrop [Helps with streams.]</li>
-<li><ul>
-<li>[Plays from stdout.]</li>
+<li>- [Plays from stdout.]</li>
 </ul>
-</li>
-</ul>
-
 
 <h4>Port redirect helper script</h4>
 
@@ -180,14 +167,12 @@ del-rule<span class="o">()</span> <span class="o">{</span>
     <span class="p">;;</span>
 <span class="k">esac</span></code></pre></div>
 
-
 <h4>Useful Links and References</h4>
 
 <ol>
 <li><a href="http://stream-recorder.com/forum/tutorial-simply-use-rtmpsrv-and-example-t6325.html?p=18142">rtmpsrv tutorial</a></li>
 <li><a href="http://trac.xbmc.org/ticket/14089">XBMC: hint on buffer option</a></li>
 </ol>
-
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get &hellip;">
+  <meta name="description" content="Since just about every laptop or netbook I&#39;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,7 +91,7 @@
 
   <div class="entry-content"><p><img class="center" src="/images/2012-08-12-intel-graphics-and-early-kms/intel-logo.jpg"></p>
 
-<p><em>Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
+<p><em>Since just about every laptop or netbook I&#39;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
 
 <p><em>You want to enable KMS because it allows the kernel to set the native resolution on the frame-buffer. The effects of this are fast TTY-switching, enhanced 3D performance, and in some cases power-saving features.</em></p>
 
@@ -128,20 +128,18 @@
 </span><span class='line'>      &lt;*>  Intel 8xx/9xx/G3x/G4x/HD Graphics
 </span><span class='line'>      [*]    Enable modesetting on intel by default</span></code></pre></td></tr></table></div></figure>
 
-
-<p><strong>Xorg </strong>&rsquo;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
+<p>*<em>Xorg *</em>&#39;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
 
 <p><strong>Bootloader</strong> changes are done so that our grub does not disable, use another driver, or try to set the resolution itself. Remember, we are letting the Kernel do this for us. so edit your /etc/default/grub and remove any of the following:</p>
 
 <ul>
-<li><p>Any &ldquo;nomodeset&rdquo;, &ldquo;i915.modeset=0&rdquo;, &ldquo;vga=&rdquo; or &#8221;video=&ldquo; at all present.</p></li>
+<li><p>Any &quot;nomodeset&quot;, &quot;i915.modeset=0&quot;, &quot;vga=&quot; or &quot;video=&quot; at all present.</p></li>
 <li><p>Anything that would enable another frame-buffer driver such as uvesafb.</p></li>
 </ul>
 
-
 <p><strong>Start-up configuration</strong> must reflect our efforts so that KMS is started early on in the process as possible to get the best effect. changes should be made to /etc/mkinitcpio.conf in Arch, or /etc/conf.d/modules in Gentoo to include the i915 module.</p>
 
-<p>Finally regen your initial-ramdisk if you used one and your boot partition&rsquo;s GRUB config.</p>
+<p>Finally regen your initial-ramdisk if you used one and your boot partition&#39;s GRUB config.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -151,7 +149,6 @@
 </span><span class='line'># mkinitcpio -p linux
 </span><span class='line'>## generate a GRUB config
 </span><span class='line'># grub-mkconfig -o /boot/grub/grub.cfg</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Reboot and [hopefully] reap the fruits of all your hard work.</p>
 </div>
@@ -184,27 +181,25 @@
 
   <div class="entry-content"><p><img class="center" src="/images/2012-08-10-64/screenshot-08102012-050248-pm2.png"></p>
 
-<p>Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you&rsquo;ll see a lot in command-line scripting languages such as bash or Python.</p>
+<p>Today &#39;patient&#39; and I learned with some help from &#39;dizzie&#39; about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you&#39;ll see a lot in command-line scripting languages such as bash or Python.</p>
 
-<p>A good way to check which &lsquo;devices&rsquo; correspond with which number is by running this command.</p>
+<p>A good way to check which &#39;devices&#39; correspond with which number is by running this command.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ls -l /dev/null /dev/std*</span></code></pre></td></tr></table></div></figure>
 
+<p>In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the &#39;bit-bucket&#39; and certainly is a doorway to hell in which any data becomes a doomed soul.</p>
 
-<p>In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the &lsquo;bit-bucket&rsquo; and certainly is a doorway to hell in which any data becomes a doomed soul.</p>
-
-<p>Now, you&rsquo;re gonna want to know how to use these devices in a command line. Look no further:</p>
+<p>Now, you&#39;re gonna want to know how to use these devices in a command line. Look no further:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ls -l / 2>/dev/null</span></code></pre></td></tr></table></div></figure>
 
-
-<p>This command will list your root partition with &ldquo;long lists&rdquo; and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.</p>
+<p>This command will list your root partition with &quot;long lists&quot; and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.</p>
 
 <p>A couple more resources:
-<a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “> /dev/null 2>&amp;1″ mean?</a>
-<a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&rsquo;s Blog: /dev/null</a></p>
+<a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “&gt; /dev/null 2&gt;&amp;1″ mean?</a>
+<a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&#39;s Blog: /dev/null</a></p>
 </div>
   
   
@@ -240,8 +235,7 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ 7z e downloaded-file.7z.001</span></code></pre></td></tr></table></div></figure>
 
-
-<p>Next we had to copy over the files to the SD-card as per the instructions. Since my uSD (MicroSD) port on my phone is uber-janky I just turned off my phone and pulled out the uSD card instead of using ADB and opt&rsquo;d for the slot in my trusty laptop. I was then able to mount the removable storage and [ever so slowly and unreliably] copy over the extracted contents into the SD&rsquo;s bt5 folder like so:</p>
+<p>Next we had to copy over the files to the SD-card as per the instructions. Since my uSD (MicroSD) port on my phone is uber-janky I just turned off my phone and pulled out the uSD card instead of using ADB and opt&#39;d for the slot in my trusty laptop. I was then able to mount the removable storage and [ever so slowly and unreliably] copy over the extracted contents into the SD&#39;s bt5 folder like so:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -258,18 +252,16 @@
 </span><span class='line'>cp -i /home/user/bt5/* /mnt/sdcard/bt5/ 
 </span><span class='line'># cd && umount /mnt/sdcard</span></code></pre></td></tr></table></div></figure>
 
-
 <p>Having unmounted the sdcard in this last line, we can now remove the card and toss that back into our phone and boot up our Android phone as usual.</p>
 
-<p>Fire up the Terminal emulator and run the &lsquo;bt&rsquo; script included as a super-user.. or if you have SSHDroid installed, we can SSH into our phone as root and run the script to start up the chroot&rsquo;d environment.</p>
+<p>Fire up the Terminal emulator and run the &#39;bt&#39; script included as a super-user.. or if you have SSHDroid installed, we can SSH into our phone as root and run the script to start up the chroot&#39;d environment.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh 192.168.1.&lt;android> -l root
 </span><span class='line'>(android)# sh /sdcard/bt5/bt</span></code></pre></td></tr></table></div></figure>
 
-
-<p>Hopefully that starts up your Backtrack 5 chrooted environment. If you used Terminal Emulator you&rsquo;re good to walk down the street and still use the command line to your heart&rsquo;s desire. Unfortunately for SSH, soon as you lose your LAN connection, the session will drop out. So be sure to consider that before embarking out on your mission.</p>
+<p>Hopefully that starts up your Backtrack 5 chrooted environment. If you used Terminal Emulator you&#39;re good to walk down the street and still use the command line to your heart&#39;s desire. Unfortunately for SSH, soon as you lose your LAN connection, the session will drop out. So be sure to consider that before embarking out on your mission.</p>
 </div>
   
   

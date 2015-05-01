@@ -101,12 +101,13 @@ AR9331 and RTL8187
 </pre></td><td class='code'><pre><code class=''><span class='line'>AR9331 and RTL8187
 </span><span class='line'>16mb ROM / 64mb DDR2 RAM</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>Software</h3>
 
-<blockquote><p>Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver</p></blockquote>
+<blockquote>
+<p>Available Pentest Packages include aircrack-ng, dsniff, easy-creds, ettercap, hping3, httptunnel, karma, kismet, macchanger, mdk3, ngrep, nmap, nodogsplash captive portal, privoxy, ptunnel, snort, sslsniff, sslstrip, ssltunnel, stunnel, tcpdump, tor, and reaver</p>
+</blockquote>
 
-<p>&ndash;HakShop</p>
+<p>&#8211;HakShop</p>
 
 <h3>Useful Links and References</h3>
 
@@ -151,7 +152,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <h3>Rules Basic Template</h3>
 
-<p>Based on: <a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall</a></p>
+<p>Based on: https://wiki.archlinux.org/index.php/Simple<em>Stateful</em>Firewall</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -254,19 +255,17 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>## === END: Last Rule =========================================
 </span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>Internet Connection Sharing</h3>
 
 <p>Involves adding additional rules</p>
 
 <p><em>For the template below:</em>
-    |          |              wan |             lan  |<br/>
-    |&mdash;&mdash;&mdash;:|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;:|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;:|<br/>
-    |  iface   |             wan0 |            lan0  |<br/>
-    |  subnet  |     192.168.12.0 |    172.168.42.0  |</p>
+    |          |              wan |             lan  |<br>
+    |&#8212;&#8212;&#8212;:|&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;:|&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;:|<br>
+    |  iface   |             wan0 |            lan0  |<br>
+    |  subnet  |     192.168.12.0 |    172.168.42.0  |  </p>
 
-<p><em>Example Template</em></p>
-
+<p><em>Example Template</em>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -286,14 +285,14 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>*nat
+</pre></td><td class='code'><pre><code class=''><span class='line'><em>nat
 </span><span class='line'>:PREROUTING ACCEPT [0:0]
 </span><span class='line'>:INPUT ACCEPT [0:0]
 </span><span class='line'>:OUTPUT ACCEPT [0:0]
 </span><span class='line'>:POSTROUTING ACCEPT [0:0]
 </span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
 </span><span class='line'>COMMIT
-</span><span class='line'>*filter
+</span><span class='line'></em>filter
 </span><span class='line'>:INPUT ACCEPT [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
 </span><span class='line'>:OUTPUT ACCEPT [0:0]
@@ -304,12 +303,11 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>-A FORWARD -j fw-open
 </span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
 </span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
-</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure></p>
 
 <h4>References</h4>
 
-<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br/>
+<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br>
 <a href="https://wiki.debian.org/iptables">Debwiki</a></p>
 </div>
   
@@ -339,7 +337,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   </header>
 
 
-  <div class="entry-content"><p>To add additional firewall rules via the DD-WRT web interface when there&rsquo;s no checkbox, navigate to web interface&rsquo;s section at [Administration] -> [Commands]</p>
+  <div class="entry-content"><p>To add additional firewall rules via the DD-WRT web interface when there&#39;s no checkbox, navigate to web interface&#39;s section at [Administration] -&gt; [Commands]</p>
 
 <p>You should see a text box, there you can add individual iptables rules as if you were using the command line. Just save the command with the appropriate button labeled [Save Firewall]</p>
 
@@ -347,9 +345,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A INPUT -s &lt;ip.allowed.pings> -p icmp -j ACCEPT</span></code></pre></td></tr></table></div></figure>
-
-
-
 </div>
   
   

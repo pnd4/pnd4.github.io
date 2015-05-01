@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like & &hellip;">
+  <meta name="description" content="Transmission doesn&#39;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &#39; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,27 +86,28 @@
   </header>
 
 
-<div class="entry-content"><p>Transmission doesn&rsquo;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &lsquo;pacman&rsquo; vs patching &lsquo;BindInterface&rsquo; into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically.
+<div class="entry-content"><p>Transmission doesn&#39;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &#39;pacman&#39; vs patching &#39;BindInterface&#39; into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically. 
 The script should basically:</p>
 
 <ul>
 <li>first make sure the VPN is up and operational</li>
-<li>correct transmission&rsquo;s config if the address isn&rsquo;t current.. [stop, edit, start]</li>
+<li>correct transmission&#39;s config if the address isn&#39;t current.. [stop, edit, start]</li>
 <li>definitely end with transmission running</li>
 </ul>
 
-
 <h3>Quote</h3>
 
-<blockquote><p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
-Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&rsquo;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p></blockquote>
-
-<pre><code>iptables -A OUTPUT -m owner --uid-owner debian-transmission -d 192.168.0.100 -j ACCEPT
+<blockquote>
+<p>Enforcing an application, for example a torrent client like Transmission, to always use the VPN interface or any particular network interface for that matter, is trivially simple using iptables on Debian, Ubuntu or any other GNU/Linux distro.
+Personally, I am running Debian Sid on the Raspberry Pi. Occasionally I use it for downloading files ( legal stuff, seriously, believe me :D  ) using Transmission Bittorrent client over a VPN connection. Sometimes it happens that the VPN connection fails and doesn&#39;t reconnect for whatever reason and Transmission continues pulling stuff directly over my internet connection, which I would like to avoid. Fortunately it is very straightforward to enforce rules based on application owner UID. Transmission runs under the owner debian-transmission in Debian (use htop to check this) and the following two lines of iptables ensures that any process with owner having UID, debian-transmission, will not use any other network interface apart from the OpenVPN tunnel interface tun0</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-text" data-lang="text">iptables -A OUTPUT -m owner --uid-owner debian-transmission -d 192.168.0.100 -j ACCEPT
 iptables -A OUTPUT -m owner --uid-owner debian-transmission \! -o tun0 -j REJECT
-</code></pre>
-
-<blockquote><p>The first line ensures that, my Mac-mini having IP address 192.168.0.100 on the lan, can always access the web interface of transmission. The second line makes sure, no outgoing traffic can leave via anything other that tun0.
-Peace of mind restored, thanks to iptables.</p></blockquote>
+</code></pre></div>
+<blockquote>
+<p>The first line ensures that, my Mac-mini having IP address 192.168.0.100 on the lan, can always access the web interface of transmission. The second line makes sure, no outgoing traffic can leave via anything other that tun0. 
+Peace of mind restored, thanks to iptables.</p>
+</blockquote>
 
 <h3>Code</h3>
 
@@ -146,22 +147,19 @@ systemctl --quiet is-active <span class="nv">$service</span>
     <span class="nb">exit </span>1
 <span class="k">fi</span></code></pre></div>
 
-
 <h3>To-Do</h3>
 
 <ul>
-<li>Figure out how to &lsquo;BindInterface&rsquo;, if possible.</li>
+<li>Figure out how to &#39;BindInterface&#39;, if possible.</li>
 <li>Revise transmission-vpn-only script.</li>
 <li>Figure out why openvpn config leaves routes behind.</li>
 </ul>
-
 
 <h4>Useful Links and References</h4>
 
 <ol>
 <li><a href="http://www.botcyb.org/2012/11/force-application-to-use-vpn-using.html" title="BotCyborg">BotCyborg</a></li>
 </ol>
-
 </div>
 
 

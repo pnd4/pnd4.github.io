@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary &hellip;">
+  <meta name="description" content="I use genkernel to install my kernel.. this isn&#39;t the best way to do things but for now it gets the job done. Gentoo isn&#39;t my primary distro &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,7 +86,7 @@
   </header>
 
 
-<div class="entry-content"><p><em>I use genkernel to install my kernel.. this isn&rsquo;t the best way to do things but for now it gets the job done. Gentoo isn&rsquo;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
+<div class="entry-content"><p><em>I use genkernel to install my kernel.. this isn&#39;t the best way to do things but for now it gets the job done. Gentoo isn&#39;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
 
 <p>Make sure Gentoo is matched up with your target kernel version</p>
 
@@ -94,7 +94,6 @@
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>eselect kernel list
 </span><span class='line'>eselect kernel set #</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Build it</p>
 
@@ -113,18 +112,15 @@
 </span><span class='line'>make
 </span><span class='line'>make modules_install</span></code></pre></td></tr></table></div></figure>
 
-
 <p>Install it</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>genkernel --no-menuconfig --no-clean --install all</span></code></pre></td></tr></table></div></figure>
 
-
 <p>Update bootloader</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /boot/extlinux/extlinux.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Reboot and cross your fingers.</p>
 
@@ -135,7 +131,6 @@
 <ol>
 <li><a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade" title="Kernel/Upgrade">Gentoo Wiki: Kernel/Upgrade</a></li>
 </ol>
-
 </div>
 
 

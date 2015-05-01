@@ -98,20 +98,22 @@ Doesnt</p>
 
 <p><strong>Dec 05 2013 - 04:38</strong></p>
 
-<p>Seems CyberGhost uses a constantly renewing IP.. &ldquo;US.openvpn.cyberghostvpn.com&rdquo; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
+<p>Seems CyberGhost uses a constantly renewing IP.. &quot;US.openvpn.cyberghostvpn.com&quot; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
 
 <p>The thread below talks about tuning openvpn to fix this.</p>
 
-<blockquote><p>By default, on initial startup and restart, the &ndash;remote name is resolved
+<blockquote>
+<p>By default, on initial startup and restart, the &#8211;remote name is resolved
 once. If the DNS resolve fails, OpenVPN will abort.</p>
 
-<p>If &ndash;resolve-retry is specified, the DNS resolve will be retried for n
+<p>If &#8211;resolve-retry is specified, the DNS resolve will be retried for n
 seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
-will abort. Recent versions of OpenVPN allow n to be &ldquo;infinite&rdquo;.</p>
+will abort. Recent versions of OpenVPN allow n to be &quot;infinite&quot;.</p>
 
 <p>If you want to disable the DNS re-resolve on restart, you can use
-&ndash;persist-remote-ip. This will &ldquo;recycle&rdquo; the previously used &ndash;remote IP
-address without doing a new DNS lookup.</p></blockquote>
+&#8211;persist-remote-ip. This will &quot;recycle&quot; the previously used &#8211;remote IP
+address without doing a new DNS lookup.</p>
+</blockquote>
 
 <p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
 </div>

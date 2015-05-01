@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-01T09:02:34-07:00</updated>
+  <updated>2015-05-01T09:41:29-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -18,12 +18,12 @@
     <link href="http://www.pnd4.net/blog/2013/01/11/twenty-thirteen/"/>
     <updated>2013-01-11T15:44:15-08:00</updated>
     <id>http://www.pnd4.net/blog/2013/01/11/twenty-thirteen</id>
-    <content type="html"><![CDATA[<p><a href="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013" /></a>
+    <content type="html"><![CDATA[<p><a href="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013"></a>
 Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by ChicagoVPS.net. So much thanks goes out to my Tita Fe, Tito Ram, Mom and Dad for funding this. Its been 2-weeks and already the experience has taught me so much more than simulating it on my local network.</p>
 
-<p>As usual, I&rsquo;ve been busy.. powering through the new year&rsquo;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&rsquo;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
+<p>As usual, I&#39;ve been busy.. powering through the new year&#39;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&#39;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
 
-<p>Happy New Years &lsquo;errbody !</p>
+<p>Happy New Years &#39;errbody !</p>
 ]]></content>
   </entry>
   
@@ -32,7 +32,7 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
     <link href="http://www.pnd4.net/blog/2012/06/26/hello-world-2/"/>
     <updated>2012-06-26T10:41:43-07:00</updated>
     <id>http://www.pnd4.net/blog/2012/06/26/hello-world-2</id>
-    <content type="html"><![CDATA[<p>Well. This is my first posting on wordpress. I&rsquo;ll probably use it similarly to the other devs before me.. Ill probably fork a personal one and just migrate my livejournal if possible..</p>
+    <content type="html"><![CDATA[<p>Well. This is my first posting on wordpress. I&#39;ll probably use it similarly to the other devs before me.. Ill probably fork a personal one and just migrate my livejournal if possible..</p>
 
 <p>WordPress seems pretty neat.</p>
 ]]></content>

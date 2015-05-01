@@ -92,8 +92,7 @@ badblocks -vw /dev/sdx But &hellip;">
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
 
-
-<p>But discovering that command wasn&rsquo;t the end, I had to deal with it&rsquo;s almost impossible write-speed, this information helped:</p>
+<p>But discovering that command wasn&#39;t the end, I had to deal with it&#39;s almost impossible write-speed, this information helped:</p>
 
 <p>Append to /etc/rc.local</p>
 
@@ -104,7 +103,6 @@ badblocks -vw /dev/sdx But &hellip;">
 </span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
 </span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
 
-
 <p>Append to /etc/sysctl.conf</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -113,7 +111,6 @@ badblocks -vw /dev/sdx But &hellip;">
 </pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
 </span><span class='line'>vm.dirty_background_bytes = 4194304
 </span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
 </div>
