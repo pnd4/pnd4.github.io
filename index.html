@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk &hellip;">
+  <meta name="description" content="The can of worms. The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,179 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-01T05:52:21-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>5:52 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>The can of worms.</h4>
+
+<p>The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As expected, something along the way broke and XBMC&rsquo;s dependency, ffmpeg, failed to build. After a long struggle, I gave up on the XBMC ebuild and went with XBMC&rsquo;s successor, Kodi. Making haste, I neglected to enable any of Kodi&rsquo;s optional USE-flags. The result: everything perfect Kodi-side (faster actually), but my various remote-control browser-addons, mobile apps, and scripts were made useless.</p>
+
+<h4>Meet Kodi&rsquo;s fwiend, JSON-RPC</h4>
+
+<p>For months now I&rsquo;ve been using a script called <code>xbmc-play</code>. It was simple to use, and lightweight. Problem is that, like most XBMC/Kodi remotes, the underlying mechanics that handle the communication required the webserver feature on the Kodi machine. Since I know a fair amount about scripting and very little of building extensions for browsers and Android apps, scripting became the first part of this journey to regain remoting ability.</p>
+
+<p>In first discovering the lack of a webserver, running <code>netstat -tuanp</code> confirmed no process was listening on the defaut port 8080. The listing did reveal that after enabling &ldquo;Allow programs on other systems to control Kodi&rdquo; it listens on port 9090. And a quick google of Kodi&rsquo;s relation to this port will tell you that the JSON-RPC protocol is what&rsquo;s understood on Kodi&rsquo;s end.</p>
+
+<h4>First Impression</h4>
+
+<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&rsquo;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &lsquo;requests&rsquo; the script had to make.</p>
+
+<p>Prior experience manually interacting over TCP/IP came in handy, and I was quickly able to test some proto-type requests with Kodi using the suggested <code>telnet</code> tool. Ultimately, I chose to work with <code>netcat</code> as it seemed more fitting for use in the resulting script that follows:</p>
+
+<figure class='code'><figcaption><span> (kodi-play.sh)</span> <a href='/downloads/code/kodi-play.sh'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">## YouTube Kodi Script [http://github.com/pnd4/kodi-play] </span>
+</span><span class='line'><span class="c">#by pnd4 </span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># - Portions from &quot;YouTube XBMC Script&quot; by Tom Laermans [tomlaermans.net]. </span>
+</span><span class='line'><span class="c">#   This script is (also) released into the public domain.</span>
+</span><span class='line'><span class="c"># - Description: Uses Kodi&#39;s native JSON-RPC to play YouTube content remotely</span>
+</span><span class='line'><span class="c">#   without need for the webserver.</span>
+</span><span class='line'><span class="c"># - Requires: netcat (tested with GNU Netcat)</span>
+</span><span class='line'><span class="c"># - Usage: kodi-play &lt; URL | YouTube-ID &gt;</span>
+</span><span class='line'><span class="c"># -    ex: kodi-play hABj_mrP-no</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">## Configure Kodi&#39;s RPC details here</span>
+</span><span class='line'><span class="nv">KODI_HOST</span><span class="o">=</span>gen2
+</span><span class='line'><span class="nv">KODI_PORT</span><span class="o">=</span>9090
+</span><span class='line'>
+</span><span class='line'><span class="c">## Don&#39;t touch anything under here</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">REGEX</span><span class="o">=</span><span class="s2">&quot;^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&amp;\?]*).*&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">ID</span><span class="o">=</span><span class="nv">$1</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$ID&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Syntax $0 &lt;id|url&gt;&quot;</span>
+</span><span class='line'>  <span class="nb">exit</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="nv">$ID</span> <span class="o">=</span>~ <span class="nv">$REGEX</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  <span class="nv">ID</span><span class="o">=</span><span class="k">${</span><span class="nv">BASH_REMATCH</span><span class="p">[7]</span><span class="k">}</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Sends our JSON-RPC request to Kodi, and closes the connection.</span>
+</span><span class='line'><span class="k">function</span> jrpc_req <span class="o">{</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;$1&quot;</span> EOF <span class="p">|</span> nc -c <span class="nv">$KODI_HOST</span> <span class="nv">$KODI_PORT</span><span class="p">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">echo</span> -n <span class="s2">&quot;Opening video id $ID on $KODI_HOST ... &quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>jrpc_req <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;method&quot;: &quot;Playlist.Clear&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;params&quot;:{&quot;playlistid&quot;:1}, </span>
+</span><span class='line'><span class="s1">           &quot;id&quot;: 0}&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>jrpc_req <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;method&quot;: </span>
+</span><span class='line'><span class="s1">           &quot;Playlist.Add&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;params&quot;:{&quot;playlistid&quot;:1, </span>
+</span><span class='line'><span class="s1">           &quot;item&quot; :{ &quot;file&quot; : &quot;plugin://plugin.video.youtube/?action=play_video&amp;videoid=&#39;</span><span class="nv">$ID</span><span class="s1">&#39;&quot;}}, </span>
+</span><span class='line'><span class="s1">           &quot;id&quot;: 0}&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>jrpc_req <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;method&quot;: </span>
+</span><span class='line'><span class="s1">           &quot;Player.Open&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;params&quot;:{&quot;item&quot;:{&quot;playlistid&quot;:1, &quot;position&quot; : 0}}, </span>
+</span><span class='line'><span class="s1">           &quot;id&quot;: 0}&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>What&rsquo;s Next</h4>
+
+<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&rsquo;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
+
+<p>But like all of these projects I pursue on the side, it&rsquo;s future is uncertain.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -382,67 +555,6 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-31T22:37:32-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>10:37 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d think they&rsquo;d at least offer at least 1 other format, possibly for the old iPod Video&rsquo;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
-
-<p>In any case, doing the deed myself was surprising easy. Though I&rsquo;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&rsquo;d suggest they give my commands a shot.*</p>
-
-<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&rsquo;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
-
-<p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To break it down, here&rsquo;s the same command with placeholders.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg \
-</span><span class='line'>    -i [input-filename] \
-</span><span class='line'>    -ac [# of audio-channels] \
-</span><span class='line'>    -qscale [quality-scale: 1-31 (1 = highest quality)] \
-</span><span class='line'>    -f [format: mp4, avi, mkv, ..] \
-</span><span class='line'>    -s [Resolution: (Width)x(Height)] \
-</span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
-
-<p>As always, good luck!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -458,15 +570,15 @@ Changed pkg version and release values from &lsquo;2.07-2&rsquo; to make &lsquo;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>

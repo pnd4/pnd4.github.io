@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="After &lsquo;inspecting&rsquo; the source of a live webcast and the data that gets thrown around once the plugin is launched, I managed to get a 10 &hellip;">
+  <meta name="description" content="*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-31T22:37:32-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>10:37 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&rsquo;d think they&rsquo;d at least offer at least 1 other format, possibly for the old iPod Video&rsquo;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+
+<p>In any case, doing the deed myself was surprising easy. Though I&rsquo;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&rsquo;d suggest they give my commands a shot.*</p>
+
+<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&rsquo;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
+
+<p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To break it down, here&rsquo;s the same command with placeholders.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg \
+</span><span class='line'>    -i [input-filename] \
+</span><span class='line'>    -ac [# of audio-channels] \
+</span><span class='line'>    -qscale [quality-scale: 1-31 (1 = highest quality)] \
+</span><span class='line'>    -f [format: mp4, avi, mkv, ..] \
+</span><span class='line'>    -s [Resolution: (Width)x(Height)] \
+</span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you may have checked out some examples before mine and noticed others&#8217; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &ldquo;YIFY&rdquo;, you can&rsquo;t go wrong.</p>
+
+<p>As always, good luck!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -176,61 +237,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/03/dual-monitor-toggle/">Dual-Monitor Toggle</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-04-03T02:07:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:07 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
-
-<h2>xrandr</h2>
-
-<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
-
-<p><strong>OFF</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>ON</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
-
-
-
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -248,15 +254,15 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>

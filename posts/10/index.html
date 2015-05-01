@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to &hellip;">
+  <meta name="description" content="Human beings must have action; they will make it if they cannot find it. &ndash; Albert Einstein Requirements video player that supports rtmp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/07/rtmp-streaming/">RTMP Streaming</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-10-07T09:48:06-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>9:48 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png"><img src="/images/2012-10-07-rtmp-streaming/screenshot-100712-174012.png" alt="screenshot-100712-174012.png" /></a></p>
+
+<p>Human beings must have action; they will make it if they cannot find it.</p>
+
+<p><strong><em>&ndash; Albert Einstein</em></strong></p>
+
+<h1>Requirements</h1>
+
+<ul>
+<li><p>video player that supports rtmp streaming [ex: vlc, mplayer]</p></li>
+<li><p>rtmpdump</p></li>
+</ul>
+
+
+<h1>Syntax</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r [rtmp://stream] -W "[webBasedApplet] -v | [localMediaPlayer] -</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Example 1</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r rtmp://188.122.86.236:1935/live/_definst_/kdjfkdfksjkfs1 -W http://cdn.yycast.com/player/player.swf -p http://www.limev.com/ | mplayer -</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -473,49 +528,6 @@ _</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/26/fresh-easys-beer-selection/">Fresh & Easy&#8217;s Beer Selection</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-08-26T13:34:08-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>1:34 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-08-26-fresh-easys-beer-selection/kona_brewing_company_beers-02.jpg"></p>
-
-<p>If you ever find yourself frequenting a Fresh n&#8217; Easy market like I have, hopefully you try some of the beer&rsquo;s they rotate into the sale&rsquo;s page..  I&rsquo;ve, more often than not, been surprised by their selection which ranges from local brews, imports, and the usual commodity of domestics. While theres nothing wrong with grabbing your favorite, a lot of us out there like to take risks and broaden our horizons. Here&rsquo;s a short listing of a few randoms I&rsquo;ve tried in the last month or two, and ratings to go with them.</p>
-
-<p>9 / 10 - Kona Brewing Co. &lsquo;Longboard Island Lager&rsquo;</p>
-
-<p>9 / 10 - Leffe: &lsquo;Leffe Blonde&rsquo;</p>
-
-<p>3 / 10 - Hopper Whitman: &lsquo;Belgian White&rsquo;</p>
-
-<p>7 / 10 - Racer5</p>
-
-<p>Hopefully this helps someone pacing up and down the cooler isle trying to make their selection, so they can get to where they need to be and back to loving life.</p>
-
-<p>Thanks goes out to Adriel, John, and Fresh &amp; Easy for making this post possible.. <em>hiccup</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/11">&larr; Older</a>
@@ -533,15 +545,15 @@ _</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>

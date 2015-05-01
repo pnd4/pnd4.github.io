@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Today &lsquo;patient&rsquo; and I learned with some help from &lsquo;dizzie&rsquo; about how exactly to use /dev/null and the other pseudodevices to &hellip;">
+  <meta name="description" content="Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/12/intel-graphics-and-early-kms/">Intel Graphics and early-KMS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-08-12T10:28:59-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>10:28 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-12-intel-graphics-and-early-kms/intel-logo.jpg"></p>
+
+<p><em>Since just about every laptop or netbook I&rsquo;ve come into contact with has a Intel motherboard, I figured this topic should be covered to get the most out of your hardware, improve your overall experience, and simply enough, to do things right. I had to learn a little bit about KMS myself recently because sometimes things dont work out-of-the-box.</em></p>
+
+<p><em>You want to enable KMS because it allows the kernel to set the native resolution on the frame-buffer. The effects of this are fast TTY-switching, enhanced 3D performance, and in some cases power-saving features.</em></p>
+
+<p>In order to enable KMS on the Intel mobile platform some changes possibly have to be made to your Kernel, X installation, bootloader, and startup configuration.</p>
+
+<p><strong>Kernel </strong>changes may only be necessary if you compiled your own (aka gentoo). In which case, simply enable the frame-buffer options:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Device Drivers --->
+</span><span class='line'>  Graphics support --->
+</span><span class='line'>    Support for frame buffer devices --->
+</span><span class='line'>    (Disable all drivers, including VGA, Intel, nVidia, and ATI)
+</span><span class='line'>
+</span><span class='line'>    (Further down, enable basic console support. KMS uses this.)
+</span><span class='line'>    Console display driver support --->
+</span><span class='line'>      &lt;*>  Framebuffer Console Support
+</span><span class='line'>
+</span><span class='line'>    /dev/agpgart (AGP Support) --->
+</span><span class='line'>      &lt;*>  Intel 440LX/BX/GX, I8xx and E7x05 chipset support
+</span><span class='line'>      Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+</span><span class='line'>      &lt;*>  Intel 8xx/9xx/G3x/G4x/HD Graphics
+</span><span class='line'>      [*]    Enable modesetting on intel by default</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Xorg </strong>&rsquo;s only requirement is that we install it and the proper xf86-video-intel driver package.</p>
+
+<p><strong>Bootloader</strong> changes are done so that our grub does not disable, use another driver, or try to set the resolution itself. Remember, we are letting the Kernel do this for us. so edit your /etc/default/grub and remove any of the following:</p>
+
+<ul>
+<li><p>Any &ldquo;nomodeset&rdquo;, &ldquo;i915.modeset=0&rdquo;, &ldquo;vga=&rdquo; or &#8221;video=&ldquo; at all present.</p></li>
+<li><p>Anything that would enable another frame-buffer driver such as uvesafb.</p></li>
+</ul>
+
+
+<p><strong>Start-up configuration</strong> must reflect our efforts so that KMS is started early on in the process as possible to get the best effect. changes should be made to /etc/mkinitcpio.conf in Arch, or /etc/conf.d/modules in Gentoo to include the i915 module.</p>
+
+<p>Finally regen your initial-ramdisk if you used one and your boot partition&rsquo;s GRUB config.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>## make initrd
+</span><span class='line'># mkinitcpio -p linux
+</span><span class='line'>## generate a GRUB config
+</span><span class='line'># grub-mkconfig -o /boot/grub/grub.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reboot and [hopefully] reap the fruits of all your hard work.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -184,45 +277,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/08/defcon-or-bust-1/">Defcon or Bust !!1!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-07-08T06:19:19-07:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>6:19 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve decided that this summer I&rsquo;d like to attend Def Con 20. After watching talks from previous Def Cons and other various events over the years on-line its finally time for me to get out and physically be there. I&rsquo;ve been trying to head out to some &lsquo;talks&rsquo; out here in the bay area too, but since Def Con is coming right up, and I still live on the right coast, why not. Its a great opportunity to see what&rsquo;s new in the world of technology first hand and meet the actual people developing it all in one place.</p>
-
-<p>If you even consider knowing me, even just a little bit, you know that I&rsquo;m a huge fan of this kind of stuff, and have been since primary school. I&rsquo;ve always tried to make myself available to help solve problems and willing to guide friends and family that have also shown interest in the area with all I can offer. Its a learning experience, every time. Like they say, &ldquo;Teach a man to fish and you feed him for a lifetime.&rdquo; Which is why I urge anyone reading this to come to with, simply because its pretty much impossible to walk out of one of these places and not be inspired.. not to mention its in Vegas :)</p>
-
-<p>Unfortunately, at this point in my life there&rsquo;s a lot of free time to be spent, and life is short. Conversely, money is short-coming and school is annually getting more expensive. Education and opportunities we can all agree are valuable. Getting me to Def Con 20 isn&rsquo;t going to be easy, but all I have is time,`a willing mind, and a drive to be there. With a little help I&rsquo;m sure I&rsquo;ll be hacking away with the best of them out in Las Vegas at the end of the month.</p>
-
-<p>&ndash;pnd4</p>
-
-<p><img class="center" src="http://img.photobucket.com/albums/v159/comfreak/dc20-logo.png"></p>
-
-<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=7W7HS7N8WVYXJ&amp;lc=US&amp;item_name=Send%20Kevin%20to%20Defcon%2020&amp;item_number=115501337&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3adc20%2dlogo%2epng%3aNonHosted"><img class="center" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"></a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/13">&larr; Older</a>
@@ -240,15 +294,15 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>

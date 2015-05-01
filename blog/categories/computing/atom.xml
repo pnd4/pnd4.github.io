@@ -4,7 +4,7 @@
   <title><![CDATA[Category: computing | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-04-03T16:46:13-07:00</updated>
+  <updated>2015-05-01T09:02:34-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -12,6 +12,158 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JSON-RPC + Kodi = BFFs]]></title>
+    <link href="http://www.pnd4.net/blog/2015/05/01/json-rpc-plus-kodi-bffs/"/>
+    <updated>2015-05-01T05:52:21-07:00</updated>
+    <id>http://www.pnd4.net/blog/2015/05/01/json-rpc-plus-kodi-bffs</id>
+    <content type="html"><![CDATA[<h4>The can of worms.</h4>
+
+<p>The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As expected, something along the way broke and XBMC&rsquo;s dependency, ffmpeg, failed to build. After a long struggle, I gave up on the XBMC ebuild and went with XBMC&rsquo;s successor, Kodi. Making haste, I neglected to enable any of Kodi&rsquo;s optional USE-flags. The result: everything perfect Kodi-side (faster actually), but my various remote-control browser-addons, mobile apps, and scripts were made useless.</p>
+
+<h4>Meet Kodi&rsquo;s fwiend, JSON-RPC</h4>
+
+<p>For months now I&rsquo;ve been using a script called <code>xbmc-play</code>. It was simple to use, and lightweight. Problem is that, like most XBMC/Kodi remotes, the underlying mechanics that handle the communication required the webserver feature on the Kodi machine. Since I know a fair amount about scripting and very little of building extensions for browsers and Android apps, scripting became the first part of this journey to regain remoting ability.</p>
+
+<p>In first discovering the lack of a webserver, running <code>netstat -tuanp</code> confirmed no process was listening on the defaut port 8080. The listing did reveal that after enabling &ldquo;Allow programs on other systems to control Kodi&rdquo; it listens on port 9090. And a quick google of Kodi&rsquo;s relation to this port will tell you that the JSON-RPC protocol is what&rsquo;s understood on Kodi&rsquo;s end.</p>
+
+<h4>First Impression</h4>
+
+<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&rsquo;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &lsquo;requests&rsquo; the script had to make.</p>
+
+<p>Prior experience manually interacting over TCP/IP came in handy, and I was quickly able to test some proto-type requests with Kodi using the suggested <code>telnet</code> tool. Ultimately, I chose to work with <code>netcat</code> as it seemed more fitting for use in the resulting script that follows:</p>
+
+<p><figure class='code'><figcaption><span> (kodi-play.sh)</span> <a href='/downloads/code/kodi-play.sh'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">## YouTube Kodi Script [http://github.com/pnd4/kodi-play] </span>
+</span><span class='line'><span class="c">#by pnd4 </span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># - Portions from &quot;YouTube XBMC Script&quot; by Tom Laermans [tomlaermans.net]. </span>
+</span><span class='line'><span class="c">#   This script is (also) released into the public domain.</span>
+</span><span class='line'><span class="c"># - Description: Uses Kodi&#39;s native JSON-RPC to play YouTube content remotely</span>
+</span><span class='line'><span class="c">#   without need for the webserver.</span>
+</span><span class='line'><span class="c"># - Requires: netcat (tested with GNU Netcat)</span>
+</span><span class='line'><span class="c"># - Usage: kodi-play &lt; URL | YouTube-ID &gt;</span>
+</span><span class='line'><span class="c"># -    ex: kodi-play hABj_mrP-no</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">## Configure Kodi&#39;s RPC details here</span>
+</span><span class='line'><span class="nv">KODI_HOST</span><span class="o">=</span>gen2
+</span><span class='line'><span class="nv">KODI_PORT</span><span class="o">=</span>9090
+</span><span class='line'>
+</span><span class='line'><span class="c">## Don&#39;t touch anything under here</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">REGEX</span><span class="o">=</span><span class="s2">&quot;^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&amp;\?]*).*&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">ID</span><span class="o">=</span><span class="nv">$1</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$ID&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span><span class="p">;</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Syntax $0 &lt;id|url&gt;&quot;</span>
+</span><span class='line'>  <span class="nb">exit</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="nv">$ID</span> <span class="o">=</span>~ <span class="nv">$REGEX</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>  <span class="nv">ID</span><span class="o">=</span><span class="k">${</span><span class="nv">BASH_REMATCH</span><span class="p">[7]</span><span class="k">}</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Sends our JSON-RPC request to Kodi, and closes the connection.</span>
+</span><span class='line'><span class="k">function</span> jrpc_req <span class="o">{</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;$1&quot;</span> EOF <span class="p">|</span> nc -c <span class="nv">$KODI_HOST</span> <span class="nv">$KODI_PORT</span><span class="p">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">echo</span> -n <span class="s2">&quot;Opening video id $ID on $KODI_HOST ... &quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>jrpc_req <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;method&quot;: &quot;Playlist.Clear&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;params&quot;:{&quot;playlistid&quot;:1}, </span>
+</span><span class='line'><span class="s1">           &quot;id&quot;: 0}&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>jrpc_req <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;method&quot;: </span>
+</span><span class='line'><span class="s1">           &quot;Playlist.Add&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;params&quot;:{&quot;playlistid&quot;:1, </span>
+</span><span class='line'><span class="s1">           &quot;item&quot; :{ &quot;file&quot; : &quot;plugin://plugin.video.youtube/?action=play_video&amp;videoid=&#39;</span><span class="nv">$ID</span><span class="s1">&#39;&quot;}}, </span>
+</span><span class='line'><span class="s1">           &quot;id&quot;: 0}&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>jrpc_req <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;method&quot;: </span>
+</span><span class='line'><span class="s1">           &quot;Player.Open&quot;, </span>
+</span><span class='line'><span class="s1">           &quot;params&quot;:{&quot;item&quot;:{&quot;playlistid&quot;:1, &quot;position&quot; : 0}}, </span>
+</span><span class='line'><span class="s1">           &quot;id&quot;: 0}&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h4>What&rsquo;s Next</h4>
+
+<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&rsquo;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
+
+<p>But like all of these projects I pursue on the side, it&rsquo;s future is uncertain.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM]]></title>
@@ -241,37 +393,6 @@ tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
 </code></pre>
 
 <p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dual-Monitor Toggle]]></title>
-    <link href="http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle/"/>
-    <updated>2014-04-03T02:07:00-07:00</updated>
-    <id>http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle</id>
-    <content type="html"><![CDATA[<p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&rsquo;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
-
-<h2>xrandr</h2>
-
-<p>Using <code>xrandr</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> we are able to dynamically modify our desktop&rsquo;s properties.</p>
-
-<p><strong>OFF</strong></p>
-
-<pre><code>xrandr --output DVI-0 --off
-</code></pre>
-
-<p><strong>ON</strong></p>
-
-<pre><code>xrandr --output DVI-0 --left-of VGA-0 --auto
-</code></pre>
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p><a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&rsquo;s Man Page</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
 ]]></content>
   </entry>
   
