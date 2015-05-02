@@ -101,9 +101,9 @@
 
 <h4>First Impression</h4>
 
-<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&#39;s <a href="http://www.jsonrpc.org/specification">official documentation</a> for ideas about the syntax of these &#39;requests&#39; the script had to make.</p>
+<p>Looking over the JSON-RPC API articles at <a href="http://kodi.wiki/view/JSON-RPC_API">the Kodi Wiki</a> and it&#39;s <a href="http://www.jsonrpc.org/specification">official documentation</a> you can get ideas about the syntax of these &#39;requests&#39; the commands have to make and go from there.</p>
 
-<p>Prior experience manually interacting over TCP/IP came in handy, and I was quickly able to test some proto-type requests with Kodi using the suggested <code>telnet</code> tool. Ultimately, I chose to work with <code>netcat</code> as it seemed more fitting for use in the resulting script that follows:</p>
+<p>Prior experience manually interacting over TCP/IP came in handy. I was quickly able to test some prototype requests with Kodi using the wiki-suggested <code>telnet</code> tool. Ultimately, I chose to work with <code>netcat</code> as it seemed more fitting for use in the resulting script that follows:</p>
 
 <figure class='code'><figcaption><span> (kodi-play.sh)</span> <a href='/downloads/code/kodi-play.sh'>download</a></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -230,9 +230,9 @@
 
 <h4>What&#39;s Next</h4>
 
-<p>Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I&#39;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.</p>
+<p>Having got to dabble into communicating with Kodi over JSON-RPC and being with met less trouble than success. I&#39;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon. </p>
 
-<p>But like all of these projects I pursue on the side, it&#39;s future is uncertain.</p>
+<p>With the advent of compact low-powered embedded systems, people seem forget to leverage the power of older systems largely in part due to resource limitations. My netbook, for instance, at most can have 2GB of RAM. Modern machines come with at least 4GB these days, but modern applications like Chrome are quick to claim it. If we choose to design our systems and their appilcations intelligently life won&#39;t necessarily be over for such devices like my netbook and won&#39;t be for some time as long as we remain resourceful as users and continue to keep modularity in mind as developers.</p>
 </div>
   
   
