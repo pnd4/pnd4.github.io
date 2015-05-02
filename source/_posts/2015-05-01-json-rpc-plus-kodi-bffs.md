@@ -18,14 +18,14 @@ In first discovering the lack of a webserver, running `netstat -tuanp` confirmed
 
 #### First Impression
 
-Looking over the JSON-RPC API articles at [the Kodi Wiki](http://kodi.wiki/view/JSON-RPC_API) and it's [official documentation](http://www.jsonrpc.org/specification) for ideas about the syntax of these 'requests' the script had to make.
+Looking over the JSON-RPC API articles at [the Kodi Wiki](http://kodi.wiki/view/JSON-RPC_API) and it's [official documentation](http://www.jsonrpc.org/specification) you can get ideas about the syntax of these 'requests' the commands have to make and go from there.
 
-Prior experience manually interacting over TCP/IP came in handy, and I was quickly able to test some proto-type requests with Kodi using the suggested `telnet` tool. Ultimately, I chose to work with `netcat` as it seemed more fitting for use in the resulting script that follows:
+Prior experience manually interacting over TCP/IP came in handy. I was quickly able to test some prototype requests with Kodi using the wiki-suggested `telnet` tool. Ultimately, I chose to work with `netcat` as it seemed more fitting for use in the resulting script that follows:
 
 {% include_code lang:sh kodi-play.sh %}
 
 #### What's Next
 
-Having got to dabble into communicating with Kodi over JSON-RPC and being met less trouble than success. I'm thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon.
+Having got to dabble into communicating with Kodi over JSON-RPC and being with met less trouble than success. I'm thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon. 
 
-But like all of these projects I pursue on the side, it's future is uncertain.
+With the advent of compact low-powered embedded systems, people seem forget to leverage the power of older systems largely in part due to resource limitations. My netbook, for instance, at most can have 2GB of RAM. Modern machines come with at least 4GB these days, but modern applications like Chrome are quick to claim it. If we choose to design our systems and their appilcations intelligently life won't necessarily be over for such devices like my netbook and won't be for some time as long as we remain resourceful as users and continue to keep modularity in mind as developers.
