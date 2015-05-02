@@ -245,148 +245,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-12-28T19:04:41-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:04 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk who&#39;s offering Unlimited everything for 45/line I hear&#8230; What follows is just some scribble for me to look back on when the topic comes up for discussion, but maybe it&#39;ll raise some savings opportunities other&#39;s overlooked.</em></p>
-
-<h2>&#39;TEP&#39; Insurance - Mom&#39;s line</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">11$/mon.. Probably unecessary
-</code></pre></div>
-<h2>Available Discounts</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">AAA Auto Club -- 10$ Off  
-- Call or add in-store  
-- Currently only getting loyalty discount.
-Maybe qualify for something better? 
-</code></pre></div>
-<h2>&quot;Family Share Pack&quot;</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">2-yr contract (extension?.. ours doesnt end til 06/2015)
-</code></pre></div>
-<p><strong>DATA</strong>
-Total amount shared by entire family</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">2gb - 25  
-4gb - 40  
-12gb - 80  
-16gb - 90   
-20gb - 100$  
-</code></pre></div>
-<p><strong>DATA ACCESS_FEE</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">25$ ea line for 1-8gb  
-15$ ea line for 12-16gb  
-15$ ea line for &gt;20gb  
-</code></pre></div>
-<p>Probably unnecessary but what the hell, right?</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>#!/bin/sh
-</span><span class='line'> DATA_COST="40"
-</span><span class='line'> NUM_DEVICES="3"
-</span><span class='line'> NUM_TABS="1"
-</span><span class='line'> ACCFEE="25"
-</span><span class='line'> TAB_FEE="10"
-</span><span class='line'> DISCNTS="10"
-</span><span class='line'> IP_INSTL="27"
-</span><span class='line'> G3_INSTL="25"
-</span><span class='line'> TAXES_N_FEES="15"
-</span><span class='line'> 
-</span><span class='line'>echo "$DATA_COST + ($NUM_DEVICES * $ACCFEE) + ($NUM_TABS * $TAB_FEE) - $DISCNTS + $IP_INSTL + $G3_INSTL + $TAXES_N_FEES" | bc
-</span></code></pre></td></tr></table></div></figure>
-
-<p>So this is what we would be paying if we chose to stick with Sprint, extend our contract another 2-yrs and brought in my Mom&#39;s iPad which she&#39;s currently paying data for separately </p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>182$ for 4Gb     &gt;&gt;    40$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]
-</span><span class='line'>212$ for 8Gb  &gt;&gt;    70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
-</span><span class='line'>192$ for 12Gb &gt;&gt;    80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span><span class='line'>202$ for 16Gb &gt;&gt;    90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>Reference</h2>
-
-<p><strong>We Are Currently Paying</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>+   $45   &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
-</span><span class='line'>+   $83   &gt;&gt; 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
-</span><span class='line'>+   $70   &gt;&gt; 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
-</span><span class='line'>+   $15   &gt;&gt; 10$ 'Taxes and Fees'
-</span><span class='line'>---------  
-</span><span class='line'>Total     $213
-</span></code></pre></td></tr></table></div></figure>
-
-<p><strong>Typical Usage</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>    Talk Text    Data
-</span><span class='line'>  
-</span><span class='line'>Edward  800     5568    1072
-</span><span class='line'>
-</span><span class='line'>Mom     527       854     245
-</span><span class='line'>
-</span><span class='line'>Me      381       250     221
-</span><span class='line'>    -----------------------
-</span><span class='line'>Totals  1708  6672    1538</span></code></pre></td></tr></table></div></figure>
-    
-
-<p><strong>My line&#39;s contract ends 06/20/15</strong> .. Don&#39;t know yet if this&#39;ll be an issue.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a></h1>
     
     
@@ -539,6 +397,65 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-31T22:37:32-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>10:37 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+
+<p>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.*</p>
+
+<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
+
+<p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
+
+<p>To break it down, here&#39;s the same command with placeholders.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg \
+</span><span class='line'>    -i [input-filename] \
+</span><span class='line'>    -ac [# of audio-channels] \
+</span><span class='line'>    -qscale [quality-scale: 1-31 (1 = highest quality)] \
+</span><span class='line'>    -f [format: mp4, avi, mkv, ..] \
+</span><span class='line'>    -s [Resolution: (Width)x(Height)] \
+</span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
+
+<p>Now you may have checked out some examples before mine and noticed others&#39; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &quot;YIFY&quot;, you can&#39;t go wrong.</p>
+
+<p>As always, good luck!</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -558,11 +475,11 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
       </li>
     
       <li class="post">
-        <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
+        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
+        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>

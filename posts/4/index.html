@@ -9,9 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Webcam Prices [as of 11.11.2013] 20-23 HD-3000
-15-20 Rocketfish 720p RF-HDWEB
-17 M$ HD-2300 RasPi Notes RasPi community has good info on the subject &hellip;">
+  <meta name="description" content="I use genkernel to install my kernel.. this isn&#39;t the best way to do things but for now it gets the job done. Gentoo isn&#39;t my primary distro &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,93 +67,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/11/motion-webcam/">Motion Webcam</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-11-11T00:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Webcam Prices</h3>
-
-<p>[as of 11.11.2013]</p>
-
-<ul>
-<li>20-23 HD-3000</li>
-<li>15-20 Rocketfish 720p RF-HDWEB</li>
-<li>17 M$ HD-2300</li>
-</ul>
-
-<h3><a href="http://forum.micasaverde.com/index.php?topic=9104.15">RasPi Notes</a></h3>
-
-<p>RasPi community has good info on the subject. Should be valid for Pogoplugs too.</p>
-
-<blockquote>
-<p>A few recommendations I have for streaming USB webcams with linux:</p>
-
-<ol>
-<li><p>Unless you need the capabilities of motion (that is, you are using the motion detection built in to motion) use mjpg<em>streamer instead of motion. Motion processes each image to see if pixels have changed, and by default runs a lot of binary morphology on the images (erode, dilate, etc), where mjpg</em>streamer just streams. On my Pogoplus with four cameras this means the difference between 60%+ cpu utilization versus single digits (and to get down to 60% I had to drop the framerate to 2Hz and go through a bunch of options to turn off as much processing as possible). I have another machine running zoneminder which processes my streams which is why I don&#39;t mind forgoing motion detection.</p></li>
-<li><p>Use MJPEG instead of YUV
-If you want multiple webcams on a single USB bus this is basically a necessity. Even if you don&#39;t it means a lot less data to process. This is the default in mjpg<em>streamer, in motion set: &quot;v4l2</em>palette 2&quot; in motion.conf</p></li>
-<li><p>Get a webcam with known support
-Some webcams have a problem where the request a lot more bandwidth than they need and this means you can&#39;t use two at the same time. There is a hack to get around this in YUV mode, but not MJPEG which isn&#39;t much of a help. If you are up for hacking the driver yourself it should be possible to skip the BW check and make these work anyway, but that is quite a bit of work.</p></li>
-</ol>
-
-<p>Cameras that work simultaneously (no bandwidth bug):
--Logitech C120
--Logitech C160
--Logitech B500
--Logitech Quickcam E 3500
--Logitech Quickcam Messenger
--Microsoft HD-3000
--Microsoft HD-5000
--Rocketfish HD Webcam Pro</p>
-
-<p>Cameras that do not work in multiples (bandwidth bug?):
--Logitech C110
--Logitech C310
--Creative Live! Cam Video IM Ultra
--HP 2-Megapixel Webcam (RZ406AA)</p>
-
-<p>My current recommendation is probably the HD-3000. It is 720p and can be found for about $20. It does NOT have autofocus which I think is good for a webcam you leave running 24/7. I tried the HD-5000 and it spends a lot of time refocusing. I&#39;m afraid it would break after a few weeks. The C160 is currently the cheapest, about $8 shipped on ebay. Meritline sometimes sells it for $6. The irritating thing about the c120/c160 is that they have a focusing ring you have to adjust. For a security camera I would prefer fixed focus. I buy any webcam I can get at a firesale so I&#39;ll keep trying more - I would appreciate results from anyone else as well.</p>
-
-<p>EDIT: Added a few more cameras]</p>
-
-<p>It turns out you can disable autofocus on UVC supported webcams like this:</p>
-
-<p>v4l2-ctl &#8211;verbose &#8211;set-ctrl=focus_auto=0</p>
-
-<p>At least it works for me on all the AF cameras I have to test (Microsoft &amp; Rocketfish).</p>
-
-<p>Not only is this a good idea for camera longevity (I would think so at least) it helps prevents false motion alarms.</p>
-</blockquote>
-
-<h4>Useful Links and References</h4>
-
-<ol>
-<li><a href="http://elinux.org/RPi_USB_Webcams">eLinux: RasPi Webcam compatibility list</a></li>
-</ol>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -332,6 +243,99 @@ systemctl --quiet is-active <span class="nv">$service</span>
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/21/solidworks-build/">Solidworks Rig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-21T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>Min Reqs (Win7x64)</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
+RAM     2GB+
+HDD     5GB+
+Video   Quadro/QuadroFX/FireGL/FirePro
+</code></pre></div>
+<h2>Notes regarding HW selection</h2>
+
+<ul>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814195112">FirePro v3900</a> was best bang for buck. Good Solidworks reviews.</li>
+<li>4GB of RAM will work, can always upgrade.</li>
+<li>3.5Ghz Dual core + Hyper-Threading (<a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16819116775">i3-3220</a>/3240) should be plenty.</li>
+</ul>
+
+<p><a href="http://www.capinc.com/support/tips/solidworks-tech-tips-hardware">Capinc Solidworks HW Tips</a></p>
+
+<ul>
+<li>Video Card: VERY important</li>
+<li>Proc: Solidworks is optimized for multiple cores</li>
+<li>RAM:
+Solidworks grabs 340mb on launch.
+4gb+ is only necessary for very large assemblies (over 10,000 parts)</li>
+<li>HD: Generally, does not affect Solidworks performance</li>
+</ul>
+
+<h2>Newegg specials for Oct.</h2>
+
+<p><strong>&quot;i5&quot; Combo + FirePro V3900 <a href="until%2010/25"> ~$630 </a></strong></p>
+
+<p>Someone mentioned i5 &amp; i7&#39;s have decent enough graphics to run Solidworks.. maybe just get FirePro later, if needed?  </p>
+
+<ul>
+<li>Trustworthy PSU</li>
+<li>i5 is Quad Core, 8MB-L2, HD4000 &#39;integrated&#39; gfx</li>
+<li>8GB RAM</li>
+<li>1TB HDD, SSD would&#39;ve been nicer.</li>
+<li>USB 3.0</li>
+<li><p>No case.</p>
+
+<p><a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1291151">Combo: 1291151</a></p></li>
+</ul>
+
+<p><strong>&quot;i3&quot; Combo + FirePro V3900 <a href="until%2010/31"> ~$ 430 </a></strong></p>
+
+<ul>
+<li>Decent PSU. But low wattage.</li>
+<li>500GB HDD</li>
+<li>USB 3.0</li>
+<li><p>Plain Case.</p>
+
+<p><a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1271103">Combo: 1271103</a></p></li>
+</ul>
+
+<p><strong>&quot;Budget Gaming&quot; Combo <a href="until%2010/31"> $ 370 </a></strong></p>
+
+<ul>
+<li>nVidia GT 640 2GB, instead of FirePro ?<br>
+.. donno if that&#39;s such a good idea.</li>
+<li>Good PSU</li>
+<li>500GB HDD</li>
+<li>USB 3.0</li>
+<li><p>Decent looking case.</p>
+
+<p><a href="http://www.newegg.com/Product/ComboBundleDetails.aspx?ItemList=Combo.1461943">Combo: 1461943</a></p></li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/posts/5">&larr; Older</a>
@@ -353,11 +357,11 @@ systemctl --quiet is-active <span class="nv">$service</span>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
+        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
+        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>

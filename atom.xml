@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-02T05:30:01-07:00</updated>
+  <updated>2015-05-02T07:12:31-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -162,128 +162,6 @@
 <p>Having got to dabble into communicating with Kodi over JSON-RPC and being with met less trouble than success. I&#39;m thinking about pursuing a desktop application or at least framework for controlling Kodi/XBMC. It would certainly fulfull my need, and maybe help someone else looking for remote-control without the need for a excess bloat services like a webserver or unnecessary consumption of resources client-side from yet another browser-addon. </p>
 
 <p>With the advent of compact low-powered embedded systems, people seem forget to leverage the power of older systems largely in part due to resource limitations. My netbook, for instance, at most can have 2GB of RAM. Modern machines come with at least 4GB these days, but modern applications like Chrome are quick to claim it. If we choose to design our systems and their appilcations intelligently life won&#39;t necessarily be over for such devices like my netbook and won&#39;t be for some time as long as we remain resourceful as users and continue to keep modularity in mind as developers.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[#OpStahpRippinUsOff Sprint]]></title>
-    <link href="http://www.pnd4.net/blog/2014/12/28/sprint-bill/"/>
-    <updated>2014-12-28T19:04:41-08:00</updated>
-    <id>http://www.pnd4.net/blog/2014/12/28/sprint-bill</id>
-    <content type="html"><![CDATA[<p><em>It became apparent a $200 phone bill for 3-lines is outrageous this day in age. Any given day you can walk into a Walmart and sign with StraightTalk who&#39;s offering Unlimited everything for 45/line I hear&#8230; What follows is just some scribble for me to look back on when the topic comes up for discussion, but maybe it&#39;ll raise some savings opportunities other&#39;s overlooked.</em></p>
-
-<h2>&#39;TEP&#39; Insurance - Mom&#39;s line</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">11$/mon.. Probably unecessary
-</code></pre></div>
-<h2>Available Discounts</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">AAA Auto Club -- 10$ Off  
-- Call or add in-store  
-- Currently only getting loyalty discount.
-Maybe qualify for something better? 
-</code></pre></div>
-<h2>&quot;Family Share Pack&quot;</h2>
-<div class="highlight"><pre><code class="language-text" data-lang="text">2-yr contract (extension?.. ours doesnt end til 06/2015)
-</code></pre></div>
-<p><strong>DATA</strong>
-Total amount shared by entire family</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">2gb - 25  
-4gb - 40  
-12gb - 80  
-16gb - 90   
-20gb - 100$  
-</code></pre></div>
-<p><strong>DATA ACCESS_FEE</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">25$ ea line for 1-8gb  
-15$ ea line for 12-16gb  
-15$ ea line for &gt;20gb  
-</code></pre></div>
-<p>Probably unnecessary but what the hell, right?</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>#!/bin/sh
-</span><span class='line'> DATA_COST="40"
-</span><span class='line'> NUM_DEVICES="3"
-</span><span class='line'> NUM_TABS="1"
-</span><span class='line'> ACCFEE="25"
-</span><span class='line'> TAB_FEE="10"
-</span><span class='line'> DISCNTS="10"
-</span><span class='line'> IP_INSTL="27"
-</span><span class='line'> G3_INSTL="25"
-</span><span class='line'> TAXES_N_FEES="15"
-</span><span class='line'> 
-</span><span class='line'>echo "$DATA_COST + ($NUM_DEVICES * $ACCFEE) + ($NUM_TABS * $TAB_FEE) - $DISCNTS + $IP_INSTL + $G3_INSTL + $TAXES_N_FEES" | bc
-</span></code></pre></td></tr></table></div></figure>
-
-<p>So this is what we would be paying if we chose to stick with Sprint, extend our contract another 2-yrs and brought in my Mom&#39;s iPad which she&#39;s currently paying data for separately </p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>182$ for 4Gb     &gt;&gt;    40$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]
-</span><span class='line'>212$ for 8Gb  &gt;&gt;    70$ + (3 * 25$) + [10$] - 10$ + 27 + 25 + [15]  
-</span><span class='line'>192$ for 12Gb &gt;&gt;    80$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span><span class='line'>202$ for 16Gb &gt;&gt;    90$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span><span class='line'>212$ for 20Gb &gt;&gt;    100$ + (3 * 15$) + [10$] - 10$ + 27 + 25 + [15] 
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>Reference</h2>
-
-<p><strong>We Are Currently Paying</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>+   $45   &gt;&gt; 55$ 'Kevin 1gb' - 10$ 'FramilyDiscount'
-</span><span class='line'>+   $83   &gt;&gt; 55$ 'Mom 1gb' - 10$ 'FramilyDiscount' + 11$ Insur. + 27$ ip5s
-</span><span class='line'>+   $70   &gt;&gt; 55$ 'Edward 1gb' - 10$ 'FramilyDiscount' + 25$ LG_G3
-</span><span class='line'>+   $15   &gt;&gt; 10$ 'Taxes and Fees'
-</span><span class='line'>---------  
-</span><span class='line'>Total     $213
-</span></code></pre></td></tr></table></div></figure>
-
-<p><strong>Typical Usage</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>    Talk Text    Data
-</span><span class='line'>  
-</span><span class='line'>Edward  800     5568    1072
-</span><span class='line'>
-</span><span class='line'>Mom     527       854     245
-</span><span class='line'>
-</span><span class='line'>Me      381       250     221
-</span><span class='line'>    -----------------------
-</span><span class='line'>Totals  1708  6672    1538</span></code></pre></td></tr></table></div></figure>
-    
-
-<p><strong>My line&#39;s contract ends 06/20/15</strong> .. Don&#39;t know yet if this&#39;ll be an issue.</p>
 ]]></content>
   </entry>
   
@@ -1654,6 +1532,22 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br>
 <a href="https://wiki.debian.org/iptables">Debwiki</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DD-WRT Firewall Fine Tuning]]></title>
+    <link href="http://www.pnd4.net/blog/2013/03/25/dd-wrt-firewall-fine-tuning/"/>
+    <updated>2013-03-25T01:14:11-07:00</updated>
+    <id>http://www.pnd4.net/blog/2013/03/25/dd-wrt-firewall-fine-tuning</id>
+    <content type="html"><![CDATA[<p>To add additional firewall rules via the DD-WRT web interface when there&#39;s no checkbox, navigate to web interface&#39;s section at [Administration] -&gt; [Commands]</p>
+
+<p>You should see a text box, there you can add individual iptables rules as if you were using the command line. Just save the command with the appropriate button labeled [Save Firewall]</p>
+
+<p>I found this particularly useful for allowing a machine with a static IP ping a machine that drops ping requests. Here is the rule I added as an example</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A INPUT -s &lt;ip.allowed.pings> -p icmp -j ACCEPT</span></code></pre></td></tr></table></div></figure>
 ]]></content>
   </entry>
   

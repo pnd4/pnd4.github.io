@@ -9,8 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="So after having my 32 GB PNY Attache flash drive fail every time I tried to write to sync, it finally let me after using 1
-badblocks -vw /dev/sdx But &hellip;">
+  <meta name="description" content="Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,60 +67,6 @@ badblocks -vw /dev/sdx But &hellip;">
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/24/improve-flash-drive-performance/">Improve Flash Drive Performance</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-03-24T12:56:36-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:56 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
-
-<p>But discovering that command wasn&#39;t the end, I had to deal with it&#39;s almost impossible write-speed, this information helped:</p>
-
-<p>Append to /etc/rc.local</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
-</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
-</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
-
-<p>Append to /etc/sysctl.conf</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
-</span><span class='line'>vm.dirty_background_bytes = 4194304
-</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
-
-<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -199,6 +144,40 @@ badblocks -vw /dev/sdx But &hellip;">
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/11/twenty-thirteen/">Twenty-Thirteen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-01-11T15:44:15-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:44 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288.png"><img src="/images/2013-01-11-twenty-thirteen/Screenshot-01112013-030931-PM-1024x288_th.png" alt="Jan 11 2013"></a>
+Well, here it is.. my first post of 2013, located on my own domain from the awesome NameCheap.com, on a freshly set up Virtual Private Server by ChicagoVPS.net. So much thanks goes out to my Tita Fe, Tito Ram, Mom and Dad for funding this. Its been 2-weeks and already the experience has taught me so much more than simulating it on my local network.</p>
+
+<p>As usual, I&#39;ve been busy.. powering through the new year&#39;s weeks learning about stuff and trying it out. This week I gave my desktop a facelift: desktop&#39;s color scheme, revamped DWM and learned a little bit about Mercurial and Git version control systems along the way. Now my focus is on the website so expect to some changes you can see..</p>
+
+<p>Happy New Years &#39;errbody !</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -220,11 +199,11 @@ badblocks -vw /dev/sdx But &hellip;">
       </li>
     
       <li class="post">
-        <a href="/blog/2014/12/28/sprint-bill/">#OpStahpRippinUsOff Sprint</a>
+        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
+        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>
