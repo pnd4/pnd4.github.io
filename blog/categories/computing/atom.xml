@@ -4,7 +4,7 @@
   <title><![CDATA[Category: computing | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-02T07:12:31-07:00</updated>
+  <updated>2015-05-05T06:24:33-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -307,9 +307,9 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
     <link href="http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd/"/>
     <updated>2014-05-31T22:37:32-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd</id>
-    <content type="html"><![CDATA[<p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+    <content type="html"><![CDATA[<p><em>After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</em></p>
 
-<p>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.*</p>
+<p><em>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.</em></p>
 
 <p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
 
@@ -361,7 +361,9 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
     <link href="http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug/"/>
     <updated>2014-04-20T04:46:00-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug</id>
-    <content type="html"><![CDATA[<p>** Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. **</p>
+    <content type="html"><![CDATA[<ul>
+<li>Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. *</li>
+</ul>
 
 <h4>Flash-Drive I/O</h4>
 

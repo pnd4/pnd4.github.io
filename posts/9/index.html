@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="I finally set up OpenSSH&#39;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I &hellip;">
+  <meta name="description" content="&quot;I remember new years eve 2010/11, crystal clear night, awesome fireworks in Zurich Switzerland, drinking with my bro and then he said &quot; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,90 +67,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/14/ssh-pubkeyauth/">OpenSSH: Public Key Auth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-12-14T17:33:07-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>5:33 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-12-15-ssh-pubkeyauth/screenshot-12152012-011033-am.png"></p>
-
-<p><em>I finally set up OpenSSH&#39;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I had to reference a few to get this working. Its kind of confusing figuring out where the public and private keys go in most guides. They don&#39;t really say what keys need to be on what box and what doesn&#39;t. A lot are pretty confusing about their naming conventions for remote/local and server/client. Also most completely leave out the user&#39;s .ssh/config in which you can specify the identity file to try in SSH. Naturally, I compiled a few snippets from the ssh manual page, and an example I cooked up from tonight&#39;s mucking around.. enjoi.</em></p>
-
-<p><strong>Public-Key Authentication</strong>:</p>
-
-<ul>
-<li><p>The server knows the public key, and only the user knows the private key.</p></li>
-<li><p>The file ~/.ssh/authorized_keys lists the public keys that are permitted for logging in.</p></li>
-<li><p>When the user logs in, the ssh program tells the server which key pair it would like to use for authentication.</p></li>
-<li><p>The client proves that it has access to the private key and the server checks that the corresponding public key is authorized to accept the account.</p></li>
-</ul>
-
-<p>Example:
-This will set up ssh without password connecting as foo@desktop (their account on their machine at home) to root@server (root account on machine at work)</p>
-
-<p>On the desktop: Generate a key-pair</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ ssh-keygen -t rsa -f 'foo'
-</span><span class='line'>foo@desktop: ~/.ssh$ mkdir ~/.ssh/private-keys
-</span><span class='line'>foo@desktop: ~/.ssh$ mv ~/.ssh/foo ~/.ssh/private-keys
-</span><span class='line'>foo@desktop: ~/.ssh$ chmod -R go-rw ~/.ssh/private-keys</span></code></pre></td></tr></table></div></figure>
-
-<p>On the desktop: Create or modify the user&#39;s .ssh/config file to use the new private key</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ vi config</span></code></pre></td></tr></table></div></figure>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
-</span><span class='line'>IdentityFile ~/.ssh/foo</span></code></pre></td></tr></table></div></figure>
-
-<p>On the desktop: Copy the public key to server&#39;s authorized_keys file.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ cat ~/.ssh/foo.pub | ssh root@server 'umask 077; cat >>~/.ssh/authorized_keys'</span></code></pre></td></tr></table></div></figure>
-
-<p>On the server: Modify the sshd_config file to allow for Public-Key Authentication</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~/etc/ssh/# mv sshd_config sshd_config.orig ; sed &lt; sshd_config.orig 's/^#Pubkey/Pubkey/' > sshd_config</span></code></pre></td></tr></table></div></figure>
-
-<p>On the server: Restart the ssh-daemon on the server</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~# systemctl restart sshd</span></code></pre></td></tr></table></div></figure>
-
-<p>On the desktop: Test it out.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~$ ssh root@server</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -435,6 +351,67 @@ This will set up ssh without password connecting as foo@desktop (their account o
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rtmpdump -v -r rtmp://188.122.86.236:1935/live/_definst_/kdjfkdfksjkfs1 -W http://cdn.yycast.com/player/player.swf -p http://www.limev.com/ | mplayer -</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/31/adventures-w-freebsd/">Adventures W/ FreeBSD</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-08-31T04:26:16-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>4:26 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-31-adventures-w-freebsd/image0.png"></p>
+
+<p><em>Apparently the MSI K8N Neo4 Platinum (SLI) is tight-butthole about GPT partition schemes. To work around this to get FreeBSD installed, we have to use BSD-Labeling for our partition table.. I tried a good ol&#39; MS-DOS MBR with nested freebsd file systems, but it didnt work either. BSD-labeling is our only option as far as I know.. Also, as usual, the method I will be using here is the simplest case, using the whole disk and as 2 partitions, root and swap.</em></p>
+
+<p>Ok so in the FreeBSD installer, choose manual partitioning.</p>
+
+<p>Now highlight the hard drive you want to install to and select &quot;Create&quot;.</p>
+
+<p>This will create the partition table, we chose &quot;BSD labels&quot;. It should automatically choose to use your whole drive, so just select &quot;Ok&quot; and get back to the partitioning menu.</p>
+
+<p>Now we highlight the drive again which should have &quot;BSD&quot; next to it instead of &quot;none&quot;, and select &quot;Create&quot; again to make our root partition inside the BSD-labeling table.</p>
+
+<ul>
+<li><p>type = freebsd-ufs</p></li>
+<li><p>size =  total disk size - size of swap</p></li>
+<li><p>mount point = /</p></li>
+</ul>
+
+<p>Select &quot;Ok&quot; to confirm and get back to the partitioning menu.</p>
+
+<p>Now scroll back up to highlight the drive with &quot;BSD&quot; next to it like we did in the previous step. We&#39;re creating another partition to use as swap, so select &quot;Create&quot; once more.</p>
+
+<ul>
+<li><p>type = freebsd-swap</p></li>
+<li><p>size = remaining space (this should be automatically filled in)</p></li>
+<li><p>mount point = blank</p></li>
+</ul>
+
+<p>Select &quot;Ok&quot; to confirm and get back to the partitioning menu.</p>
+
+<p>Ok now we can select &quot;Finish&quot; and exit the installer&#39;s partitioner and install as usual.</p>
+
+<p><em>Good luck with the rest of your installation.. and know that your hate for old motherboards that don&#39;t support GPT partition tables is shared by those like me, with similar hardware.</em></p>
 </div>
   
   

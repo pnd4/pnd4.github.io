@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-02T07:12:31-07:00</updated>
+  <updated>2015-05-05T06:24:33-07:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -307,9 +307,9 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
     <link href="http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd/"/>
     <updated>2014-05-31T22:37:32-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd</id>
-    <content type="html"><![CDATA[<p>*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</p>
+    <content type="html"><![CDATA[<p><em>After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</em></p>
 
-<p>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.*</p>
+<p><em>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.</em></p>
 
 <p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
 
@@ -375,7 +375,9 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
     <link href="http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug/"/>
     <updated>2014-04-20T04:46:00-07:00</updated>
     <id>http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug</id>
-    <content type="html"><![CDATA[<p>** Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. **</p>
+    <content type="html"><![CDATA[<ul>
+<li>Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. *</li>
+</ul>
 
 <h4>Flash-Drive I/O</h4>
 
@@ -427,43 +429,6 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
 </pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
 
 <p>[^1]: <a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&#39;s Man Page</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[OpenVPN Hang Issue]]></title>
-    <link href="http://www.pnd4.net/blog/2013/12/05/ovpn-hang/"/>
-    <updated>2013-12-05T00:00:00-08:00</updated>
-    <id>http://www.pnd4.net/blog/2013/12/05/ovpn-hang</id>
-    <content type="html"><![CDATA[<h1>Problem</h1>
-
-<p>CyberGhostVPN connection hangs on service start-up
-Doesnt</p>
-
-<h1>Investigation</h1>
-
-<h4>DNS</h4>
-
-<p><strong>Dec 05 2013 - 04:38</strong></p>
-
-<p>Seems CyberGhost uses a constantly renewing IP.. &quot;US.openvpn.cyberghostvpn.com&quot; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
-
-<p>The thread below talks about tuning openvpn to fix this.</p>
-
-<blockquote>
-<p>By default, on initial startup and restart, the &#8211;remote name is resolved
-once. If the DNS resolve fails, OpenVPN will abort.</p>
-
-<p>If &#8211;resolve-retry is specified, the DNS resolve will be retried for n
-seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
-will abort. Recent versions of OpenVPN allow n to be &quot;infinite&quot;.</p>
-
-<p>If you want to disable the DNS re-resolve on restart, you can use
-&#8211;persist-remote-ip. This will &quot;recycle&quot; the previously used &#8211;remote IP
-address without doing a new DNS lookup.</p>
-</blockquote>
-
-<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
 ]]></content>
   </entry>
   
@@ -1548,6 +1513,40 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A INPUT -s &lt;ip.allowed.pings> -p icmp -j ACCEPT</span></code></pre></td></tr></table></div></figure>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Improve Flash Drive Performance]]></title>
+    <link href="http://www.pnd4.net/blog/2013/03/24/improve-flash-drive-performance/"/>
+    <updated>2013-03-24T12:56:36-07:00</updated>
+    <id>http://www.pnd4.net/blog/2013/03/24/improve-flash-drive-performance</id>
+    <content type="html"><![CDATA[<p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
+
+<p>But discovering that command wasn&#39;t the end, I had to deal with it&#39;s almost impossible write-speed, this information helped:</p>
+
+<p>Append to /etc/rc.local</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
+</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
+</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
+
+<p>Append to /etc/sysctl.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
+</span><span class='line'>vm.dirty_background_bytes = 4194304
+</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
+
+<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
 ]]></content>
   </entry>
   

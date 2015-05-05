@@ -9,8 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Use iptables to secure netlink infrastructure. Where the rules files go In Arch, the usual /etc/iptables/iptables.rules
-In Gentoo, the rules are &hellip;">
+  <meta name="description" content="To add additional firewall rules via the DD-WRT web interface when there&#39;s no checkbox, navigate to web interface&#39;s section at [ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,201 +67,6 @@ In Gentoo, the rules are &hellip;">
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/firewall/">Firewalls</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-10-16T00:00:00-07:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
-
-<h3>Where the rules files go</h3>
-
-<p>In Arch, the usual /etc/iptables/iptables.rules
-In Gentoo, the rules are restored from /var/lib/iptables/rules-save
-In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
-
-<h3>Rules Basic Template</h3>
-
-<p>Based on: https://wiki.archlinux.org/index.php/Simple<em>Stateful</em>Firewall</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>*filter
-</span><span class='line'>:INPUT DROP [0:0]
-</span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [0:0]
-</span><span class='line'>:TCP - [0:0]
-</span><span class='line'>:UDP - [0:0]
-</span><span class='line'>## === BEGIN: First Rule ======================================
-</span><span class='line'># Keep before ping limiting rules to limit pings per connection
-</span><span class='line'>-I INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-</span><span class='line'>## === END: First Rule ========================================
-</span><span class='line'>## === BEGIN: Ping limiting ===================================
-</span><span class='line'># Keep after 'RELATED, ESTABLISHED' to limit pings per connection
-</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --set
-</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m recent --name ping_limiter --update --hitcount 6 --seconds 10 -j DROP
-</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-</span><span class='line'>## === END: Ping limiting =====================================
-</span><span class='line'>## === BEGIN: General Rules ===================================
-</span><span class='line'># Extra protection against spoofing attacks (see: sysctl regarding rp_filter)
-</span><span class='line'>-I INPUT ! -i lo -s 127.0.0.0/8 -j DROP
-</span><span class='line'># Accept all traffic coming from localhost
-</span><span class='line'>-A INPUT -i lo -j ACCEPT
-</span><span class='line'>-A INPUT -d 127.0.0.0/8 -j REJECT
-</span><span class='line'>-A INPUT -m conntrack --ctstate INVALID -j DROP
-</span><span class='line'>-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP
-</span><span class='line'>-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
-</span><span class='line'>## === END: General Rules =====================================
-</span><span class='line'>## === BEGIN: Services ========================================
-</span><span class='line'>## NTP
-</span><span class='line'>#-A UDP -p tcp -i eth0 -s 192.168.12.0/24 --dport 123 -j ACCEPT
-</span><span class='line'>## SSH
-</span><span class='line'>#-A TCP -p tcp -i eth0 -s 192.168.12.0/24 --dport 22 -j ACCEPT
-</span><span class='line'>## TRANSMISSION
-</span><span class='line'>#Allow transmission to talk to users
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission -d 192.168.12.18 -j ACCEPT
-</span><span class='line'>#Restrict transmission from using other ports.
-</span><span class='line'>-A OUTPUT -m owner --uid-owner transmission ! -o tun+ -j REJECT
-</span><span class='line'>#Allow users to talk to transmission
-</span><span class='line'>-A TCP -p tcp -s 192.168.12.18 --dport 9091 -j ACCEPT
-</span><span class='line'>## === END: Services ==========================================
-</span><span class='line'>## === BEGIN: Trick Port Scanning =============================
-</span><span class='line'>-I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
-</span><span class='line'>-I UDP -p udp -m recent --update --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with port-unreach
-</span><span class='line'>-A INPUT -p tcp -m recent --set --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
-</span><span class='line'>-A INPUT -p udp -m recent --set --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreach
-</span><span class='line'>## === END: Trick Port Scanning ===============================
-</span><span class='line'>## === BEGIN: Last Rule =======================================
-</span><span class='line'># This rule must be kept at the end, regardless if port-scan or ping limit is used.
-</span><span class='line'>-A INPUT -j REJECT --reject-with icmp-proto-unreachable
-</span><span class='line'>## === END: Last Rule =========================================
-</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
-
-<h3>Internet Connection Sharing</h3>
-
-<p>Involves adding additional rules</p>
-
-<p><em>For the template below:</em>
-    |          |              wan |             lan  |<br>
-    |&#8212;&#8212;&#8212;:|&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;:|&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;:|<br>
-    |  iface   |             wan0 |            lan0  |<br>
-    |  subnet  |     192.168.12.0 |    172.168.42.0  |  </p>
-
-<p><em>Example Template</em>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'><em>nat
-</span><span class='line'>:PREROUTING ACCEPT [0:0]
-</span><span class='line'>:INPUT ACCEPT [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [0:0]
-</span><span class='line'>:POSTROUTING ACCEPT [0:0]
-</span><span class='line'>-A POSTROUTING -s 172.16.42.0/24 -o wan0 -j MASQUERADE
-</span><span class='line'>COMMIT
-</span><span class='line'></em>filter
-</span><span class='line'>:INPUT ACCEPT [0:0]
-</span><span class='line'>:FORWARD DROP [0:0]
-</span><span class='line'>:OUTPUT ACCEPT [0:0]
-</span><span class='line'>:fw-interfaces - [0:0]
-</span><span class='line'>:fw-open - [0:0]
-</span><span class='line'>-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-</span><span class='line'>-A FORWARD -j fw-interfaces
-</span><span class='line'>-A FORWARD -j fw-open
-</span><span class='line'>-A FORWARD -j REJECT --reject-with icmp-host-unreachable
-</span><span class='line'>-A fw-interfaces -i lan0 -j ACCEPT
-</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure></p>
-
-<h4>References</h4>
-
-<p><a href="https://wiki.archlinux.org/index.php/Simple_Stateful_Firewall">Archwiki</a><br>
-<a href="https://wiki.debian.org/iptables">Debwiki</a></p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -347,6 +151,44 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 </span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
 
 <p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/10/encoding-mp3s-is-lame/">Encoding MP3&#8217;s Is LAME</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-10T15:19:22-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:19 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2013-02-10-encoding-mp3s-is-lame/Screenshot-02102013-030954-PM-1024x592.png"></p>
+
+<p>Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what-not, but I&#39;d rather turn a 70MB into 9MB for the sake of space. Here&#39;s a quick one-liner as an example</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lame original-file.wav -h -V0 --vbr-new</span></code></pre></td></tr></table></div></figure>
+
+<p>This results in original-file.mp3 , a high-quality 320 kbps VBR MP3.</p>
+
+<p>Wasn&#39;t that much easier than opening some GUI-intensive bloatware in Windows?.. Just one of the many reasons why *Nix is awesome.</p>
 </div>
   
   

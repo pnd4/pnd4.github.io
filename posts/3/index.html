@@ -9,8 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Problem CyberGhostVPN connection hangs on service start-up
-Doesnt Investigation DNS Dec 05 2013 - 04:38 Seems CyberGhost uses a constantly renewing &hellip;">
+  <meta name="description" content="As of 2013, some streams require the &#39;ksv&#39;/&#39;k-s-v&#39; patch.. Arch users can use rtmpdump-ksv instead of rtmpdump Commands Redirect rtmp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,63 +67,6 @@ Doesnt Investigation DNS Dec 05 2013 - 04:38 Seems CyberGhost uses a constantly 
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/05/ovpn-hang/">OpenVPN Hang Issue</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-12-05T00:00:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Problem</h1>
-
-<p>CyberGhostVPN connection hangs on service start-up
-Doesnt</p>
-
-<h1>Investigation</h1>
-
-<h4>DNS</h4>
-
-<p><strong>Dec 05 2013 - 04:38</strong></p>
-
-<p>Seems CyberGhost uses a constantly renewing IP.. &quot;US.openvpn.cyberghostvpn.com&quot; resolved to at least 3 different IPs over the last 1-2 hrs. This caused the daemon to start up, fail because of something regarding the certificate, then repeatedly fail resolving until manually stopping the daemon.</p>
-
-<p>The thread below talks about tuning openvpn to fix this.</p>
-
-<blockquote>
-<p>By default, on initial startup and restart, the &#8211;remote name is resolved
-once. If the DNS resolve fails, OpenVPN will abort.</p>
-
-<p>If &#8211;resolve-retry is specified, the DNS resolve will be retried for n
-seconds. After n seconds, if the DNS lookup has not been successful, OpenVPN
-will abort. Recent versions of OpenVPN allow n to be &quot;infinite&quot;.</p>
-
-<p>If you want to disable the DNS re-resolve on restart, you can use
-&#8211;persist-remote-ip. This will &quot;recycle&quot; the previously used &#8211;remote IP
-address without doing a new DNS lookup.</p>
-</blockquote>
-
-<p><a href="http://osdir.com/ml/network.openvpn.user/2004-02/msg00130.html">OVPN Resolve-Retry and Ping-Restart</a></p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -320,6 +262,79 @@ Some webcams have a problem where the request a lot more bandwidth than they nee
 
 <ol>
 <li><a href="http://elinux.org/RPi_USB_Webcams">eLinux: RasPi Webcam compatibility list</a></li>
+</ol>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/09/gentoo-genkernel-upgrade/">Gentoo - Genkernel Upgrade Steps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-11-09T00:00:00-08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>I use genkernel to install my kernel.. this isn&#39;t the best way to do things but for now it gets the job done. Gentoo isn&#39;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
+
+<p>Make sure Gentoo is matched up with your target kernel version</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>eselect kernel list
+</span><span class='line'>eselect kernel set #</span></code></pre></td></tr></table></div></figure>
+
+<p>Build it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zcat /proc/config.gz &gt; /usr/src/linux
+</span><span class='line'>cd /usr/src/linux
+</span><span class='line'>make oldconfig
+</span><span class='line'>make modules_prepare
+</span><span class='line'>emerge --ask @module-rebuild
+</span><span class='line'>make
+</span><span class='line'>make modules_install</span></code></pre></td></tr></table></div></figure>
+
+<p>Install it</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>genkernel --no-menuconfig --no-clean --install all</span></code></pre></td></tr></table></div></figure>
+
+<p>Update bootloader</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /boot/extlinux/extlinux.conf</span></code></pre></td></tr></table></div></figure>
+
+<p>Reboot and cross your fingers.</p>
+
+<p>Clean-up/delete old files in <code>/boot</code> and corresponding bootloader entries.</p>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade" title="Kernel/Upgrade">Gentoo Wiki: Kernel/Upgrade</a></li>
 </ol>
 </div>
   
