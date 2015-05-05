@@ -8,7 +8,7 @@ categories:
 - Pogoplug
 ---
 
-** Here's a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. **
+* Here's a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. *
 
 #### Flash-Drive I/O
 

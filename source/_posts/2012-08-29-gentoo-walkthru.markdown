@@ -13,10 +13,9 @@ categories:
 {% img center /images/2012-08-29-gentoo-walkthru/screenshot-082912-035809.png %}
 
 
-_This time I power-walk you through each command to install Gentoo (using a Hardened Stage 3 toolchain). I used this same set of commands, with a little modification of course, to install Gentoo onto my desktop. My hardware configuration is very unlikely the same as yours; adjust accordingly, otherwise these instructions should be all you need to tackle one of the hardest distro's to install (by reputation). _
+*This time I power-walk you through each command to install Gentoo (using a Hardened Stage 3 toolchain). I used this same set of commands, with a little modification of course, to install Gentoo onto my desktop. My hardware configuration is very unlikely the same as yours; adjust accordingly, otherwise these instructions should be all you need to tackle one of the hardest distro's to install (by reputation).*
 
-_.. Before you tl;dr, realize that even though the process is long and gruesome, there's so much to learn by just even trying, so do not dispair. There's tons of resources out there! Good luck.
-_
+*And before you tl;dr, realize that even though the process is long and gruesome, there's so much to learn by just even trying, so do not dispair. There's tons of resources out there! Good luck.*
 
 
 

@@ -7,9 +7,9 @@ categories:
 - Computing
 ---
 
-*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you'd think they'd at least offer at least 1 other format, possibly for the old iPod Video's or in my case, an old netbook streaming media off my NAS via 802.11g.
+*After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you'd think they'd at least offer at least 1 other format, possibly for the old iPod Video's or in my case, an old netbook streaming media off my NAS via 802.11g.*
 
-In any case, doing the deed myself was surprising easy. Though I'd imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I'd suggest they give my commands a shot.*
+*In any case, doing the deed myself was surprising easy. Though I'd imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I'd suggest they give my commands a shot.*
 
 Lets start off by making sure we have `ffmpeg` installed on the buffest rig you've got. This can be preety heavy lifting and can take quite sometime on older machines.
 
