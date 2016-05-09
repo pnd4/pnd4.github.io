@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Motion Webcam - PND4</title>
+  <meta name="author" content="pnd4">
+
+  
+  <meta name="description" content="Webcam Prices [as of 11.11.2013] 20-23 HD-3000
+15-20 Rocketfish 720p RF-HDWEB
+17 M$ HD-2300 RasPi Notes RasPi community has good info on the subject &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.pnd4.net/blog/2013/11/11/motion-webcam/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">PND4</a></h1>
+  
+    <h2>/dev/notes</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="www.pnd4.net">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/profile/">Profile</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Motion Webcam</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-11-11T00:00:00-05:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Webcam Prices</h3>
+
+<p>[as of 11.11.2013]</p>
+
+<ul>
+<li>20-23 HD-3000</li>
+<li>15-20 Rocketfish 720p RF-HDWEB</li>
+<li>17 M$ HD-2300</li>
+</ul>
+
+<h3><a href="http://forum.micasaverde.com/index.php?topic=9104.15">RasPi Notes</a></h3>
+
+<p>RasPi community has good info on the subject. Should be valid for Pogoplugs too.</p>
+
+<blockquote>
+<p>A few recommendations I have for streaming USB webcams with linux:</p>
+
+<ol>
+<li><p>Unless you need the capabilities of motion (that is, you are using the motion detection built in to motion) use mjpg<em>streamer instead of motion. Motion processes each image to see if pixels have changed, and by default runs a lot of binary morphology on the images (erode, dilate, etc), where mjpg</em>streamer just streams. On my Pogoplus with four cameras this means the difference between 60%+ cpu utilization versus single digits (and to get down to 60% I had to drop the framerate to 2Hz and go through a bunch of options to turn off as much processing as possible). I have another machine running zoneminder which processes my streams which is why I don&#39;t mind forgoing motion detection.</p></li>
+<li><p>Use MJPEG instead of YUV
+If you want multiple webcams on a single USB bus this is basically a necessity. Even if you don&#39;t it means a lot less data to process. This is the default in mjpg<em>streamer, in motion set: &quot;v4l2</em>palette 2&quot; in motion.conf</p></li>
+<li><p>Get a webcam with known support
+Some webcams have a problem where the request a lot more bandwidth than they need and this means you can&#39;t use two at the same time. There is a hack to get around this in YUV mode, but not MJPEG which isn&#39;t much of a help. If you are up for hacking the driver yourself it should be possible to skip the BW check and make these work anyway, but that is quite a bit of work.</p></li>
+</ol>
+
+<p>Cameras that work simultaneously (no bandwidth bug):
+-Logitech C120
+-Logitech C160
+-Logitech B500
+-Logitech Quickcam E 3500
+-Logitech Quickcam Messenger
+-Microsoft HD-3000
+-Microsoft HD-5000
+-Rocketfish HD Webcam Pro</p>
+
+<p>Cameras that do not work in multiples (bandwidth bug?):
+-Logitech C110
+-Logitech C310
+-Creative Live! Cam Video IM Ultra
+-HP 2-Megapixel Webcam (RZ406AA)</p>
+
+<p>My current recommendation is probably the HD-3000. It is 720p and can be found for about $20. It does NOT have autofocus which I think is good for a webcam you leave running 24/7. I tried the HD-5000 and it spends a lot of time refocusing. I&#39;m afraid it would break after a few weeks. The C160 is currently the cheapest, about $8 shipped on ebay. Meritline sometimes sells it for $6. The irritating thing about the c120/c160 is that they have a focusing ring you have to adjust. For a security camera I would prefer fixed focus. I buy any webcam I can get at a firesale so I&#39;ll keep trying more - I would appreciate results from anyone else as well.</p>
+
+<p>EDIT: Added a few more cameras]</p>
+
+<p>It turns out you can disable autofocus on UVC supported webcams like this:</p>
+
+<p>v4l2-ctl &#8211;verbose &#8211;set-ctrl=focus_auto=0</p>
+
+<p>At least it works for me on all the AF cameras I have to test (Microsoft &amp; Rocketfish).</p>
+
+<p>Not only is this a good idea for camera longevity (I would think so at least) it helps prevents false motion alarms.</p>
+</blockquote>
+
+<h4>Useful Links and References</h4>
+
+<ol>
+<li><a href="http://elinux.org/RPi_USB_Webcams">eLinux: RasPi Webcam compatibility list</a></li>
+</ol>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">pnd4</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2013-11-11T00:00:00-05:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/computing/'>computing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/11/09/gentoo-genkernel-upgrade/" title="Previous Post: Gentoo - Genkernel Upgrade Steps">&laquo; Gentoo - Genkernel Upgrade Steps</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/11/23/rtmpdump/" title="Next Post: CLI RTMP Streaming">CLI RTMP Streaming &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/01/cli-converting-hd-sd/">CLI Converting HD > SD</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/pnd4">@pnd4</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'pnd4',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
