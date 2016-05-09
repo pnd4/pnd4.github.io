@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-05T06:36:30-07:00</updated>
+  <updated>2016-05-09T04:40:34-04:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[JSON-RPC + Kodi = BFFs]]></title>
     <link href="http://www.pnd4.net/blog/2015/05/01/json-rpc-plus-kodi-bffs/"/>
-    <updated>2015-05-01T05:52:21-07:00</updated>
+    <updated>2015-05-01T08:52:21-04:00</updated>
     <id>http://www.pnd4.net/blog/2015/05/01/json-rpc-plus-kodi-bffs</id>
     <content type="html"><![CDATA[<h4>The can of worms.</h4>
 
@@ -168,7 +168,7 @@
   <entry>
     <title type="html"><![CDATA[Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM]]></title>
     <link href="http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/"/>
-    <updated>2014-07-02T06:41:41-07:00</updated>
+    <updated>2014-07-02T09:41:41-04:00</updated>
     <id>http://www.pnd4.net/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm</id>
     <content type="html"><![CDATA[<p><em>Using ArchLinuxARM with OpenVPN broke on my PogoPlug e02 after lzo2 was updated from 2.06-3 to 2.07-2 a few days ago. After another ALARM user confirmed the issue, a couple days passed without a solution and downgrading to 2.06-3 not only is bad practice due to &quot;CVE-2014-4607&quot; but paper-thin, since its disappearing from repos and its likely it won&#39;t be in your local package cache forever.. Fueled by boredom, I decided to fix the problem myself.</em></p>
 
@@ -287,8 +287,8 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
 </span><span class='line'>  make <span class="nv">DESTDIR</span><span class="o">=</span><span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span> install
 </span><span class='line'>
 </span><span class='line'>  <span class="c"># install minilzo</span>
-</span><span class='line'>  install -m 755 libminilzo.so.0 <span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span>/usr/lib
-</span><span class='line'>  install -p -m 644 minilzo/minilzo.h <span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span>/usr/include/lzo
+</span><span class='line'>  install -m <span class="m">755</span> libminilzo.so.0 <span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span>/usr/lib
+</span><span class='line'>  install -p -m <span class="m">644</span> minilzo/minilzo.h <span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span>/usr/include/lzo
 </span><span class='line'>  <span class="nb">cd</span> <span class="k">${</span><span class="nv">pkgdir</span><span class="k">}</span>/usr/lib
 </span><span class='line'>  ln -s libminilzo.so.0 libminilzo.so
 </span><span class='line'><span class="o">}</span>
@@ -304,9 +304,9 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
   
   <entry>
     <title type="html"><![CDATA[CLI Converting HD > SD]]></title>
-    <link href="http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd/"/>
-    <updated>2014-05-31T22:37:32-07:00</updated>
-    <id>http://www.pnd4.net/blog/2014/05/31/cli-converting-hd-sd</id>
+    <link href="http://www.pnd4.net/blog/2014/06/01/cli-converting-hd-sd/"/>
+    <updated>2014-06-01T01:37:32-04:00</updated>
+    <id>http://www.pnd4.net/blog/2014/06/01/cli-converting-hd-sd</id>
     <content type="html"><![CDATA[<p><em>After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</em></p>
 
 <p><em>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.</em></p>
@@ -344,7 +344,7 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
   <entry>
     <title type="html"><![CDATA[Pay-per-webcast?.. Srsly?]]></title>
     <link href="http://www.pnd4.net/blog/2014/05/03/pay-per-stream-bypass/"/>
-    <updated>2014-05-03T07:56:55-07:00</updated>
+    <updated>2014-05-03T10:56:55-04:00</updated>
     <id>http://www.pnd4.net/blog/2014/05/03/pay-per-stream-bypass</id>
     <content type="html"><![CDATA[<p><img class="center" src="http://www.pnd4.net/images/2014-05-03-pay-per-stream-bypass/scrot-2014-05-03-ffdevtools.png"></p>
 
@@ -373,7 +373,7 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
   <entry>
     <title type="html"><![CDATA[Optimizing a Pogoplug]]></title>
     <link href="http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug/"/>
-    <updated>2014-04-20T04:46:00-07:00</updated>
+    <updated>2014-04-20T04:46:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug</id>
     <content type="html"><![CDATA[<ul>
 <li>Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. *</li>
@@ -410,7 +410,7 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
   <entry>
     <title type="html"><![CDATA[Dual-Monitor Toggle]]></title>
     <link href="http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle/"/>
-    <updated>2014-04-03T02:07:00-07:00</updated>
+    <updated>2014-04-03T02:07:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle</id>
     <content type="html"><![CDATA[<p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&#39;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
 
@@ -435,7 +435,7 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
   <entry>
     <title type="html"><![CDATA[CLI RTMP Streaming]]></title>
     <link href="http://www.pnd4.net/blog/2013/11/23/rtmpdump/"/>
-    <updated>2013-11-23T00:00:00-08:00</updated>
+    <updated>2013-11-23T00:00:00-05:00</updated>
     <id>http://www.pnd4.net/blog/2013/11/23/rtmpdump</id>
     <content type="html"><![CDATA[<p>As of 2013, some streams require the &#39;ksv&#39;/&#39;k-s-v&#39; patch.. Arch users can use <strong>rtmpdump-ksv</strong> instead of <strong>rtmpdump</strong></p>
 
@@ -530,7 +530,7 @@ del-rule<span class="o">()</span> <span class="o">{</span>
   <entry>
     <title type="html"><![CDATA[Motion Webcam]]></title>
     <link href="http://www.pnd4.net/blog/2013/11/11/motion-webcam/"/>
-    <updated>2013-11-11T00:00:00-08:00</updated>
+    <updated>2013-11-11T00:00:00-05:00</updated>
     <id>http://www.pnd4.net/blog/2013/11/11/motion-webcam</id>
     <content type="html"><![CDATA[<h3>Webcam Prices</h3>
 
@@ -597,7 +597,7 @@ Some webcams have a problem where the request a lot more bandwidth than they nee
   <entry>
     <title type="html"><![CDATA[Gentoo - Genkernel Upgrade Steps]]></title>
     <link href="http://www.pnd4.net/blog/2013/11/09/gentoo-genkernel-upgrade/"/>
-    <updated>2013-11-09T00:00:00-08:00</updated>
+    <updated>2013-11-09T00:00:00-05:00</updated>
     <id>http://www.pnd4.net/blog/2013/11/09/gentoo-genkernel-upgrade</id>
     <content type="html"><![CDATA[<p><em>I use genkernel to install my kernel.. this isn&#39;t the best way to do things but for now it gets the job done. Gentoo isn&#39;t my primary distro so I sometimes forget the steps to go through when they push a new kernel.</em></p>
 
@@ -650,7 +650,7 @@ Some webcams have a problem where the request a lot more bandwidth than they nee
   <entry>
     <title type="html"><![CDATA[IPTables + Transmission + VPN]]></title>
     <link href="http://www.pnd4.net/blog/2013/11/04/iptables-transmission-vpn/"/>
-    <updated>2013-11-04T00:00:00-08:00</updated>
+    <updated>2013-11-04T00:00:00-05:00</updated>
     <id>http://www.pnd4.net/blog/2013/11/04/iptables-transmission-vpn</id>
     <content type="html"><![CDATA[<p>Transmission doesn&#39;t have a way to bind to specific interfaces without patching, and I like the simplicity of using a package manager like &#39;pacman&#39; vs patching &#39;BindInterface&#39; into Transmission and building it from source. The work-around, since Transmission can bind to an IP, is to run a script with cron periodically. 
 The script should basically:</p>
@@ -732,7 +732,7 @@ systemctl --quiet is-active <span class="nv">$service</span>
   <entry>
     <title type="html"><![CDATA[Solidworks Rig]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/21/solidworks-build/"/>
-    <updated>2013-10-21T00:00:00-07:00</updated>
+    <updated>2013-10-21T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/21/solidworks-build</id>
     <content type="html"><![CDATA[<h4>Min Reqs (Win7x64)</h4>
 <div class="highlight"><pre><code class="language-text" data-lang="text">CPU     Intel or AMD with SSE2 support. 64-bit OS recommended.
@@ -805,7 +805,7 @@ Solidworks grabs 340mb on launch.
   <entry>
     <title type="html"><![CDATA[Hostapd]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/18/hostapd/"/>
-    <updated>2013-10-18T00:00:00-07:00</updated>
+    <updated>2013-10-18T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/18/hostapd</id>
     <content type="html"><![CDATA[<p>Wireless access point daemon</p>
 
@@ -1053,7 +1053,7 @@ From <a href="https://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-c
   <entry>
     <title type="html"><![CDATA[Octopress]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/17/octopress/"/>
-    <updated>2013-10-17T00:00:00-07:00</updated>
+    <updated>2013-10-17T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/17/octopress</id>
     <content type="html"><![CDATA[<p>Markdown blogging platform built on Ruby.</p>
 
@@ -1084,7 +1084,7 @@ bundle install # make sure to run this one in the &#39;octopress&#39; directory
   <entry>
     <title type="html"><![CDATA[GIT Version Control System]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/17/git/"/>
-    <updated>2013-10-17T00:00:00-07:00</updated>
+    <updated>2013-10-17T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/17/git</id>
     <content type="html"><![CDATA[<h2>Starting a new repo</h2>
 
@@ -1203,7 +1203,7 @@ git commit -m &quot;&lt;message&gt;&quot;
   <entry>
     <title type="html"><![CDATA[Markdown Template]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/16/template/"/>
-    <updated>2013-10-16T00:00:00-07:00</updated>
+    <updated>2013-10-16T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/16/template</id>
     <content type="html"><![CDATA[<p>A template for markdown posts. Covers some frequently used syntax.</p>
 
@@ -1255,7 +1255,7 @@ Notes.</p>
   <entry>
     <title type="html"><![CDATA[Ruby Installation]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/16/ruby-install/"/>
-    <updated>2013-10-16T00:00:00-07:00</updated>
+    <updated>2013-10-16T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/16/ruby-install</id>
     <content type="html"><![CDATA[<p>Ruby can be confusing to install. Make sure to plan out if per-user environments are going to be used, or system-wide (Ruby, Gems, etc installed by root).</p>
 
@@ -1298,7 +1298,7 @@ Update user:  gem update</p>
   <entry>
     <title type="html"><![CDATA[Wifi Pinapple Mark 5]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/16/pinapple-v/"/>
-    <updated>2013-10-16T00:00:00-07:00</updated>
+    <updated>2013-10-16T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/16/pinapple-v</id>
     <content type="html"><![CDATA[<p>Advanced standalone pentesting tool for wireless networks.</p>
 
@@ -1328,7 +1328,7 @@ Update user:  gem update</p>
   <entry>
     <title type="html"><![CDATA[Firewalls]]></title>
     <link href="http://www.pnd4.net/blog/2013/10/16/firewall/"/>
-    <updated>2013-10-16T00:00:00-07:00</updated>
+    <updated>2013-10-16T00:00:00-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/10/16/firewall</id>
     <content type="html"><![CDATA[<p>Use <strong>iptables</strong> to secure netlink infrastructure.</p>
 
@@ -1503,7 +1503,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   <entry>
     <title type="html"><![CDATA[DD-WRT Firewall Fine Tuning]]></title>
     <link href="http://www.pnd4.net/blog/2013/03/25/dd-wrt-firewall-fine-tuning/"/>
-    <updated>2013-03-25T01:14:11-07:00</updated>
+    <updated>2013-03-25T04:14:11-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/03/25/dd-wrt-firewall-fine-tuning</id>
     <content type="html"><![CDATA[<p>To add additional firewall rules via the DD-WRT web interface when there&#39;s no checkbox, navigate to web interface&#39;s section at [Administration] -&gt; [Commands]</p>
 
@@ -1519,7 +1519,7 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
   <entry>
     <title type="html"><![CDATA[Improve Flash Drive Performance]]></title>
     <link href="http://www.pnd4.net/blog/2013/03/24/improve-flash-drive-performance/"/>
-    <updated>2013-03-24T12:56:36-07:00</updated>
+    <updated>2013-03-24T15:56:36-04:00</updated>
     <id>http://www.pnd4.net/blog/2013/03/24/improve-flash-drive-performance</id>
     <content type="html"><![CDATA[<p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
 
