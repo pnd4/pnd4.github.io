@@ -122,11 +122,11 @@ curl &hellip;">
 </span><span class='line'>    ./devices.sh | cut -d, -f 6-7,12,14,16 | egrep -i -e '&lt;MAC or Vendor-Prefixes to look for&gt;'
 </span><span class='line'>    if [ $? -eq 0 ]
 </span><span class='line'>    then
-</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- ANDROIDS FOUND !!\n\n\n" && \
+</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- DEVICES FOUND !!\n\n\n" && \
 </span><span class='line'>            /usr/bin/mpg123 -q $HOME/.sounds/peanutbutter-jelly-time.mp3
 </span><span class='line'>        break
 </span><span class='line'>    else
-</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - No androids. Safe."
+</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - Devices not found.."
 </span><span class='line'>        sleep 3
 </span><span class='line'>        clear
 </span><span class='line'>    fi

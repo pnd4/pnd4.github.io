@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2017-01-02T22:16:22-08:00</updated>
+  <updated>2017-01-02T22:28:37-08:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -52,11 +52,11 @@
 </span><span class='line'>    ./devices.sh | cut -d, -f 6-7,12,14,16 | egrep -i -e '&lt;MAC or Vendor-Prefixes to look for&gt;'
 </span><span class='line'>    if [ $? -eq 0 ]
 </span><span class='line'>    then
-</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- ANDROIDS FOUND !!\n\n\n" && \
+</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- DEVICES FOUND !!\n\n\n" && \
 </span><span class='line'>            /usr/bin/mpg123 -q $HOME/.sounds/peanutbutter-jelly-time.mp3
 </span><span class='line'>        break
 </span><span class='line'>    else
-</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - No androids. Safe."
+</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - Devices not found.."
 </span><span class='line'>        sleep 3
 </span><span class='line'>        clear
 </span><span class='line'>    fi
