@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Tonight ParkerR and I decided to get some pentesting tools into our devices. He has a Nexus 7 and I.. well I have my phone. Anyway, after a &hellip;">
+  <meta name="description" content="Today &#39;patient&#39; and I learned with some help from &#39;dizzie&#39; about how exactly to use /dev/null and the other pseudodevices to control &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/10/64/">Herp Derp.. 3 Std&#8217;s and a Null</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-08-10T10:03:29-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>10:03 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2012-08-10-64/screenshot-08102012-050248-pm2.png"></p>
+
+<p>Today &#39;patient&#39; and I learned with some help from &#39;dizzie&#39; about how exactly to use /dev/null and the other pseudodevices to control input and output in UNIX-like environments. This is something you&#39;ll see a lot in command-line scripting languages such as bash or Python.</p>
+
+<p>A good way to check which &#39;devices&#39; correspond with which number is by running this command.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l /dev/null /dev/std*</span></code></pre></td></tr></table></div></figure>
+
+<p>In the output we can see that there are 3 file descriptors built into our UNIX environments. 0 is linked STDOUT. 1 is linked to STDIN, and finally 2 is linked to STDERR. /dev/null being called the &#39;bit-bucket&#39; and certainly is a doorway to hell in which any data becomes a doomed soul.</p>
+
+<p>Now, you&#39;re gonna want to know how to use these devices in a command line. Look no further:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -l / 2>/dev/null</span></code></pre></td></tr></table></div></figure>
+
+<p>This command will list your root partition with &quot;long lists&quot; and redirect any errors there may be to the bit-bucket. This can have uses for grepping or finds that may have some errors in the output you want to filter to still have something usable, or to plain make something be quiet which would normally complain on STDOUT.</p>
+
+<p>A couple more resources:
+<a href="http://www.xaprb.com/blog/2006/06/06/what-does-devnull-21-mean/">Novell: Cool Solutions: What does “&gt; /dev/null 2&gt;&amp;1″ mean?</a>
+<a href="http://www.novell.com/coolsolutions/feature/19859.html">Xaprb&#39;s Blog: /dev/null</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -169,38 +218,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/26/hello-world-2/">Inception.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-06-26T10:41:43-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>10:41 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Well. This is my first posting on wordpress. I&#39;ll probably use it similarly to the other devs before me.. Ill probably fork a personal one and just migrate my livejournal if possible..</p>
-
-<p>WordPress seems pretty neat.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/13">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -215,15 +235,15 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/01/02/peekaboo/">Peekaboo!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>
@@ -265,7 +285,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 -
+  Copyright &copy; 2017 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

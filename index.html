@@ -9,7 +9,9 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="The can of worms. The other night I decided to do the long-overdue update of my Gentoo install on my netbook which serves as my XBMC machine. As &hellip;">
+  <meta name="description" content="Peekaboo! I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router. devices.sh 1
+2
+curl &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +69,79 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/01/02/peekaboo/">Peekaboo!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-01-02T21:52:33-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2017</span></span> <span class='time'>9:52 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Peekaboo!</h1>
+
+<p><em>I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router.</em></p>
+
+<h4>devices.sh</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -s 'http://&lt;your router&gt;/api/devices' ' -H 'Cookie: test; Session=&lt;use yours&gt;; XSRF-TOKEN=&lt;get one&gt;' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Connection: keep-alive' --compressed \
+</span><span class='line'>| sed -e '{ s/\[//g; s/{/\n/g; s/^.+//g; s/ipv6Address.+(?="mac)/\t/g};' | grep -v "rssi\":0" </span></code></pre></td></tr></table></div></figure>
+
+<h4>peekaboo.sh</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>while true
+</span><span class='line'>do 
+</span><span class='line'>    ./devices.sh | cut -d, -f 6-7,12,14,16 | egrep -i -e '&lt;MAC or Vendor-Prefixes to look for&gt;'
+</span><span class='line'>    if [ $? -eq 0 ]
+</span><span class='line'>    then
+</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- ANDROIDS FOUND !!\n\n\n" && \
+</span><span class='line'>            /usr/bin/mpg123 -q $HOME/.sounds/peanutbutter-jelly-time.mp3
+</span><span class='line'>        break
+</span><span class='line'>    else
+</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - No androids. Safe."
+</span><span class='line'>        sleep 3
+</span><span class='line'>        clear
+</span><span class='line'>    fi
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
+
+<p>I&#39;ll elaborate in the near future. Have fun!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -397,65 +472,6 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-31T22:37:32-07:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>10:37 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>After purchasing a paintball web-series I was a little disappointed to find my loot only available in 1080p. At about ~$4 an episode, you&#39;d think they&#39;d at least offer at least 1 other format, possibly for the old iPod Video&#39;s or in my case, an old netbook streaming media off my NAS via 802.11g.</em></p>
-
-<p><em>In any case, doing the deed myself was surprising easy. Though I&#39;d imagine someone without any prior knowledge of codecs, aspect ratio, and bitrate may run into trouble. I&#39;d suggest they give my commands a shot.</em></p>
-
-<p>Lets start off by making sure we have <code>ffmpeg</code> installed on the buffest rig you&#39;ve got. This can be preety heavy lifting and can take quite sometime on older machines.</p>
-
-<p>Now assuming we have our original file <code>EP1_HD_1080p.mov</code> in our current directory, running the following command will get us going.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg -i EP1_HD_1080p.mov -ac 2 -qscale 5 -f mp4 -s 854x480 ep1_sd_480p.mp4</span></code></pre></td></tr></table></div></figure>
-
-<p>To break it down, here&#39;s the same command with placeholders.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ffmpeg \
-</span><span class='line'>    -i [input-filename] \
-</span><span class='line'>    -ac [# of audio-channels] \
-</span><span class='line'>    -qscale [quality-scale: 1-31 (1 = highest quality)] \
-</span><span class='line'>    -f [format: mp4, avi, mkv, ..] \
-</span><span class='line'>    -s [Resolution: (Width)x(Height)] \
-</span><span class='line'>    [output-filename]</span></code></pre></td></tr></table></div></figure>
-
-<p>Now you may have checked out some examples before mine and noticed others&#39; had a lot more options. It just goes to show that ffmpeg is the go-to utility. Whether small job like mine or the demands of a release-group like &quot;YIFY&quot;, you can&#39;t go wrong.</p>
-
-<p>As always, good luck!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -471,15 +487,15 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/01/02/peekaboo/">Peekaboo!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>
@@ -521,7 +537,7 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 -
+  Copyright &copy; 2017 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

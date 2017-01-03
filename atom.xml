@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-05T06:36:30-07:00</updated>
+  <updated>2017-01-02T22:06:55-08:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Peekaboo!]]></title>
+    <link href="http://www.pnd4.net/blog/2017/01/02/peekaboo/"/>
+    <updated>2017-01-02T21:52:33-08:00</updated>
+    <id>http://www.pnd4.net/blog/2017/01/02/peekaboo</id>
+    <content type="html"><![CDATA[<h1>Peekaboo!</h1>
+
+<p><em>I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router.</em></p>
+
+<h4>devices.sh</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -s 'http://&lt;your router&gt;/api/devices' ' -H 'Cookie: test; Session=&lt;use yours&gt;; XSRF-TOKEN=&lt;get one&gt;' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Connection: keep-alive' --compressed \
+</span><span class='line'>| sed -e '{ s/\[//g; s/{/\n/g; s/^.+//g; s/ipv6Address.+(?="mac)/\t/g};' | grep -v "rssi\":0" </span></code></pre></td></tr></table></div></figure>
+
+<h4>peekaboo.sh</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>while true
+</span><span class='line'>do 
+</span><span class='line'>    ./devices.sh | cut -d, -f 6-7,12,14,16 | egrep -i -e '&lt;MAC or Vendor-Prefixes to look for&gt;'
+</span><span class='line'>    if [ $? -eq 0 ]
+</span><span class='line'>    then
+</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- ANDROIDS FOUND !!\n\n\n" && \
+</span><span class='line'>            /usr/bin/mpg123 -q $HOME/.sounds/peanutbutter-jelly-time.mp3
+</span><span class='line'>        break
+</span><span class='line'>    else
+</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - No androids. Safe."
+</span><span class='line'>        sleep 3
+</span><span class='line'>        clear
+</span><span class='line'>    fi
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
+
+<p>I&#39;ll elaborate in the near future. Have fun!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JSON-RPC + Kodi = BFFs]]></title>
@@ -1513,40 +1566,6 @@ In Debian, wiki says to create /etc/network/if-pre-up.d/iptables (chmod +x)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A INPUT -s &lt;ip.allowed.pings> -p icmp -j ACCEPT</span></code></pre></td></tr></table></div></figure>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Improve Flash Drive Performance]]></title>
-    <link href="http://www.pnd4.net/blog/2013/03/24/improve-flash-drive-performance/"/>
-    <updated>2013-03-24T12:56:36-07:00</updated>
-    <id>http://www.pnd4.net/blog/2013/03/24/improve-flash-drive-performance</id>
-    <content type="html"><![CDATA[<p>So after having my 32 GB PNY Attache flash drive fail every time I tried to write to <pre>sync</pre>, it finally let me after using</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>badblocks -vw /dev/sdx</span></code></pre></td></tr></table></div></figure>
-
-<p>But discovering that command wasn&#39;t the end, I had to deal with it&#39;s almost impossible write-speed, this information helped:</p>
-
-<p>Append to /etc/rc.local</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
-</span><span class='line'>echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
-</span><span class='line'>echo 0 > /sys/kernel/mm/transparent_hugepage/khugepaged/defrag</span></code></pre></td></tr></table></div></figure>
-
-<p>Append to /etc/sysctl.conf</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>kernel.shmmax=134217728
-</span><span class='line'>vm.dirty_background_bytes = 4194304
-</span><span class='line'>vm.dirty_bytes = 4194304</span></code></pre></td></tr></table></div></figure>
-
-<p>Thanks once again to <a href="https://wiki.archlinux.org/index.php/USB_Storage_Devices#Poor_copy_performance_to_USB_pendrive">ArchWiki</a></p>
 ]]></content>
   </entry>
   

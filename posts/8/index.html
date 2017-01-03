@@ -9,7 +9,7 @@
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Keeping this one short because I&#39;m feeling kinda lazy. Just pushed a few things to BitBucket.org so far. Still not used to using Git but its &hellip;">
+  <meta name="description" content="Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/10/encoding-mp3s-is-lame/">Encoding MP3&#8217;s Is LAME</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-10T15:19:22-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:19 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/2013-02-10-encoding-mp3s-is-lame/Screenshot-02102013-030954-PM-1024x592.png"></p>
+
+<p>Once in a great while I come across artists and uploaders who still distribute tracks as .wav .. This is great if you wanna do some editing and what-not, but I&#39;d rather turn a 70MB into 9MB for the sake of space. Here&#39;s a quick one-liner as an example</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lame original-file.wav -h -V0 --vbr-new</span></code></pre></td></tr></table></div></figure>
+
+<p>This results in original-file.mp3 , a high-quality 320 kbps VBR MP3.</p>
+
+<p>Wasn&#39;t that much easier than opening some GUI-intensive bloatware in Windows?.. Just one of the many reasons why *Nix is awesome.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -140,90 +178,6 @@ Well, here it is.. my first post of 2013, located on my own domain from the awes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/14/ssh-pubkeyauth/">OpenSSH: Public Key Auth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-12-14T17:33:07-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>5:33 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/2012-12-15-ssh-pubkeyauth/screenshot-12152012-011033-am.png"></p>
-
-<p><em>I finally set up OpenSSH&#39;s Public Key Authentication on my NAS to incrementally backup my data daily. Despite there being lots of resources, I had to reference a few to get this working. Its kind of confusing figuring out where the public and private keys go in most guides. They don&#39;t really say what keys need to be on what box and what doesn&#39;t. A lot are pretty confusing about their naming conventions for remote/local and server/client. Also most completely leave out the user&#39;s .ssh/config in which you can specify the identity file to try in SSH. Naturally, I compiled a few snippets from the ssh manual page, and an example I cooked up from tonight&#39;s mucking around.. enjoi.</em></p>
-
-<p><strong>Public-Key Authentication</strong>:</p>
-
-<ul>
-<li><p>The server knows the public key, and only the user knows the private key.</p></li>
-<li><p>The file ~/.ssh/authorized_keys lists the public keys that are permitted for logging in.</p></li>
-<li><p>When the user logs in, the ssh program tells the server which key pair it would like to use for authentication.</p></li>
-<li><p>The client proves that it has access to the private key and the server checks that the corresponding public key is authorized to accept the account.</p></li>
-</ul>
-
-<p>Example:
-This will set up ssh without password connecting as foo@desktop (their account on their machine at home) to root@server (root account on machine at work)</p>
-
-<p>On the desktop: Generate a key-pair</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ ssh-keygen -t rsa -f 'foo'
-</span><span class='line'>foo@desktop: ~/.ssh$ mkdir ~/.ssh/private-keys
-</span><span class='line'>foo@desktop: ~/.ssh$ mv ~/.ssh/foo ~/.ssh/private-keys
-</span><span class='line'>foo@desktop: ~/.ssh$ chmod -R go-rw ~/.ssh/private-keys</span></code></pre></td></tr></table></div></figure>
-
-<p>On the desktop: Create or modify the user&#39;s .ssh/config file to use the new private key</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ vi config</span></code></pre></td></tr></table></div></figure>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
-</span><span class='line'>IdentityFile ~/.ssh/foo</span></code></pre></td></tr></table></div></figure>
-
-<p>On the desktop: Copy the public key to server&#39;s authorized_keys file.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~/.ssh$ cat ~/.ssh/foo.pub | ssh root@server 'umask 077; cat >>~/.ssh/authorized_keys'</span></code></pre></td></tr></table></div></figure>
-
-<p>On the server: Modify the sshd_config file to allow for Public-Key Authentication</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~/etc/ssh/# mv sshd_config sshd_config.orig ; sed &lt; sshd_config.orig 's/^#Pubkey/Pubkey/' > sshd_config</span></code></pre></td></tr></table></div></figure>
-
-<p>On the server: Restart the ssh-daemon on the server</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>root@server: ~# systemctl restart sshd</span></code></pre></td></tr></table></div></figure>
-
-<p>On the desktop: Test it out.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>foo@desktop: ~$ ssh root@server</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -241,15 +195,15 @@ This will set up ssh without password connecting as foo@desktop (their account o
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/01/02/peekaboo/">Peekaboo!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/">JSON-RPC + Kodi = BFFs</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/07/02/creating-a-pkgbuild-for-lzo-2-dot-08-on-archlinuxarm/">Creating a PKGBUILD for lzo-2.08 on ArchLinuxARM</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/31/cli-converting-hd-sd/">CLI Converting HD > SD</a>
       </li>
     
   </ul>
@@ -291,7 +245,7 @@ This will set up ssh without password connecting as foo@desktop (their account o
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 -
+  Copyright &copy; 2017 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: computing | PND4]]></title>
   <link href="http://www.pnd4.net/blog/categories/computing/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2015-05-05T06:36:30-07:00</updated>
+  <updated>2017-01-02T22:06:55-08:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Peekaboo!]]></title>
+    <link href="http://www.pnd4.net/blog/2017/01/02/peekaboo/"/>
+    <updated>2017-01-02T21:52:33-08:00</updated>
+    <id>http://www.pnd4.net/blog/2017/01/02/peekaboo</id>
+    <content type="html"><![CDATA[<h1>Peekaboo!</h1>
+
+<p><em>I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router.</em></p>
+
+<h4>devices.sh</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">curl -s &#39;http://&lt;your router&gt;/api/devices&#39; &#39; -H &#39;Cookie: test; Session=&lt;use yours&gt;; XSRF-TOKEN=&lt;get one&gt;&#39; -H &#39;Accept-Language: en-US,en;q=0.8&#39; -H &#39;User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36&#39; -H &#39;Accept: application/json, text/plain, */*&#39; -H &#39;Accept-Encoding: gzip, deflate, sdch&#39; -H &#39;Connection: keep-alive&#39; --compressed \
+| sed -e &#39;{ s/\[//g; s/{/\n/g; s/^.+//g; s/ipv6Address.+(?=&quot;mac)/\t/g};&#39; | grep -v &quot;rssi\&quot;:0&quot; 
+</code></pre></div>
+<h4>peekaboo.sh</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash
+while true
+do 
+    ./devices.sh | cut -d, -f 6-7,12,14,16 | egrep -i -e &#39;&lt;MAC or Vendor-Prefixes to look for&gt;&#39;
+    if [ $? -eq 0 ]
+    then
+        echo -e &quot;\a\n\n\nret[$?] -- ANDROIDS FOUND !!\n\n\n&quot; &amp;&amp; \
+            /usr/bin/mpg123 -q $HOME/.sounds/peanutbutter-jelly-time.mp3
+        break
+    else
+        echo &quot;ret[$?] -- $(date +%H:%M:%S) - No androids. Safe.&quot;
+        sleep 3
+        clear
+    fi
+done
+</code></pre></div>
+<p>I&#39;ll elaborate in the near future. Have fun!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JSON-RPC + Kodi = BFFs]]></title>
@@ -353,35 +387,6 @@ Changed pkg version and release values from &#39;2.07-2&#39; to make &#39;2.08-1
 <div class="highlight"><pre><code class="language-text" data-lang="text">http://yadayada.yup/i/theStreamsUWereLookinFor@rightHurr/master.m3u8
 </code></pre></div>
 <p>If you&#39;re wondering the origin of the parts of the URI not supplied explicitly in the SMIL, they were taken from a previous URI from the same site, before they started asking for money.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Optimizing a Pogoplug]]></title>
-    <link href="http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug/"/>
-    <updated>2014-04-20T04:46:00-07:00</updated>
-    <id>http://www.pnd4.net/blog/2014/04/20/optimizing-a-pogoplug</id>
-    <content type="html"><![CDATA[<ul>
-<li>Here&#39;s a few tips on how to maximize your performance when using an embedded device like Pogoplug, RaspberryPi, etc. *</li>
-</ul>
-
-<h4>Flash-Drive I/O</h4>
-
-<p>Flash memory is cheap and small. Most even have enough storage space that you can house your <code>ROOTFS</code> pretty comfortably. The downside is pretty sluggish reads/writes. Fortunately the pogoplug has 256MB&#39;s of RAM; By allocating some commonly written directories in RAM we gain speed plus the benefit of less write-cycles overall to our flash-memory. If you don&#39;t already know, flash memory has a limited number of writes, so this effectively prolongs the life of your drive/system.</p>
-
-<p>Simply add/replace the appropriate lines to <code>fstab</code> ..</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">tmpfs /tmp         tmpfs nodev,nosuid,noatime           0 0
-tmpfs /var/tmp     tmpfs nodev,nosuid,noatime           0 0
-tmpfs /var/log     tmpfs nodev,nosuid,noatime,size=20M  0 0
-tmpfs /var/run     tmpfs defaults,noatime,size=1M       0 0
-tmpfs /var/lock    tmpfs defaults,noatime,size=1M       0 0
-</code></pre></div>
-<h4>I/O Governor</h4>
-
-<p>The logic that is behind your drive/disk access can be tweaked reducing lag by appending the following line to <code>/etc/rc.local</code> </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">echo deadline &gt; /sys/block/sda/queue/scheduler
-</code></pre></div>
-<p>Note That I don’t use the <code>noop</code> scheduler because <code>deadline</code> can be better as it group small accesses, which improve latency. The default, <code>cfq</code> is better suited for disk-drives.</p>
 ]]></content>
   </entry>
   

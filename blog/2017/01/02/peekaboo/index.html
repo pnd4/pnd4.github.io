@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Dual-Monitor Toggle - PND4</title>
+  <title>Peekaboo! - PND4</title>
   <meta name="author" content="pnd4">
 
   
-  <meta name="description" content="Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you &hellip;">
+  <meta name="description" content="Peekaboo! I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router. devices.sh 1
+2
+curl &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.pnd4.net/blog/2014/04/03/dual-monitor-toggle/">
+  <link rel="canonical" href="http://www.pnd4.net/blog/2017/01/02/peekaboo/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PND4" type="application/atom+xml">
@@ -70,7 +72,7 @@
   
   <header>
     
-      <h1 class="entry-title">Dual-Monitor Toggle</h1>
+      <h1 class="entry-title">Peekaboo!</h1>
     
     
       <p class="meta">
@@ -79,30 +81,58 @@
 
 
 
-<time class='entry-date' datetime='2014-04-03T02:07:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:07 am</span></time>
+<time class='entry-date' datetime='2017-01-02T21:52:33-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2017</span></span> <span class='time'>9:52 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><em>Recently I found myself in need of a way to switch X into single-monitor mode without having to kill the running instance of X, which is fine if you don&#39;t have any unsaved work, since it crashes all programs running within X as well.</em></p>
+<div class="entry-content"><h1>Peekaboo!</h1>
 
-<h2>xrandr</h2>
+<p><em>I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router.</em></p>
 
-<p>Using <code>xrandr</code>[^1] we are able to dynamically modify our desktop&#39;s properties.</p>
-
-<p><strong>OFF</strong></p>
+<h4>devices.sh</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --off</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -s 'http://&lt;your router&gt;/api/devices' ' -H 'Cookie: test; Session=&lt;use yours&gt;; XSRF-TOKEN=&lt;get one&gt;' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Connection: keep-alive' --compressed \
+</span><span class='line'>| sed -e '{ s/\[//g; s/{/\n/g; s/^.+//g; s/ipv6Address.+(?="mac)/\t/g};' | grep -v "rssi\":0" </span></code></pre></td></tr></table></div></figure>
 
-<p><strong>ON</strong></p>
+<h4>peekaboo.sh</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>xrandr --output DVI-0 --left-of VGA-0 --auto</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>while true
+</span><span class='line'>do 
+</span><span class='line'>    ./devices.sh | cut -d, -f 6-7,12,14,16 | egrep -i -e '&lt;MAC or Vendor-Prefixes to look for&gt;'
+</span><span class='line'>    if [ $? -eq 0 ]
+</span><span class='line'>    then
+</span><span class='line'>        echo -e "\a\n\n\nret[$?] -- ANDROIDS FOUND !!\n\n\n" && \
+</span><span class='line'>            /usr/bin/mpg123 -q $HOME/.sounds/peanutbutter-jelly-time.mp3
+</span><span class='line'>        break
+</span><span class='line'>    else
+</span><span class='line'>        echo "ret[$?] -- $(date +%H:%M:%S) - No androids. Safe."
+</span><span class='line'>        sleep 3
+</span><span class='line'>        clear
+</span><span class='line'>    fi
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
 
-<p>[^1]: <a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xrandr.1.html">Xrandr&#39;s Man Page</a></p>
+<p>I&#39;ll elaborate in the near future. Have fun!</p>
 </div>
 
 
@@ -118,7 +148,7 @@
 
 
 
-<time class='entry-date' datetime='2014-04-03T02:07:00-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:07 am</span></time>
+<time class='entry-date' datetime='2017-01-02T21:52:33-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2017</span></span> <span class='time'>9:52 pm</span></time>
       
 
 <span class="categories">
@@ -139,10 +169,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/11/23/rtmpdump/" title="Previous Post: CLI RTMP Streaming">&laquo; CLI RTMP Streaming</a>
+        <a class="basic-alignment left" href="/blog/2015/05/01/json-rpc-plus-kodi-bffs/" title="Previous Post: JSON-RPC + Kodi = BFFs">&laquo; JSON-RPC + Kodi = BFFs</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/04/20/optimizing-a-pogoplug/" title="Next Post: Optimizing a Pogoplug">Optimizing a Pogoplug &raquo;</a>
       
     </p>
   </footer>
