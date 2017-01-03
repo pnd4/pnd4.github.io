@@ -4,7 +4,7 @@
   <title><![CDATA[PND4]]></title>
   <link href="http://www.pnd4.net/atom.xml" rel="self"/>
   <link href="http://www.pnd4.net/"/>
-  <updated>2017-01-02T22:28:37-08:00</updated>
+  <updated>2017-01-02T22:29:14-08:00</updated>
   <id>http://www.pnd4.net/</id>
   <author>
     <name><![CDATA[pnd4]]></name>
@@ -18,9 +18,7 @@
     <link href="http://www.pnd4.net/blog/2017/01/02/peekaboo/"/>
     <updated>2017-01-02T21:52:33-08:00</updated>
     <id>http://www.pnd4.net/blog/2017/01/02/peekaboo</id>
-    <content type="html"><![CDATA[<h1>Peekaboo!</h1>
-
-<p><em>I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router.</em></p>
+    <content type="html"><![CDATA[<p><em>I know its been a long time between posts; Im not dead! To celebrate heres something you can use with your FiOS router.</em></p>
 
 <h4>devices.sh</h4>
 
